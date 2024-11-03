@@ -1,0 +1,45 @@
+#profile-admin_title{
+    margin-top: 25px;
+}
+
+.profile-main{
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding-bottom: 50px;
+}
+
+.profile-main h3{
+    line-height: 1.2;
+    margin-bottom: .5rem;
+}
+
+.profile-select{
+    width: 100%;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.profile-select ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.admin_product-table{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin_product-table_link{
+    width: 100%;
+    color: black;
+}

@@ -1,0 +1,126 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import "./CatalogItem.css";
+import { AiOutlinePlus } from "react-icons/ai";
+import { FaMinus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { addBasket } from "../../lib/basket";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+function CatalogItem({
+  id,
+  img,
+  text,
+  price,
+  units = "кг",
+  sell,
+  currency = " ₸",
+}) {
+  const router = useRouter();
+
+  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [count, setCount] = useState(0);
+  const [counterOn, setCounterOn] = useState(true);
+
+  const [isAuth, setIsAuth] = useState(true);
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.push("/profile/authentication");
+    }
+  }, [isAuth]);
+
+  const cartEdit = async(quantity)=>{
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_SERVER_URL + "/cart/addItem",
+      {
+        method: "POST",
+        headers: {
+          "ngrok-skip-browser-warning": "any",
+          Authorization: "Bearer " + clientToken,
+          'Content-type': 'application/json'
+        },
+        body:JSON.stringify({
+          productId:id,
+          price:price,
+          quantity:quantity
+        })
+      }
+    );
+  }
+
+  const onClickMin = () => {
+    let newCount = 1;
+    newCount = Number(count) - 1;
+    setCount(newCount);
+    cartEdit(newCount)
+  };
+
+  const onClickPlus = () => {
+    let newCount = 0;
+
+    if (count >= 0) {
+      newCount = Number(count) + 1;
+      setCount(newCount);
+      cartEdit(newCount)
+    }
+
+    addBasket(id, price, newCount, clientToken, setIsAuth);
+  };
+
+  useEffect(() => {
+    if (count >= 1) {
+      setCounterOn(true);
+    } else if (count < 1) {
+      setCounterOn(false);
+    }
+  }, [count]);
+
+  return (
+    <div className="item-card">
+      <Link href={`/catalog/${id}`}>
+        <div className="item-card_img">
+          <img
+            // src={process.env.NEXT_PUBLIC_SERVER_URL + img}
+            src="https://arbuz.kz/image/s3/arbuz-kz-products/302438-farsh_kazbeef_zeren_iz_govyadiny_70_30_ohl_1_kg_.png?w=720&h=720&_c=1727244986"
+            alt=""
+          />
+        </div>
+        <div className="item-card_title">
+          <b>{text}</b>
+          <p className="currency"></p>
+          Поставщик Realibi
+        </div>
+        <div className="price">
+          <span>{price} ₸</span>
+          {sell ? <span className="price-sell">{sell} ₸</span> : <></>}
+        </div>
+      </Link>
+      {counterOn ? (
+        <div className="cart-item_count">
+          <div onClick={onClickMin} className="item_count-min">
+            {count - 1 ? (
+              <FaMinus color="#fff" size={16} />
+            ) : (
+              <MdDeleteForever color="#fff" size={16} />
+            )}
+          </div>
+          <span>{count} шт</span>
+          <div onClick={onClickPlus} className="item_count-plus">
+            <FaPlus color="#fff" size={16} />
+          </div>
+        </div>
+      ) : (
+        <div onClick={onClickPlus} className="item-card_button">
+          <span>Добавить</span>
+          <AiOutlinePlus size={16} color="black" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default CatalogItem;

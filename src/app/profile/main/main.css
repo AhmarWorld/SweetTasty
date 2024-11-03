@@ -1,0 +1,101 @@
+.profile-main{
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding-bottom: 50px;
+}
+
+.profile-main h3{
+    line-height: 1.2;
+    margin-bottom: .5rem;
+}
+
+.profile-select{
+    width: 100%;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.profile-select ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.resitration-form{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.resitration-form label{
+    width: 100%;
+}
+
+.resitration-form input{
+    width: 100%;
+
+    margin-top: 10px;
+
+    background-clip: padding-box;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    color: #495057;
+    display: block;
+    font-size: 1rem;
+    height: calc(2.25rem + 2px);
+    line-height: 1.5;
+    padding: .375rem .75rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.resitration-form .work-time{
+    width: 100%;
+    
+    display: flex;
+    gap: 5px;
+}
+
+.open-time div{
+    width: 66%;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.close-time div{
+    width: 66%;
+    display: flex;
+    
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.open-time div span{
+    font-size: 25px;
+}
+
+.close-time div span{
+    font-size: 25px;
+}
+
+.profile-change_info{
+    color: rgb(137, 137, 137);
+    margin-top: .25rem;
+    font-size: 12px;
+    font-weight: 400;
+}

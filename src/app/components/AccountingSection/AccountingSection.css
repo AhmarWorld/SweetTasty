@@ -1,0 +1,71 @@
+.accounting-section{
+    width: 100%;
+    min-height: 107px;
+    border-radius: 8px;
+}
+
+.accountion-top{
+    border-bottom: 1px solid #dee2e6;
+    width: 100%;
+    min-height: 53px;
+}
+
+.accountion-bottom{
+    width: 100%;
+    min-height: 53px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.acc-top_head{
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #7fdd85;
+    
+    border-radius: 8px 8px 0px 0px;
+    color: white;
+}
+
+.acc-bottom_head{
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FF9593;
+    color: white;
+}
+
+.accounting-section h2{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.accounting-section table{
+    border: 1px solid #dee2e6;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.accounting-section table tr{
+    border-bottom: 1px solid #dee2e6;
+}
+
+.accounting-section table td{
+    padding: 5px;
+}
+
+.arrow-anim{
+    animation-duration:3s;
+}
+
+@keyframes arrow {
+    0%{
+        rotate: 0deg;
+    }
+    100%{
+        rotate: 180deg;
+    }
+}

@@ -1,0 +1,114 @@
+.cart{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-geo{
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    background-color: #fff;
+
+    padding: 10px 15px;
+    
+    top: 0;
+    position: sticky;
+    z-index: 135;
+
+    cursor: pointer;
+}
+
+.cart-geo_title-address{
+    color: #828282;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cart-main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: auto;
+}
+
+.cart-main_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+}
+
+.cart-main_title h2{
+    color: #333;
+    font-family: Montserrat,sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.cart-main_title h2 b{
+    color: #53c95a;
+    font-family: Montserrat, sans-serif;
+}
+
+.cart-main_title p{
+    font-size: 12px;
+    background-color: initial;
+    border: none;
+    color: #bdbdbd!important;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    outline: none;
+    padding: 8px 0 8px 8px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cart-list{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-offer{
+    background: #53c95a;
+    color: #fff;
+    bottom: 56px;
+    box-shadow: 4px 0 40px rgba(51,51,51,.15);
+    left: 50%;
+    padding: 8px 16px;
+    position: fixed;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    width: 90%;
+    height: 46px;
+    z-index: 9999;
+    margin: 10px 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+}

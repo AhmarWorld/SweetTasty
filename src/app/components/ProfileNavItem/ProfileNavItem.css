@@ -1,0 +1,19 @@
+.profile-nav_item{
+    margin-bottom: 0.5rem;
+}
+
+.profile-nav_item #selected{
+    border: 1px solid #dee2e6;
+    color: #333;
+    border-bottom: none;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+.profile-nav_item a{
+    background-color: #fff;
+    color: #53c95a;
+    font-size: 14px;
+    text-decoration: none;
+    padding: .5rem 1rem;
+}

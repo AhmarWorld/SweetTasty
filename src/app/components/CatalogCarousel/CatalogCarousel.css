@@ -1,0 +1,25 @@
+.catalog-carousel{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    overflow-x: scroll;   
+}
+
+.catalog-carousel::-webkit-scrollbar { 
+    width: 0; 
+}
+
+.catalog-carousel { 
+    -ms-overflow-style: none; 
+}
+
+.catalog-carousel { 
+    overflow: -moz-scrollbars-none; 
+}
+
+.catalog-carousel a{
+    color: black;
+}

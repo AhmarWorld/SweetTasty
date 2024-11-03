@@ -1,0 +1,22 @@
+.address-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    gap: 15px;
+  }
+  
+  .address-list p {
+    font-size: 24px;
+  }
+  
+  .address-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .address-list table tr td {
+      padding: 10px 0;
+      font-size: 12px;
+    border-bottom: 1px solid black;
+  }

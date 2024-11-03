@@ -1,0 +1,95 @@
+#profile-admin_title{
+    margin-top: 25px;
+}
+
+.profile-main{
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding-bottom: 50px;
+}
+
+.profile-main h3{
+    line-height: 1.2;
+    margin-bottom: .5rem;
+}
+
+.profile-select{
+    width: 100%;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.profile-select ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.admin_product-info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin_product-info img{
+    width: 100%;
+    max-width: 345px;
+    max-height: 345px;
+    border-radius: 15px;
+}
+
+.admin_product-img_form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin_product-img_form input{
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 17.58px;
+    max-width: 345px;
+    padding: 12px 12px;
+    text-align: center;
+    width: 100%;
+}
+
+.admin_product-img_form input::file-selector-button{
+    background-color: #53c95a;
+    border: none;
+    border-radius: 8px;
+    color: #fff; 
+    font-size: 15px;
+    font-weight: 600;
+    height: 32px;
+    line-height: 17.58px;
+    max-width: 150px;
+    padding: 7px 12px;
+    text-align: center;
+    width: 100%;
+}
+
+.admin_product-form_button{
+    background-color: #53c95a;
+    border: none;
+    border-radius: 8px;
+    color: #fff; 
+    font-size: 15px;
+    font-weight: 600;
+    height: 32px;
+    line-height: 17.58px;
+    max-width: 150px;
+    padding: 7px 12px;
+    text-align: center;
+    width: 100%;
+}

@@ -1,0 +1,28 @@
+.main-catalog_page {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  background-color: #fff;
+  padding: 0 10px;
+
+  margin-bottom: 60px;
+}
+
+.main-catalog .search {
+  margin-top: 0px;
+  padding: 0px 15px 15px 0px;
+
+  width: 100%;
+  border-radius: 0;
+}
+
+.catalog{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

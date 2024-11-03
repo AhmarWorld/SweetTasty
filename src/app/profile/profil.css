@@ -1,0 +1,146 @@
+.profile{
+    padding: 15px;
+}
+
+.profile-title{
+    width: 100%;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-title h1{
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+
+    font-size: 22px;
+    letter-spacing: -.22px;
+    line-height: 28px;
+}
+
+.profile-title p{
+    color: #333;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.resitration-form{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.resitration-form label{
+    width: 100%;
+}
+
+.resitration-form input{
+    width: 100%;
+
+    margin-top: 10px;
+
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    color: #495057;
+    display: block;
+    font-size: 1rem;
+    height: calc(2.25rem + 2px);
+    line-height: 1.5;
+    padding: .375rem .75rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.resitration-form .work-time{
+    width: 100%;
+    
+    display: flex;
+    gap: 5px;
+}
+
+.open-time div{
+    width: 66%;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.close-time div{
+    width: 66%;
+    display: flex;
+    
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.open-time div span{
+    font-size: 25px;
+}
+
+.close-time div span{
+    font-size: 25px;
+}
+
+.profile-buttons button{
+    width: 100%;
+    height: 50px;
+
+    border-radius: 12px;
+    border: none;
+    background-color: #53c95a;
+
+    color: white;
+
+    font-size: 17px;
+    line-height: normal;
+    margin: 16px 0;
+    padding: 16px 16px;
+}
+
+.profile-buttons button a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.profile-buttons{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.profile-buttons button {
+  width: 40%;
+  height: 50px;
+
+  border-radius: 12px;
+  border: none;
+  background-color: #53c95a;
+
+  color: white;
+
+  font-size: 17px;
+  line-height: normal;
+  margin: 16px 0;
+  padding: 16px 16px;
+}
+
+.profile-buttons a {
+  width: 40%;
+  height: 50px;
+}

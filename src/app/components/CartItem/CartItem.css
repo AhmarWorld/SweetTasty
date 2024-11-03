@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.cart-item{
+    width: 100%;
+    height: 12vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-item img{
+    height: 100%;
+
+    background-color: #f6f6f6;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.cart-item_main{
+    height: 100%;
+
+    display: grid;
+    flex: 1;
+    grid-template-areas: "label remove" "counter counter";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
+    padding-left: 10px;
+}
+
+.cart-item__label {
+    font-size: 16px;
+    line-height: 1.3;
+    color: #333;
+}
+
+.cart-item__label p {
+    -webkit-box-orient: vertical;
+    color: #000;
+    display: -webkit-box;
+    overflow: hidden;
+}
+
+.cart-item_label-discount{
+    background: #4f4f4f;
+    color: #fff;
+
+    border-radius: 4px;
+    display: block;
+    padding: 1px 4px;
+    width: max-content;
+}
+
+.cart-item__clear {
+    background-color: initial;
+    border: none;
+    color: #bdbdbd!important;
+    cursor: pointer;
+    float: right;
+    outline: none;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+.cart-item_count{
+    margin-top: 5px;
+    width: 109px;
+    height: 80%;
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color: #f5f5f5;
+
+    align-items: baseline;
+    border-radius: 1rem;
+    color: #4f4f4f;
+    font-family: "Montserrat","sans-serif";
+    justify-content: space-between;
+
+    padding-top: 2px;
+}
+
+.item_count-min{
+    background-color: initial;
+    color: inherit;
+    border-radius: 1rem 0 0 1rem;
+
+    padding: 0 .55rem;
+
+    cursor: pointer;
+}
+
+.cart-item_count span{
+
+    position: relative;
+    top: -2px;
+    padding: .375rem .75rem;
+    font-weight: 700;
+    font-size: 14px;
+
+    color: #4f4f4f;
+
+    height: auto !important;
+    padding-left: 0 !important;
+    padding-right: 2px !important;
+}
+
+.item_count-plus{
+    background-color: initial;
+    color: inherit;
+    border-radius: 1rem 0 0 1rem;
+    padding: 0 .55rem;
+
+    cursor: pointer;
+}
+
+
+.cart-item__price {
+    display: flex;
+    height: 30px;
+    font-size: 14px;
+}
+
+.cart-item__price .previous {
+    font-size: 11px;
+    margin-right: 6px;
+    color: #828282;
+    text-decoration-line: line-through;
+}

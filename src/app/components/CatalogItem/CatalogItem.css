@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.item-card {
+    min-width: 41vw;
+    min-height: 308px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+
+    padding: 12px 8px;
+}
+
+.item-card .item-card_img {
+    width: 100%;
+    border-radius: 16px;
+}
+
+.item-card img {
+    position: relative;
+    width: 100%;
+    border-radius: 16px !important;
+}
+
+.item-card .item-card_title {
+    margin-top: 10px;
+    color: #4f4f4f !important;
+    font-family: Inter, serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 120%;
+    overflow: hidden;
+    min-height: 51px;
+}
+
+.item-card .currency {
+    font-family: Inter, serif;
+    font-size: 14px;
+    color: #bdbdbd;
+}
+
+.item-card .price {
+    margin-top: 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #4f4f4f;
+    font-weight: bolder;
+}
+
+.price .price-sell {
+    color: #bdbdbd;
+    text-decoration: line-through;
+    text-decoration-color: #e56058;
+}
+
+.item-card .item-card_button {
+    width: 100%;
+    height: 30px;
+
+    margin-top: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    border: none;
+    background-color: #f5f5f5;
+
+    border-radius: 1rem;
+    font-weight: 700;
+    padding: .2rem .55rem;
+}
+
+.item-card .cart-item_count{
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    justify-content: space-between;
+
+    background-color: #2db333;
+
+    align-items: baseline;
+    border-radius: 1rem;
+    color: #4f4f4f;
+    justify-content: space-between;
+
+    padding-top: 2px;
+}
+
+.item-card .item_count-min{
+    background-color: initial;
+    color: inherit;
+    border-radius: 1rem 0 0 1rem;
+
+    padding: 0 .55rem;
+
+    cursor: pointer;
+}
+
+.item-card .cart-item_count span{
+    position: relative;
+    top: -2px;
+    padding: .375rem .75rem;
+    font-weight: 700;
+    font-size: 14px;
+
+    color: #fff;
+
+    padding-left: 0;
+    padding-right: 2px;
+}
+
+.item-card .item_count-plus{
+    background-color: initial;
+    color: inherit;
+    border-radius: 1rem 0 0 1rem;
+    padding: 0 .55rem;
+
+    cursor: pointer;
+}

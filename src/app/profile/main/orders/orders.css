@@ -1,0 +1,79 @@
+ .profile-orders{
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding-bottom: 50px;
+}
+
+.profile-main h3{
+    line-height: 1.2;
+    margin-bottom: .5rem;
+}
+
+.profile-select{
+    width: 100%;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.profile-select ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.profile-orders_main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 15px 0;
+}
+
+.profile-orders_main h2{
+    color: var(--grey-80,#4f4f4f);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -.24px;
+    line-height: 30px;
+}
+
+.profile-orders_main ul{
+    width: 100%;
+    list-style: none;
+}
+
+.profile-orders_main ul li{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content:  space-between;
+} 
+
+.profile-orders_main li p{
+    color: #4f4f4f;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.profile-orders_main li span{
+    color: #333;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.orders_main-total{
+    margin-top: 10px;
+}

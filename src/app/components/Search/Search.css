@@ -1,0 +1,19 @@
+.search {
+    width: 100%;
+
+    background-color: #fff;
+
+    border-radius: 15px 15px 0px 0px;
+
+    /* margin-top: -40px; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px 15px 15px 0;
+
+    position: sticky;
+    top: 0;
+    z-index: 999999;
+}
