@@ -33,7 +33,8 @@ function Cart() {
       }
     );
     if (request.ok) {
-      setCartList([])
+      setCartList([]);
+      setTotalSum(0);
       // const data = await getCart(clientToken, setIsAuth);
       // if (data) {
       //   setCartList(data.items);

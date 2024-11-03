@@ -10,7 +10,7 @@ import { getCart } from "@/app/lib/basket";
 
 const Nav = () => {
   const [ifToken, setIfToken] = useState(false);
-  const token = localStorage.getItem("token-SattyTatty");
+  const [token, setToken] = useState("");
   const [basketCount, setBasketCount] = useState(0);
 
   useEffect(() => {
@@ -19,10 +19,17 @@ const Nav = () => {
         const basketData = await getCart(token, setIfToken);
         if (basketData) {
           setBasketCount(basketData?.items?.length);
-        }   
+        }
       })();
     }
   }, [ifToken]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const newToken = localStorage.getItem("token-SattyTatty");
+      setToken(newToken);
+    }
+  }, [window]);
 
   useEffect(() => {
     if (token) {
@@ -30,7 +37,7 @@ const Nav = () => {
     } else {
       setIfToken(false);
     }
-  }, []);
+  }, [token]);
 
   return (
     <nav>
