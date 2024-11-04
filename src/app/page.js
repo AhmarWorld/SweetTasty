@@ -5,17 +5,18 @@ import Search from "./components/Search/Search";
 import Footer from "./components/Footer/Footer.js";
 import HotOffers from "./components/HotOffers/HotOffers";
 
-export default function Home() {
+export default function Home({ children }) {
   return (
     <main>
       <Carousel />
       <Search placeholder={"Искать в SweetTasty"} />
-      <HotOffers/>
+      <HotOffers />
       <div className="main-catalog">
         <CatalogMini text={"Первая покупка с выгодой"} />
-        <DailyItem/>
+        <DailyItem />
         <Footer />
       </div>
+      {children}
     </main>
   );
 }

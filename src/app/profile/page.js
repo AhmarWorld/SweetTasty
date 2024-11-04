@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Profile() {
-  const router = useRouter()
+  const router = useRouter();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,28 +22,30 @@ function Profile() {
   const [closeHour, setCloseHour] = useState();
   const [closeMinute, setCloseMinute] = useState();
 
-
   const regButton = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL +'/users/register', {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        username: username,
-        password: password,
-        accountType: "cafeOwner",
-        fullname: fullname,
-        phone: phone,
-        cafeName: cafeName,
-        cafeAddress: cafeAddress,
-        openTime: openTime,
-        closeTime: closeTime,
-      }),
-    });
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_SERVER_URL + "/users/register",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          accountType: "cafeOwner",
+          fullname: fullname,
+          phone: phone,
+          cafeName: cafeName,
+          cafeAddress: cafeAddress,
+          openTime: openTime,
+          closeTime: closeTime,
+        }),
+      }
+    );
     const data = await response.json();
-    if(data.status === 201){
-      router.push('/profile/auth')
+    if (data.status === 201) {
+      router.push("/profile/auth");
     }
   };
 
@@ -62,6 +64,18 @@ function Profile() {
     setFunc(value);
   };
 
+  const onChangeUsername = (value, setFunc) => {
+    if (!value.includes(" ")) {
+      setFunc(value);
+    }
+  };
+
+  const onChangePassword = (value, setFunc) => {
+    if (!value.includes(" ")) {
+      setFunc(value);
+    }
+  };
+
   return (
     <div className="profile">
       <div className="profile-title">
@@ -76,7 +90,7 @@ function Profile() {
           Имя Пользователя <br />
           <input
             onChange={(e) => {
-              onChange(e.target.value, setUsername);
+              onChangeUsername(e.target.value, setUsername);
             }}
             value={username}
             id="username"
@@ -87,7 +101,7 @@ function Profile() {
           Пароль <br />
           <input
             onChange={(e) => {
-              onChange(e.target.value, setPassword);
+              onChangePassword(e.target.value, setPassword);
             }}
             value={password}
             id="password"

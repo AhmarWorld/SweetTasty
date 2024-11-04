@@ -1,8 +1,12 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import Nav from './components/Nav/Nav'
+import Nav from "./components/Nav/Nav";
+import React from "react";
 
-const montserrat = Montserrat({ subsets: ["cyrillic", "latin"], weight: ['700', '500'] });
+const montserrat = Montserrat({
+  subsets: ["cyrillic", "latin"],
+  weight: ["700", "500"],
+});
 
 export const metadata = {
   title: "Satty Tatty",

@@ -16,14 +16,40 @@ export default function Subcategories({ params }) {
 
   const [lowPrice, setLowPrice] = useState(0);
   const [highPrice, setHighPrice] = useState(10000);
-  const [provider, setProvider] = useState("");
+  const [providers, setProviders] = useState([]);
+  const [selectProvider, setSelectProvider] = useState(undefined);
   const [subCategory, setSubCategory] = useState(params);
-  const [sortingMethod, setSortingMethod] = useState(null);
+  const [sortingMethod, setSortingMethod] = useState("desc");
 
-  const [categoriesList,setCategoriesList] = useState([])
+  const [categoriesList, setCategoriesList] = useState([]);
 
   const clientToken = localStorage.getItem("token-SattyTatty");
   const [productList, setProductList] = useState([]);
+
+  const getFilterData = async () => {
+    const request = await fetch(
+      process.env.NEXT_PUBLIC_SERVER_URL + "/products/filterData",
+      {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "any",
+          Authorization: "Bearer " + clientToken,
+          "Content-type": "application/json",
+        },
+      }
+    );
+    const response = await request.json();
+    if (!request.ok) {
+      alert("Авторизуйтесь на сайте");
+      localStorage.clear();
+    } else if (request.ok) {
+      setLowPrice(response.minPrice);
+      setHighPrice(response.maxPrice);
+      setProviders(response.providers);
+      setCategoriesList(response.subCategories);
+    }
+  };
+
   const getProductList = async () => {
     const request = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/products/subcategory/" + params.id,
@@ -44,26 +70,6 @@ export default function Subcategories({ params }) {
     setProductList(response);
   };
 
-  async function getCategories() {
-    const request = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/categories",
-      {
-        method: "GET",
-        headers: {
-          "ngrok-skip-browser-warning": "any",
-          Authorization: "Bearer " + clientToken,
-          'Content-type': 'application/json'
-        }
-      }
-    );
-    const response = await request.json()
-    if(!request.ok){
-      alert('Авторизуйтесь на сайте')
-    }else if(request.ok){
-      setCategoriesList(response)
-    }
-  }
-
   async function getFilter() {
     const request = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/products/filter",
@@ -77,7 +83,7 @@ export default function Subcategories({ params }) {
         body: JSON.stringify({
           minPrice: lowPrice,
           maxPrice: highPrice,
-          // providerIds: null,
+          providerIds: [selectProvider],
           subCategoryIds: [+subCategory],
           sortingMethod: sortingMethod,
         }),
@@ -87,13 +93,13 @@ export default function Subcategories({ params }) {
     if (!request.ok) {
       alert("Ошибка попробуйте позже");
     } else if (request.ok) {
-      setProductList(response)
+      setProductList(response);
     }
   }
 
   useEffect(() => {
     getProductList();
-    getCategories()
+    getFilterData();
   }, []);
 
   return (
@@ -149,23 +155,45 @@ export default function Subcategories({ params }) {
               </div>
             </div>
             <div className="filters-section">
-              <h4>Поставщики</h4>
-              <select>
-                <option value={null}>Выберите поставщика</option>
+              <h4>Категория</h4>
+              <select
+                onChange={(e) => {
+                  setSubCategory(e.target.value);
+                }}
+              >
+                <option value={undefined}>Выберите категорию</option>
+                {categoriesList.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
             </div>
+
             <div className="filters-section">
-              <h4>Категория</h4>
-              <select onChange={(e)=>{setSubCategory(e.target.value)}}> 
-                <option value={null}>Выберите категорию</option>
-                {categoriesList.map((cat)=>(
-                  <option key={cat.id} value={cat.id} >{cat.name}</option>
+              <h4>Поставщики</h4>
+              <select
+                onChange={(e) => {
+                  if (e.target.value) {
+                    setSelectProvider(Number(e.target.value));
+                  }
+                }}
+              >
+                <option value={undefined}>Выберите поставщика</option>
+                {providers.map((provider) => (
+                  <option key={provider.id} value={provider.id}>
+                    {provider.name}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="filters-section">
               <h4>Сортировка по</h4>
-              <select onChange={(e)=>{setSortingMethod(e.target.value)}}>
+              <select
+                onChange={(e) => {
+                  setSortingMethod(e.target.value);
+                }}
+              >
                 <option value={"asc"}>по нарастающей</option>
                 <option value={"desc"}>по убыванию</option>
               </select>
@@ -184,7 +212,7 @@ export default function Subcategories({ params }) {
           <Filter active={filterActive} setActive={setFilterActive} />
           <div className="subcat-list">
             {productList.map((product) => (
-              <div className="subcat-item">
+              <div key={product.id} className="subcat-item">
                 <CatalogItem
                   id={product.id}
                   text={product.name}

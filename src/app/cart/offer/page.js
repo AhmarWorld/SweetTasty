@@ -49,6 +49,9 @@ export default function Offer() {
     );
     if (response.ok) {
       setOfferState(true);
+      setTimeout(() => {
+        router.push("/cart/offer/result");
+      }, 3000);
     } else {
       setOfferState(false);
     }
@@ -57,20 +60,14 @@ export default function Offer() {
   function attention() {
     setTimeout(() => {
       setOfferAttention(true);
+      setTimeout(() => {
+        router.push("/cart/offer/result");
+      }, 3000);
     }, 200);
     setTimeout(() => {
       setOfferAttention(false);
     }, 2000);
   }
-
-  useEffect(() => {
-    if(offerState){
-      setTimeout(() => {
-        router.push("/cart/offer/result");
-        console.log("123");
-      }, 3000);
-    }
-  }, offerState);
 
   useEffect(() => {
     getAddress();
@@ -108,7 +105,9 @@ export default function Offer() {
       >
         <option value={null}>Выберите адрес</option>
         {address.map((el) => (
-          <option value={el.id}>{el.name}</option>
+          <option key={el.id} value={el.id}>
+            {el.name}
+          </option>
         ))}
       </select>
       <button
