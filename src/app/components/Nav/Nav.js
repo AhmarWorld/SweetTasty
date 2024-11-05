@@ -107,7 +107,7 @@ const Nav = () => {
       <NavButtons
         svg={<MdOutlineMenu size={26} color="#333" />}
         text={"Меню"}
-        href={ifToken ? "/profile/main" : "/profile"}
+        href={"/profile/main"}
       />
     </nav>
   );

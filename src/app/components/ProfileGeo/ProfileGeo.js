@@ -1,32 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import "./ProfileGeo.css";
-import { useEffect, useState } from "react";
 
 export default function ProfileGeo() {
-  const [geo, setGeo] = useState({});
-  const clientToken = localStorage.getItem('token-SattyTatty')
-
-  const getAddress = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/branches",
-      {
-        method: "GET",
-        headers: {
-          "ngrok-skip-browser-warning": "any",
-          Authorization: "Bearer " + clientToken,
-          "Content-type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setGeo(data[1]);
-  };
-
-  useEffect(()=>{
-    getAddress()
-  },[])
   return (
     <Link href="/profile/main/address">
       <div className="cart-geo">
@@ -45,8 +20,9 @@ export default function ProfileGeo() {
           ></path>
         </svg>
         <div className="cart-geo_title">
-          <p>{geo.name}, {geo.contactPerson}, {geo.openTime}-{geo.closeTime}</p>
-          <p className="cart-geo_title-address">{geo.address}</p>
+          <h3>Добавить Адрес</h3>
+          {/* <p>{geo.name}, {geo.contactPerson}, {geo.openTime}-{geo.closeTime}</p> */}
+          {/* <p className="cart-geo_title-address">{geo.address}</p> */}
         </div>
       </div>
     </Link>

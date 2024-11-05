@@ -5,9 +5,11 @@ import "./main.css";
 import { useState, useEffect } from "react";
 import Footer from "@/app/components/Footer/Footer";
 import ProfileGeo from "@/app/components/ProfileGeo/ProfileGeo";
+import { useRouter } from "next/navigation";
 
 function Main() {
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   const [username, setUsername] = useState(user?.username || "");
   const [password, setPassword] = useState("*********");
@@ -20,18 +22,27 @@ function Main() {
     setFunc(value);
   };
 
+  const onClickLogout = () => {
+    localStorage.clear();
+    router.push("/profile/auth");
+  };
+
   useEffect(() => {
     if (typeof window != "undefined") {
       const newData = JSON.parse(localStorage.getItem("user-SattyTatty"));
-      if(newData.accountType === "provider"){
-        setIsProvider(true)
-      }else{
-        setIsProvider(false)
+      if (newData) {
+        if (newData?.accountType === "provider") {
+          setIsProvider(true);
+        } else {
+          setIsProvider(false);
+        }
+      } else {
+        router.push("/profile/auth");
       }
       setUser(newData);
-      setUsername(newData.username);
-      setFullname(newData.fullname);
-      setPhone(newData.phone);
+      setUsername(newData?.username);
+      setFullname(newData?.fullname);
+      setPhone(newData?.phone);
     }
   }, [window]);
 
@@ -119,6 +130,9 @@ function Main() {
             />
           </label>
         </form>
+        <button onClick={onClickLogout} className="profile-main_button">
+          <b>Выйти из аккаунта</b>
+        </button>
         <Footer />
       </div>
     )
