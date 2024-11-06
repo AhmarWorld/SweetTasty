@@ -1,7 +1,7 @@
 'use client'
 
 import "./ReviewModal.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function ReviewModal({ setReviewModal, orderReview, setReviewModalList }) {
     const [rating, setRating] = useState(0);

@@ -4,53 +4,17 @@ import "./ReviewModalList.css";
 import { useState, useEffect } from "react";
 import ReviewModal from "../ReviewModal/ReviewModal";
 
-function ReviewModalList({ userId, setReviewModalList, orderReview }) {
+function ReviewModalList({ setReviewModalList, orderReview }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [reviewModal, setReviewModal] = useState(false);
-    const [reviews, setReviews] = useState(new Set());
-
-    const getReviews = async (id) => {
-        try {
-            const response = await fetch(
-                process.env.NEXT_PUBLIC_SERVER_URL + `/productReviews/product/${id}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "ngrok-skip-browser-warning": "any",
-                        Authorization: "Bearer " + localStorage.getItem('token-SattyTatty'),
-                        "Content-type": "application/json",
-                    },
-                }
-            );
-            const data = await response.json();
-            if (response.ok) {
-                data.forEach(review => {
-                    if (review.userId === userId) {
-                        setReviews(prev => new Set([...prev, review.productId]));
-                    }
-                });
-            }
-        } catch (error) {
-            console.error("Ошибка при получении отзывов:", error);
-        }
-    };
 
     const handleProductSelect = (product) => {
-        if (reviews.has(product.productId)) {
-            return;
-        }
         setSelectedProduct({
             ...orderReview,
             products: [product]
         });
         setReviewModal(true);
     };
-
-    useEffect(() => {
-        orderReview.products.forEach(product => {
-            getReviews(product.productId);
-        });
-    }, []);
 
     return (
         <>
@@ -72,15 +36,9 @@ function ReviewModalList({ userId, setReviewModalList, orderReview }) {
                                 <li 
                                     key={product.productId}
                                     onClick={() => handleProductSelect(product)}
-                                    className={"review-modal-list_item"}
-                                    // className={`review-modal-list_item ${reviews.has(product.productId) ? 'reviewed' : ''}`}
-                                    >
+                                    className="review-modal-list_item"
+                                >
                                     <span>{product.productName}</span>
-                                    {/* {reviews.has(product.productId) && (
-                                        <span className="review-modal-list_reviewed-badge">
-                                            Отзыв оставлен
-                                        </span>
-                                    )} */}
                                 </li>
                             ))}
                         </ul>
