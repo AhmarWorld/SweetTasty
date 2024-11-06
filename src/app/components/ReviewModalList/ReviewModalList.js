@@ -72,8 +72,9 @@ function ReviewModalList({ userId, setReviewModalList, orderReview }) {
                                 <li 
                                     key={product.productId}
                                     onClick={() => handleProductSelect(product)}
-                                    className={`review-modal-list_item ${reviews.has(product.productId) ? 'reviewed' : ''}`}
-                                >
+                                    className={"review-modal-list_item"}
+                                    // className={`review-modal-list_item ${reviews.has(product.productId) ? 'reviewed' : ''}`}
+                                    >
                                     <span>{product.productName}</span>
                                     {/* {reviews.has(product.productId) && (
                                         <span className="review-modal-list_reviewed-badge">
