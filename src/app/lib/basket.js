@@ -1,9 +1,10 @@
 export async function addBasket(
+  setCartId,
   productId,
   price,
   quantity,
   clientToken,
-  setIsAuth
+  setIsAuth,
 ) {
   const request = await fetch(
     process.env.NEXT_PUBLIC_SERVER_URL + "/carts/addItem",
@@ -26,6 +27,7 @@ export async function addBasket(
     alert("Авторизуйтесь на сайте");
     setIsAuth(false);
   }
+  setCartId(response.cartItemId);
   return request.ok;
 }
 

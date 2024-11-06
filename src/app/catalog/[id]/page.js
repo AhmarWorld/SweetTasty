@@ -10,15 +10,20 @@ import { addBasket } from "@/app/lib/basket";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 import HotOffers from "@/app/components/HotOffers/HotOffers";
 import Search from "@/app/components/Search/Search";
+import { FaStar } from "react-icons/fa";
 
 export default function CatalogItem({ params }) {
   const [product, setProduct] = useState({});
   const [offerOn, setOfferOn] = useState(false);
+  const [cartId, setCartId] = useState(null);
 
   const [newPrice, setNewPrice] = useState(product.price);
   const [count, setCount] = useState(1);
 
   const clientToken = localStorage.getItem("token-SattyTatty");
+
+  const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
 
   const getProduct = async () => {
     const response = await fetch(
@@ -38,6 +43,30 @@ export default function CatalogItem({ params }) {
       setIsAuth(false);
     } else if (response.ok) {
       setProduct(data);
+    }
+  };
+
+  const getReviews = async () => {
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_SERVER_URL + `/productReviews/product/${params.id}`,
+        {
+          method: "GET",
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+            Authorization: "Bearer " + clientToken,
+            "Content-type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setReviews(data);
+        const avgRating = data.reduce((acc, review) => acc + review.rating, 0) / data.length;
+        setAverageRating(avgRating || 0);
+      }
+    } catch (error) {
+      console.error("Ошибка при получении отзывов:", error);
     }
   };
 
@@ -63,7 +92,7 @@ export default function CatalogItem({ params }) {
 
   const deleteItem = async () => {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/cartItem/" + params.id,
+      process.env.NEXT_PUBLIC_SERVER_URL + "/cartItems/" + cartId,
       {
         method: "DELETE",
         headers: {
@@ -81,6 +110,7 @@ export default function CatalogItem({ params }) {
 
   useEffect(() => {
     getProduct();
+    getReviews();
   }, []);
 
   return (
@@ -96,6 +126,22 @@ export default function CatalogItem({ params }) {
         />
         {/* <img src={process.env.NEXT_PUBLIC_SERVER_URL + product.image} /> */}
         <h1> {product.name}</h1>
+        <div className="product-rating">
+          <a href="#reviews" className="product-rating_link">
+            <div className="product-rating_stars">
+              {[...Array(5)].map((_, index) => (
+                <FaStar
+                  key={index}
+                  className={index < averageRating ? "star-filled" : "star-empty"}
+                />
+              ))}
+            </div>
+            <span className="product-rating_count">
+              {reviews.length > 0 ? `(${reviews.length} отзывов)` : 'Нет отзывов'}
+            </span>
+          </a>
+        </div>
+
         <div className="item_main-discription">
           <h3>Описание</h3>
           <p>Срок годности: {product.expirationDate}</p>
@@ -105,6 +151,32 @@ export default function CatalogItem({ params }) {
           <h3>Поставщик</h3>
           <p>Realibi</p>
         </div>
+
+        {reviews.length > 0 && (
+          <div id="reviews" className="product-reviews">
+            <h3>Отзывы покупателей</h3>
+            {reviews.map((review) => (
+              <div key={review.id} className="product-review_item">
+                <div className="product-review_header">
+                  <div className="product-review_stars">
+                    {[...Array(5)].map((_, index) => (
+                      <FaStar
+                        key={index}
+                        className={index < review.rating ? "star-filled" : "star-empty"}
+                      />
+                    ))}
+                  </div>
+                  <span className="product-review_date">
+                    {new Date(review.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+                {review.comment && (
+                  <p className="product-review_comment">{review.comment}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className="item-page_offer">
         {offerOn ? (
@@ -120,7 +192,7 @@ export default function CatalogItem({ params }) {
               <FaMinus
                 onClick={() => {
                   onClickMin();
-                  addBasket(product.id, product.price, count - 1, clientToken);
+                  addBasket(setCartId,product.id, product.price, count - 1, clientToken);
                 }}
               />
             )}
@@ -130,7 +202,7 @@ export default function CatalogItem({ params }) {
             <FaPlus
               onClick={() => {
                 onClickPlus();
-                addBasket(product.id, product.price, count + 1, clientToken);
+                addBasket(setCartId, product.id, product.price, count + 1, clientToken);
               }}
             />
           </>
@@ -138,7 +210,7 @@ export default function CatalogItem({ params }) {
           <p
             onClick={() => {
               setOfferOn(true);
-              addBasket(product.id, product.price, 1, clientToken);
+              addBasket(setCartId, product.id, product.price, 1, clientToken);
             }}
             className="item-offer_price"
           >

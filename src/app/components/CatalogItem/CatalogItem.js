@@ -21,9 +21,10 @@ function CatalogItem({
 }) {
   const router = useRouter();
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken,setClientToken] = useState('');
   const [count, setCount] = useState(0);
   const [counterOn, setCounterOn] = useState(true);
+  const [cartId, setCartId] = useState(null);
 
   const [isAuth, setIsAuth] = useState(true);
 
@@ -34,29 +35,37 @@ function CatalogItem({
   }, [isAuth]);
 
   const cartEdit = async(quantity)=>{
+    addBasket(setCartId, id, price, quantity, clientToken);
+  }
+
+  const deleteItem = async () => {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/cart/addItem",
+      process.env.NEXT_PUBLIC_SERVER_URL + "/cartItems/" + cartId,
       {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "ngrok-skip-browser-warning": "any",
           Authorization: "Bearer " + clientToken,
-          'Content-type': 'application/json'
+          "Content-type": "application/json",
         },
-        body:JSON.stringify({
-          productId:id,
-          price:price,
-          quantity:quantity
-        })
       }
     );
-  }
+    const data = await request.json();
+    if (!response.ok) {
+      alert("Авторизуйтесь на сайте");
+    }
+  };
+
 
   const onClickMin = () => {
     let newCount = 1;
     newCount = Number(count) - 1;
     setCount(newCount);
-    cartEdit(newCount)
+    if (newCount == 0) {
+      deleteItem();
+    } else {
+      cartEdit(newCount)
+    }
   };
 
   const onClickPlus = () => {
@@ -78,6 +87,10 @@ function CatalogItem({
       setCounterOn(false);
     }
   }, [count]);
+
+  useEffect(() => {
+    setClientToken(localStorage.getItem('token-SattyTatty'));
+  }, [window]);
 
   return (
     <div className="item-card">

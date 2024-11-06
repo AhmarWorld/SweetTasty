@@ -6,6 +6,25 @@
     color:  #333;
 }
 
+.orders-item-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.orders-item-header button{
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #53c95a;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+}
+
 .orders-item h5{
     color:  #828282;
 }

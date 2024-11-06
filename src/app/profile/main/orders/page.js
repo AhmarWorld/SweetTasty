@@ -6,11 +6,15 @@ import Footer from "@/app/components/Footer/Footer";
 import OrdersItem from "@/app/components/OrdersItem/OrdersItem";
 import ProfileGeo from "@/app/components/ProfileGeo/ProfileGeo";
 import Button from "@/app/components/Button/Button";
+import ReviewModalList from "@/app/components/ReviewModalList/ReviewModalList";
 
 function Orders() {
   const clientToken = localStorage.getItem("token-SattyTatty");
+  const [user, setUser] = useState(null);
   const [orderList, setOrderList] = useState([]);
 
+  const [orderReview, setOrderReview] = useState({});
+  const [reviewModalList, setReviewModalList] = useState(false);
   const getOrderList = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/orders/userOrderHistory",
@@ -30,6 +34,13 @@ function Orders() {
       setOrderList(data);
     }
   };
+
+  useEffect(() => {
+    if (typeof window != "undefined") {
+      const newData = JSON.parse(localStorage.getItem("user-SattyTatty"));
+      setUser(newData);
+    }
+  }, [window]);
 
   useEffect(() => {
     getOrderList();
@@ -55,6 +66,8 @@ function Orders() {
                 <ul key={order.id}>
                   <li>
                     <OrdersItem
+                      setOrderReview={setOrderReview}
+                      setReviewModalList={setReviewModalList}
                       orderNumber={`№${order.orderNumber}`}
                       address={order.branchAddress}
                       cafeName={order.branchName}
@@ -88,6 +101,7 @@ function Orders() {
         )}
       </div>
       <Footer />
+      {reviewModalList && <ReviewModalList userId={user.id} orderReview={orderReview} setReviewModalList={setReviewModalList} />}
     </div>
   );
 }
