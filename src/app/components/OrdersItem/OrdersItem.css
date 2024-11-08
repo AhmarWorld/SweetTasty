@@ -1,70 +1,80 @@
-.orders-item{
-    width: 100%;
+.orders-item {
+  width: 100%;
 }
 
-.orders-item h3{
-    color:  #333;
+.orders-item h3 {
+  color: #333;
 }
 
-.orders-item-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.orders-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.orders-item-header button{
-    width: 150px;
-    height: 30px;
-    border-radius: 5px;
-    border: none;
-    background-color: #53c95a;
-    color: #fff;
+.orders-item-header button {
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #53c95a;
+  color: #fff;
 
-    font-size: 14px;
-    font-weight: 500;
-    line-height: normal;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
 }
 
-.orders-item h5{
-    color:  #828282;
+.orders-item h5 {
+  color: #828282;
 }
 
-.oreders-main ul{
-    width: 100%;
-    margin: 0;
-    margin-top: 10px;
+.oreders-main ul {
+  width: 100%;
+  margin: 0;
+  margin-top: 10px;
 }
 
-.orders-item ul li{
-    width: 100%;
+.orders-item ul li {
+  width: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content:  space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    margin-top: 10px;
-} 
-
-.oreders-main ul li div{
-    display: flex;
-    width: 40%;
-    align-items: center;
-    justify-content: space-between;
+  margin-top: 10px;
 }
 
-.orders-item li p{
-    width: 60%;
-    color: #4f4f4f;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+.oreders-main ul li div {
+  display: flex;
+  width: 40%;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.orders-item li span{
-    color: #333;
-    font-family: Montserrat, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: normal;
+.orders-item li p {
+  width: 60%;
+  color: #4f4f4f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.orders-item li span {
+  color: #333;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.review-button.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.review-button.disabled:hover {
+  background-color: #cccccc;
 }

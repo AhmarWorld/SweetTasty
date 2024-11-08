@@ -15,9 +15,13 @@ function Orders() {
 
   const [orderReview, setOrderReview] = useState({});
   const [reviewModalList, setReviewModalList] = useState(false);
-  const getOrderList = async () => {
+  const [reviewList, setReviewList] = useState([]);
+
+  const getReviewList = async () => {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/orders/userOrderHistory",
+      process.env.NEXT_PUBLIC_SERVER_URL +
+        "/productReviews/reviewedProducts/" +
+        orderReview.id,
       {
         method: "GET",
         headers: {
@@ -31,7 +35,27 @@ function Orders() {
     if (!response.ok) {
       alert("Авторизуйтесь на сайте");
     } else if (response.ok) {
+      setReviewList(data);
+    }
+  };
+
+  const getOrderList = async () => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_SERVER_URL + "/orders/userOrderHistory",
+      {
+        method: "GET",
+        headers: {
+          "ngrok-skip-browser-warning": "any",
+          Authorization: "Bearer " + clientToken,
+          "Content-type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    if (response.ok) {
       setOrderList(data);
+    } else if (!response.ok) {
+      console.log("Авторизуйтесь на сайте");
     }
   };
 
@@ -41,6 +65,12 @@ function Orders() {
       setUser(newData);
     }
   }, [window]);
+
+  useEffect(() => {
+    if (orderReview.id) {
+      getReviewList();
+    }
+  }, [orderReview]);
 
   useEffect(() => {
     getOrderList();
@@ -54,7 +84,10 @@ function Orders() {
           <ProfileNavItem href={"/profile/main"} text={"Профиль"} />
           <ProfileNavItem href={"/profile/main/messages"} text={"Сообщения"} />
           <ProfileNavItem href={"/profile/main/orders"} text={"Заказы"} />
-          <ProfileNavItem href={"/profile/main/accounting"} text={"Бухгалтерия"} />
+          <ProfileNavItem
+            href={"/profile/main/accounting"}
+            text={"Бухгалтерия"}
+          />
         </ul>
       </div>
       <div className="profile-orders_main">
@@ -72,6 +105,7 @@ function Orders() {
                       address={order.branchAddress}
                       cafeName={order.branchName}
                       order={order}
+                      reviewList={reviewList.orderItemIds}
                     />
                   </li>
                   <li className="orders_main-total">
@@ -101,7 +135,13 @@ function Orders() {
         )}
       </div>
       <Footer />
-      {reviewModalList && <ReviewModalList userId={user.id} orderReview={orderReview} setReviewModalList={setReviewModalList} />}
+      {reviewModalList && (
+        <ReviewModalList
+          userId={user.id}
+          orderReview={orderReview}
+          setReviewModalList={setReviewModalList}
+        />
+      )}
     </div>
   );
 }

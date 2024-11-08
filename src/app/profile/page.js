@@ -14,13 +14,13 @@ function Profile() {
   const [cafeName, setCafeName] = useState("");
   const [cafeAddress, setCafeAddress] = useState("");
   const [openTime, setOpenTime] = useState("");
-  const [closeTime, setCloseTime] = useState("");
-  const [phone, setPhone] = useState();
+  const [deliveryTime, setDeliveryTime] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const [openHour, setOpenHour] = useState();
-  const [openMinute, setOpenMinute] = useState();
-  const [closeHour, setCloseHour] = useState();
-  const [closeMinute, setCloseMinute] = useState();
+  const [openHour, setOpenHour] = useState("");
+  const [openMinute, setOpenMinute] = useState("");
+  const [deliveryHour, setDeliveryHour] = useState("");
+  const [deliveryMinute, setDeliveryMinute] = useState("");
 
   const [ifReg, setIfReg] = useState(false);
   const regButton = async () => {
@@ -40,7 +40,7 @@ function Profile() {
           cafeName: cafeName,
           cafeAddress: cafeAddress,
           openTime: openTime,
-          closeTime: closeTime,
+          closeTime: deliveryTime,
         }),
       }
     );
@@ -57,9 +57,9 @@ function Profile() {
   }, [openHour, openMinute]);
 
   useEffect(() => {
-    const data = `${closeHour}:${closeMinute}`;
-    setCloseTime(data);
-  }, [closeHour, closeMinute]);
+    const data = `${deliveryHour}:${deliveryMinute}`;
+    setDeliveryTime(data);
+  }, [deliveryHour, deliveryMinute]);
 
   const onChange = (value, setFunc) => {
     setFunc(value);
@@ -82,6 +82,61 @@ function Profile() {
       } else if (value === "" && setFunc.length > 0) {
         setFunc(value);
       }
+    }
+  };
+
+  const onChangeFullname = (value, setFunc) => {
+    if (/^[а-яА-Яa-zA-Z\s]*$/.test(value)) {
+      const trimmedValue = value.replace(/\s+/g, " ").trim();
+      const words = trimmedValue.split(" ");
+      if (words.length <= 3) {
+        setFunc(value);
+      }
+    }
+  };
+
+  const formatPhoneNumber = (value) => {
+    const numbers = value.replace(/\D/g, "");
+
+    const truncated = numbers.slice(0, 11);
+
+    if (truncated.length === 0) return "";
+    if (truncated.length <= 1) return `+${truncated}`;
+    if (truncated.length <= 4)
+      return `+${truncated.slice(0, 1)} (${truncated.slice(1)}`;
+    if (truncated.length <= 7)
+      return `+${truncated.slice(0, 1)} (${truncated.slice(
+        1,
+        4
+      )}) ${truncated.slice(4)}`;
+    if (truncated.length <= 9)
+      return `+${truncated.slice(0, 1)} (${truncated.slice(
+        1,
+        4
+      )}) ${truncated.slice(4, 7)}-${truncated.slice(7)}`;
+    return `+${truncated.slice(0, 1)} (${truncated.slice(
+      1,
+      4
+    )}) ${truncated.slice(4, 7)}-${truncated.slice(7, 9)}-${truncated.slice(
+      9
+    )}`;
+  };
+
+  const onChangePhone = (value, setFunc) => {
+    setFunc(formatPhoneNumber(value));
+  };
+
+  const validateHour = (value) => {
+    if (value >= 0 && value <= 23) {
+      return value;
+    }
+  };
+
+  const validateMinute = (value) => {
+    if (value >= 0 && value <= 59) {
+      return value;
+    } else if (value > 59) {
+      return 59;
     }
   };
 
@@ -124,11 +179,11 @@ function Profile() {
               Полное имя <br />
               <input
                 onChange={(e) => {
-                  onChange(e.target.value, setFullname);
+                  onChangeFullname(e.target.value, setFullname);
                 }}
                 value={fullname}
                 id="fio"
-                placeholder="ФИО"
+                placeholder="Имя Фамилия Отчество"
               />
             </label>
             <label>
@@ -158,62 +213,73 @@ function Profile() {
               <input
                 value={phone}
                 onChange={(e) => {
-                  onChange(e.target.value, setPhone);
+                  onChangePhone(e.target.value, setPhone);
                 }}
                 id="number"
-                type="number"
-                placeholder="8777*******"
+                type="text"
+                placeholder="+7 (777) 777-77-77"
               />
             </label>
-            <div className="work-time">
-              <label className="open-time">
-                Время открытия:
-                <div>
-                  <input
-                    value={openHour}
-                    onChange={(e) => {
-                      onChange(e.target.value, setOpenHour);
-                    }}
-                    id="hour"
-                    type="number"
-                    placeholder="12"
-                  />
-                  <span>:</span>
-                  <input
-                    value={openMinute}
-                    onChange={(e) => {
-                      onChange(e.target.value, setOpenMinute);
-                    }}
-                    id="minute"
-                    type="number"
-                    placeholder="00"
-                  />
+            <div className="time-inputs">
+              <div className="work-time">
+                <h3>Время работы</h3>
+                <div className="time-row">
+                  <label className="time-label">
+                    Открытие:
+                    <div className="time-input-group">
+                      <input
+                        value={openHour}
+                        onChange={(e) =>
+                          setOpenHour(validateHour(e.target.value))
+                        }
+                        placeholder="00"
+                        maxLength={2}
+                        type="text"
+                      />
+                      <span>:</span>
+                      <input
+                        value={openMinute}
+                        onChange={(e) =>
+                          setOpenMinute(validateMinute(e.target.value))
+                        }
+                        placeholder="00"
+                        maxLength={2}
+                        type="text"
+                      />
+                    </div>
+                  </label>
                 </div>
-              </label>
-              <label className="close-time">
-                Время желаемой доставки:
-                <div>
-                  <input
-                    value={closeHour}
-                    onChange={(e) => {
-                      onChange(e.target.value, setCloseHour);
-                    }}
-                    id="hour"
-                    type="number"
-                    placeholder="23"
-                  />
-                  <span>:</span>
-                  <input
-                    value={closeMinute}
-                    onChange={(e) => {
-                      onChange(e.target.value, setCloseMinute);
-                    }}
-                    id="minute"
-                    type="number"
-                    placeholder="00"
-                  />
+              </div>
+
+              <div className="delivery-time">
+                <h3>Желаемое время доставки</h3>
+                <div className="time-row">
+                  <label className="time-label">
+                    Время:
+                    <div className="time-input-group">
+                      <input
+                        value={deliveryHour}
+                        onChange={(e) =>
+                          setDeliveryHour(validateHour(e.target.value))
+                        }
+                        placeholder="00"
+                        maxLength={2}
+                        type="text"
+                      />
+                      <span>:</span>
+                      <input
+                        value={deliveryMinute}
+                        onChange={(e) =>
+                          setDeliveryMinute(validateMinute(e.target.value))
+                        }
+                        placeholder="00"
+                        maxLength={2}
+                        type="text"
+                      />
+                    </div>
+                  </label>
                 </div>
-              </label>
+              </div>
             </div>
           </form>
           <div className="after_profile-buttons">

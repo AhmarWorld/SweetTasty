@@ -1,16 +1,37 @@
 import "./OrdersItem.css";
 
-function OrdersItem({ order, address, orderNumber, cafeName, setReviewModalList, setOrderReview }) {
+function OrdersItem({
+  order,
+  address,
+  orderNumber,
+  cafeName,
+  setReviewModalList,
+  setOrderReview,
+  reviewList,
+}) {
+  const isProductReviewed = (productId) => {
+    return reviewList.some((review) => review.id === productId);
+  };
+
   return (
     <div className="orders-item">
       <div className="orders-item-header">
         <h3>{orderNumber}</h3>
-        <button onClick={() => {
-          setOrderReview(order)
-          setReviewModalList(true)
-        }
-        }>
-          Оставить отзыв
+        <button
+          className={`review-button ${
+            isProductReviewed(order.products[0].id) ? "disabled" : ""
+          }`}
+          onClick={() => {
+            if (!isProductReviewed(order.products[0].id)) {
+              setOrderReview(order);
+              setReviewModalList(true);
+            }
+          }}
+          disabled={isProductReviewed(order.products[0].id)}
+        >
+          {isProductReviewed(order.products[0].id)
+            ? "Отзыв оставлен"
+            : "Оставить отзыв"}
         </button>
       </div>
       <h5>{cafeName}</h5>
