@@ -21,7 +21,7 @@ function CatalogItem({
 }) {
   const router = useRouter();
 
-  const [clientToken,setClientToken] = useState('');
+  const [clientToken, setClientToken] = useState('');
   const [count, setCount] = useState(0);
   const [counterOn, setCounterOn] = useState(true);
   const [cartId, setCartId] = useState(null);
@@ -34,8 +34,8 @@ function CatalogItem({
     }
   }, [isAuth]);
 
-  const cartEdit = async(quantity)=>{
-    addBasket(setCartId, id, price, quantity, clientToken);
+  const cartEdit = async (quantity) => {
+    addBasket(id, price, quantity, clientToken, setCartId);
   }
 
   const deleteItem = async () => {
@@ -52,7 +52,7 @@ function CatalogItem({
     );
     const data = await request.json();
     if (!response.ok) {
-      alert("Авторизуйтесь на сайте");
+      // alert("Авторизуйтесь на сайте");
     }
   };
 
@@ -77,7 +77,7 @@ function CatalogItem({
       cartEdit(newCount)
     }
 
-    addBasket(id, price, newCount, clientToken, setIsAuth);
+    addBasket(id, price, quantity, clientToken, setCartId);
   };
 
   useEffect(() => {

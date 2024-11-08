@@ -1,10 +1,9 @@
 export async function addBasket(
-  setCartId,
   productId,
   price,
   quantity,
   clientToken,
-  setIsAuth,
+  setCartId,
 ) {
   const request = await fetch(
     process.env.NEXT_PUBLIC_SERVER_URL + "/carts/addItem",
@@ -24,8 +23,7 @@ export async function addBasket(
   );
   const response = await request.json();
   if (!response.success && response.message == "User not authorized") {
-    alert("Авторизуйтесь на сайте");
-    setIsAuth(false);
+    // alert("Авторизуйтесь на сайте");
   }
   setCartId(response.cartItemId);
   return request.ok;

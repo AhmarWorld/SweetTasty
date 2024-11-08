@@ -158,7 +158,7 @@ function Address() {
             </div>
           </label>
           <label className="close-time">
-            Время закрытия:
+            Время желаемой доставки:
             <div>
               <input
                 value={closeHour}

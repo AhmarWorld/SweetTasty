@@ -153,6 +153,12 @@
   flex-direction: column;
 }
 
+.pervios_profile-buttons p {
+  font-size: 17px;
+  line-height: normal;
+  text-decoration: underline;
+}
+
 .pervios_profile-buttons a {
   width: 100%;
 }

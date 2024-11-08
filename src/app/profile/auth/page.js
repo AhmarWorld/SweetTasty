@@ -4,7 +4,7 @@ import { useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import "./authentication.css";
 import { useRouter } from "next/navigation";
-
+import Link from "next/link";
 function Auth() {
   const router = useRouter();
 
@@ -72,7 +72,12 @@ function Auth() {
           />
         </label>
       </form>
-      <button onClick={authButton}>Войти</button>
+      <div className="authentication-buttons">
+        <button onClick={authButton}>Войти</button>
+        <Link className="authentication-registration" href="/profile">
+          <u>Зарегистрироваться</u>
+        </Link>
+      </div>
       <Footer />
     </div>
   );

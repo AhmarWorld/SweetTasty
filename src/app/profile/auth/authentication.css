@@ -66,3 +66,15 @@
 .authentication button a{
   color: #fff;
 }
+
+.authentication-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.authentication-registration {
+  text-decoration: underline;
+  color: #53c95a;
+}

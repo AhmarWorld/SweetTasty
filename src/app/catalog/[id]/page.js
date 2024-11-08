@@ -141,17 +141,6 @@ export default function CatalogItem({ params }) {
             </span>
           </a>
         </div>
-
-        <div className="item_main-discription">
-          <h3>Описание</h3>
-          <p>Срок годности: {product.expirationDate}</p>
-          <p>Температура хранения: {product.temperature}</p>
-          <h3>Состав</h3>
-          <p>{product.compound}</p>
-          <h3>Поставщик</h3>
-          <p>Realibi</p>
-        </div>
-
         {reviews.length > 0 && (
           <div id="reviews" className="product-reviews">
             <h3>Отзывы покупателей</h3>
@@ -177,6 +166,15 @@ export default function CatalogItem({ params }) {
             ))}
           </div>
         )}
+        <div className="item_main-discription">
+          <h3>Описание</h3>
+          <p>Срок годности: {product.expirationDate}</p>
+          <p>Температура хранения: {product.temperature}</p>
+          <h3>Состав</h3>
+          <p>{product.compound}</p>
+          <h3>Поставщик</h3>
+          <p>Realibi</p>
+        </div>
       </div>
       <div className="item-page_offer">
         {offerOn ? (
@@ -192,7 +190,7 @@ export default function CatalogItem({ params }) {
               <FaMinus
                 onClick={() => {
                   onClickMin();
-                  addBasket(setCartId,product.id, product.price, count - 1, clientToken);
+                  addBasket(product.id, product.price, count - 1, clientToken, setCartId);
                 }}
               />
             )}
@@ -202,7 +200,7 @@ export default function CatalogItem({ params }) {
             <FaPlus
               onClick={() => {
                 onClickPlus();
-                addBasket(setCartId, product.id, product.price, count + 1, clientToken);
+                addBasket(product.id, product.price, count + 1, clientToken, setCartId);
               }}
             />
           </>
@@ -210,7 +208,7 @@ export default function CatalogItem({ params }) {
           <p
             onClick={() => {
               setOfferOn(true);
-              addBasket(setCartId, product.id, product.price, 1, clientToken);
+              addBasket(product.id, product.price, 1, clientToken, setCartId);
             }}
             className="item-offer_price"
           >

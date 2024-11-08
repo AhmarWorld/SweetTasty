@@ -45,7 +45,7 @@ export default function Catalog() {
       <HotOffers/>
       <div className="catalog">
         {categories.map((subCat)=>(
-          <CatalogSection title={subCat.name} child={subCat.subCategories}/>
+          <CatalogSection title={subCat.name} subCat={subCat.subCategories}/>
         ))}
       </div>
 
