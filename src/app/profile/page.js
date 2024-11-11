@@ -149,8 +149,6 @@ function Profile() {
           заказов
         </p>
       </div>
-      {ifReg ? (
-        <>
           <form className="resitration-form">
             <label>
               Имя Пользователя <br />
@@ -288,17 +286,6 @@ function Profile() {
               Уже есть аккаунт? <u>Войти</u>
             </Link>
           </div>
-        </>
-      ) : (
-        <div className="pervios_profile-buttons">
-          <Link href="/profile/auth">
-            <button>Войти</button>
-          </Link>
-          <p onClick={() => setIfReg(true)}>
-            Нет аккаунта? <u>Регистрация</u>
-          </p>
-        </div>
-      )}
       <Footer />
     </div>
   );

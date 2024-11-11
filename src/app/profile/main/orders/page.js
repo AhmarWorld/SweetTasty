@@ -139,6 +139,7 @@ function Orders() {
         <ReviewModalList
           userId={user.id}
           orderReview={orderReview}
+          reviewList={reviewList}
           setReviewModalList={setReviewModalList}
         />
       )}

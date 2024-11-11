@@ -4,7 +4,7 @@ import "./ReviewModalList.css";
 import { useState, useEffect } from "react";
 import ReviewModal from "../ReviewModal/ReviewModal";
 
-function ReviewModalList({ setReviewModalList, orderReview }) {
+function ReviewModalList({ setReviewModalList, orderReview, reviewList }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [reviewModal, setReviewModal] = useState(false);
 
@@ -35,8 +35,8 @@ function ReviewModalList({ setReviewModalList, orderReview }) {
                             {orderReview.products.map((product) => (
                                 <li 
                                     key={product.productId}
-                                    onClick={() => handleProductSelect(product)}
-                                    className="review-modal-list_item"
+                                    onClick={() => {if(!reviewList?.orderItemIds?.includes(Number(product.id))) handleProductSelect(product)}}
+                                    className={`review-modal-list_item ${reviewList?.orderItemIds?.includes(Number(product.id)) ? "reviewed" : ''}`}
                                 >
                                     <span>{product.productName}</span>
                                 </li>

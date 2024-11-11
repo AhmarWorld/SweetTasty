@@ -37,7 +37,7 @@ function Main() {
           setIsProvider(false);
         }
       } else {
-        router.push("/profile/auth");
+        router.push("/profile/auth/redirect");
       }
       setUser(newData);
       setUsername(newData?.username);

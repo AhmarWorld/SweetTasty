@@ -10,7 +10,7 @@ function OrdersItem({
   reviewList,
 }) {
   const isProductReviewed = (productId) => {
-    return reviewList.some((review) => review.id === productId);
+    return reviewList?.includes(Number(productId));
   };
 
   return (
@@ -18,8 +18,11 @@ function OrdersItem({
       <div className="orders-item-header">
         <h3>{orderNumber}</h3>
         <button
+          // className={`review-button ${
+          //   isProductReviewed(order.products[0].id) ? "disabled" : ""
+          // }`}
           className={`review-button ${
-            isProductReviewed(order.products[0].id) ? "disabled" : ""
+            false ? "disabled" : ""
           }`}
           onClick={() => {
             if (!isProductReviewed(order.products[0].id)) {
