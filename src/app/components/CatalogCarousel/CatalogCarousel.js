@@ -38,6 +38,8 @@ function CatalogCarousel() {
             text={product.name}
             price={product.price}
             sell={product.oldPrice}
+            rating={product.rating}
+            reviewsCount={product.reviewsCount}
           />
       ))}
     </div>

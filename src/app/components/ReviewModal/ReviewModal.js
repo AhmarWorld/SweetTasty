@@ -1,15 +1,17 @@
 'use client'
 
 import "./ReviewModal.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function ReviewModal({ setReviewModal, orderReview, setReviewModalList }) {
+export default function ReviewModal({ setReviewModal, orderReview, setReviewModalList, getOrderList }) {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     const [comment, setComment] = useState('');
 
     const handleClose = () => {
         setReviewModal(false);
+        setReviewModalList(false);
+        getOrderList();
     };
 
     const handleSubmit = async () => {
@@ -35,6 +37,10 @@ export default function ReviewModal({ setReviewModal, orderReview, setReviewModa
             console.error('Ошибка при отправке отзыва:', error);
         }
     };
+
+    useEffect(() => {
+        getOrderList();
+    }, []);
 
     return (
         <div className="review-modal">

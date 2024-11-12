@@ -11,7 +11,7 @@ import ReviewModalList from "@/app/components/ReviewModalList/ReviewModalList";
 function Orders() {
   const clientToken = localStorage.getItem("token-SattyTatty");
   const [user, setUser] = useState(null);
-  const [orderList, setOrderList] = useState([]);
+  const [orderList, setOrderList] = useState({});
 
   const [orderReview, setOrderReview] = useState({});
   const [reviewModalList, setReviewModalList] = useState(false);
@@ -141,6 +141,7 @@ function Orders() {
           orderReview={orderReview}
           reviewList={reviewList}
           setReviewModalList={setReviewModalList}
+          getOrderList={getOrderList}
         />
       )}
     </div>

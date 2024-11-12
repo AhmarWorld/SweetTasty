@@ -6,11 +6,12 @@ export default function OrdersBunner() {
     <Link href={"/profile/main/orders"} className="orders-bunners">
       <div style={{ width: "10%" }}></div>
       <div className="bunner-title">
-        Оставьте отзыв
-        <br />
-        на ваши заказы
+        <p>Оставьте отзыв</p>
+        <p>на ваши заказы</p>
       </div>
-      <div className="button">Оставить</div>
+      <div className="orders-bunner_button">
+        <p>Оставить</p>
+      </div>
     </Link>
   );
 }

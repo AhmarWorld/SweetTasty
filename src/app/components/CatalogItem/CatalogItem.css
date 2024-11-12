@@ -128,3 +128,30 @@
 
     cursor: pointer;
 }
+
+.item-card_rating {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.star-filled {
+    color: #FFD700;
+}
+
+.star-empty {
+    color: #E0E0E0;
+}
+
+.reviews-count {
+    font-size: 12px;
+    color: #828282;
+}

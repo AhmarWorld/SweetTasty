@@ -69,3 +69,7 @@
   animation: backInDown;
   animation-duration: 1s;
 }
+
+.offer-address-title {
+  margin-bottom: 12px;
+}

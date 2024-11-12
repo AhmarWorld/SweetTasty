@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import "./CatalogItem.css";
 import { AiOutlinePlus } from "react-icons/ai";
-import { FaMinus } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa";
+import { FaMinus, FaPlus, FaStar } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { addBasket } from "../../lib/basket";
 import { useRouter } from "next/navigation";
@@ -18,6 +17,8 @@ function CatalogItem({
   units = "кг",
   sell,
   currency = " ₸",
+  rating,
+  reviewsCount
 }) {
   const router = useRouter();
 
@@ -97,15 +98,21 @@ function CatalogItem({
       <Link href={`/catalog/${id}`}>
         <div className="item-card_img">
           <img
-            // src={process.env.NEXT_PUBLIC_SERVER_URL + img}
             src="https://arbuz.kz/image/s3/arbuz-kz-products/302438-farsh_kazbeef_zeren_iz_govyadiny_70_30_ohl_1_kg_.png?w=720&h=720&_c=1727244986"
             alt=""
           />
         </div>
+        <div className="item-card_rating">
+            <div className="rating-stars">
+              {[...Array(5)].map((_, index) => (
+                <FaStar key={index} className={index < Math.round(rating) ? "star-filled" : "star-empty"} />
+              ))}
+            </div>
+            <span className="reviews-count">({reviewsCount})</span>
+          </div>
         <div className="item-card_title">
           <b>{text}</b>
-          <p className="currency"></p>
-          Поставщик Realibi
+          <p className="currency">Поставщик Realibi</p>
         </div>
         <div className="price">
           <span>{price} ₸</span>

@@ -4,7 +4,7 @@ import "./ReviewModalList.css";
 import { useState, useEffect } from "react";
 import ReviewModal from "../ReviewModal/ReviewModal";
 
-function ReviewModalList({ setReviewModalList, orderReview, reviewList }) {
+function ReviewModalList({ setReviewModalList, orderReview, getOrderList }) {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [reviewModal, setReviewModal] = useState(false);
 
@@ -14,14 +14,19 @@ function ReviewModalList({ setReviewModalList, orderReview, reviewList }) {
             products: [product]
         });
         setReviewModal(true);
+        getOrderList();
     };
+
+    useEffect(() => {
+        getOrderList()
+    }, []);
 
     return (
         <>
             {!reviewModal && (
                 <div className="review-modal-list">
                     <div className="review-modal-list_content">
-                        <button 
+                        <button
                             className="review-modal-list_close"
                             onClick={() => setReviewModalList(false)}
                         >
@@ -30,13 +35,13 @@ function ReviewModalList({ setReviewModalList, orderReview, reviewList }) {
                         <h3>Выберите товар для отзыва</h3>
                         <p className="review-modal-list_order-number">Заказ №{orderReview.orderNumber}</p>
                         <p className="review-modal-list_subtitle">Нажмите на продукт, чтобы оставить отзыв</p>
-                        
+
                         <ul className="review-modal-list_items">
                             {orderReview.products.map((product) => (
-                                <li 
-                                    key={product.productId}
-                                    onClick={() => {if(!reviewList?.orderItemIds?.includes(Number(product.id))) handleProductSelect(product)}}
-                                    className={`review-modal-list_item ${reviewList?.orderItemIds?.includes(Number(product.id)) ? "reviewed" : ''}`}
+                                <li
+                                    key={product.id}
+                                    onClick={() => { if (!product.reviewed) handleProductSelect(product) }}
+                                    className={`review-modal-list_item ${product.reviewed ? "reviewed" : ''}`}
                                 >
                                     <span>{product.productName}</span>
                                 </li>
@@ -48,17 +53,18 @@ function ReviewModalList({ setReviewModalList, orderReview, reviewList }) {
                             <p className="review-modal-list_cafe-address">{orderReview.branchAddress}</p>
                         </div>
                     </div>
-                    <div 
-                        className="review-modal-list_overlay" 
+                    <div
+                        className="review-modal-list_overlay"
                         onClick={() => setReviewModalList(false)}
                     />
                 </div>
             )}
             {reviewModal && selectedProduct && (
-                <ReviewModal 
-                    orderReview={selectedProduct} 
+                <ReviewModal
+                    orderReview={selectedProduct}
                     setReviewModal={setReviewModal}
                     setReviewModalList={setReviewModalList}
+                    getOrderList={getOrderList}
                 />
             )}
         </>

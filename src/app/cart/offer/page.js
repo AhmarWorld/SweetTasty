@@ -49,9 +49,7 @@ export default function Offer() {
     );
     if (response.ok) {
       setOfferState(true);
-      setTimeout(() => {
-        router.push("/cart/offer/result");
-      }, 3000);
+      
     } else {
       setOfferState(false);
     }
@@ -92,9 +90,9 @@ export default function Offer() {
         <></>
       )}
 
-      <h3>Спобос оплаты</h3>
+      <h3 className="offer-address-title">Спобос оплаты</h3>
       <p>Kaspi.kz</p>
-      <h3>Выберите адрес</h3>
+      <h3 className="offer-address-title">Выберите адрес</h3>
       <select
         className="offer-address"
         onChange={(e) => {

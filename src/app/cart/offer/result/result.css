@@ -8,3 +8,8 @@
 
     margin-top: 50px;
 }
+
+.offer-result_text a {
+    color: #53c95a;
+    text-decoration: underline;
+}
