@@ -40,7 +40,11 @@ export default function AddressListItem({address}) {
       </tr>
       <tr>
         <td>Время работы</td>
-        <td>{address.openTime} - {address.closeTime}</td>
+        <td>{address.openTime}</td>
+      </tr>
+      <tr>
+        <td>Время желаемой доставки</td>
+        <td>{address.closeTime}</td>
       </tr>
     </table>
   );

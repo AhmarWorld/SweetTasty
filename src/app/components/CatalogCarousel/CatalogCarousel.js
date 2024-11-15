@@ -30,6 +30,12 @@ function CatalogCarousel() {
 
   return (
     <div className="catalog-carousel">
+      <CatalogItem/>
+      <CatalogItem/>
+      <CatalogItem/>
+      <CatalogItem/>
+      <CatalogItem/>
+      <CatalogItem/>
       {products.map((product) => (
           <CatalogItem
             img={product.image}

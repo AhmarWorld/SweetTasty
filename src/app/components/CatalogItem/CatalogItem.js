@@ -96,23 +96,26 @@ function CatalogItem({
   return (
     <div className="item-card">
       <Link href={`/catalog/${id}`}>
-        <div className="item-card_img">
+        <div className="item-card_img" >
+          <span className="item-card_rating-text">{4.95}</span>
           <img
             src="https://arbuz.kz/image/s3/arbuz-kz-products/302438-farsh_kazbeef_zeren_iz_govyadiny_70_30_ohl_1_kg_.png?w=720&h=720&_c=1727244986"
             alt=""
           />
+          <span className="item-card_sell-text">-15%</span>
         </div>
         <div className="item-card_rating">
-            <div className="rating-stars">
-              {[...Array(5)].map((_, index) => (
-                <FaStar key={index} className={index < Math.round(rating) ? "star-filled" : "star-empty"} />
-              ))}
-            </div>
-            <span className="reviews-count">({reviewsCount})</span>
+          <div className="rating-stars">
+            {[...Array(5)].map((_, index) => (
+              <FaStar key={index} className={index < Math.round(rating) ? "star-filled" : "star-empty"} />
+            ))}
           </div>
+          <span className="reviews-count">({reviewsCount})</span>
+        </div>
         <div className="item-card_title">
           <b>{text}</b>
           <p className="currency">Поставщик Realibi</p>
+          <p>900+ продаж за неделю</p>
         </div>
         <div className="price">
           <span>{price} ₸</span>

@@ -92,7 +92,7 @@ export default function Accounting() {
         </ul>
       </div>
       <div className="accounting-main">
-        <div>
+        <div className="accounting-main_filter">
           <div className="stats-filter">
             <div className="stats-left">
               <h3>Выберите начало периода:</h3>
@@ -123,7 +123,7 @@ export default function Accounting() {
           <button onClick={getOrdersInfo} className="stats-filter_button">
             Показать
           </button>
-          <p style={{ color: "#828282", margin: "10px" }}>
+          <p style={{ color: "black", margin: "10px" }}>
             {nowShowDate} - {lateShowDate}
           </p>
         </div>
