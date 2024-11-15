@@ -16,39 +16,73 @@
     width: 100%;
     height: 40%;
     border-radius: 16px;
+    position: relative;
 }
 
-.item-card_img span {
-    position: relative;
-
-    z-index: 10;
-    padding: 0 6px;
-}
-
-.item-card img {
-    position: relative;
-    top: 20px;
+.item-card_img img {
     width: 100%;
-    border-radius: 16px !important;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.item-card_badges {
+    height: 98%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
 }
 
 .item-card_rating-text {
-    top: 10px;
-    right: 0;
-    border-radius: 50px 50px 0 50px;
-    color: rgb(15, 15, 19);
-    background: rgb(255, 212, 88);
     align-self: flex-end;
-    top: 40px;
-    left: calc(100% - 45.09px);
+    background: rgb(255, 212, 88);
+    color: rgb(15, 15, 19);
+    padding: 4px 8px;
+    border-radius: 50px 50px 0 50px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.item-card_friends-text{
+    background-color: #8f4cfd;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 0 50px 50px 50px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.item-card_badges-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    align-self: flex-start;
+}
+
+.item-card_new-text {
+    align-self: flex-start;
+    background-color: #53c95a;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 0 50px 50px 0;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .item-card_sell-text {
     background-color: rgb(79, 79, 79);
     color: #fff;
-    border-radius: 0 50px 50px 50px;
-    left: 0px;
-    top: -4px;
+    padding: 4px 8px;
+    border-radius: 0 50px 50px 0px;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .item-card .item-card_title {

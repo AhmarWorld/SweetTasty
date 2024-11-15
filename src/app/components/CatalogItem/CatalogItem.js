@@ -96,13 +96,21 @@ function CatalogItem({
   return (
     <div className="item-card">
       <Link href={`/catalog/${id}`}>
-        <div className="item-card_img" >
-          <span className="item-card_rating-text">{rating}</span>
+        <div className="item-card_img">
+          <div className="item-card_badges">
+            {/* <span className="item-card_rating-text">4.90</span> */}
+            {rating ? <span className="item-card_rating-text">{rating}</span> : <span></span>}
+            <div className="item-card_badges-col">
+
+              <span style={{borderRadius: true ? '0 50px 50px 0' : '0px 50px 50px 50px'}} className="item-card_new-text">New</span>
+              <span style={{borderRadius: true ? '0 50px 50px 0' : '0px 50px 50px 50px'}} className="item-card_sell-text">-15%</span>
+              <span className="item-card_friends-text">Для вас</span>
+            </div>
+          </div>
           <img
             src="https://arbuz.kz/image/s3/arbuz-kz-products/302438-farsh_kazbeef_zeren_iz_govyadiny_70_30_ohl_1_kg_.png?w=720&h=720&_c=1727244986"
             alt=""
           />
-          <span className="item-card_sell-text">-15%</span>
         </div>
         <div className="item-card_rating">
           <div className="rating-stars">
