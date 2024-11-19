@@ -12,14 +12,29 @@ function SearchInput({ inputValue, setInputValue, placeholder }) {
     setInputValue(value);
   };
 
-  useEffect(() => {
-    let timeout;
-    clearTimeout(timeout);
-    if (inputValue.trim()) {
-      timeout = setTimeout(() => {
-        router.push(`/catalog/search?name=${inputValue}`);
-      }, 2000);
+  //   useEffect(() => {
+  //     let timeout;
+  //     clearTimeout(timeout);
+  //     if (inputValue.trim()) {
+  //       e.preventDefault();
+  //       if (e.key === "Enter") {
+  //         router.push(`/catalog/search?name=${inputValue}`);
+  //       }
+  //     }
+  //   }, [inputValue]);
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && inputValue.trim()) {
+      e.preventDefault();
+      router.push(`/catalog/search?name=${inputValue}`);
     }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keypress", handleKeyPress);
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
   }, [inputValue]);
 
   return (
