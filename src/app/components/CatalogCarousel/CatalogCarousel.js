@@ -4,48 +4,42 @@ import { useState, useEffect } from "react";
 import CatalogItem from "../CatalogItem/CatalogItem";
 import "./CatalogCarousel.css";
 
-function CatalogCarousel() {
+function CatalogCarousel({badgeId}) {
   const [products, setProducts] = useState([]);
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken,setClientToken] = useState('')
 
-  const loadProducts = async (token) => {
+  const loadProducts = async () => {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/products",
+      process.env.NEXT_PUBLIC_SERVER_URL + "/badges/" + badgeId,
       {
         headers: {
           "ngrok-skip-browser-warning": "any",
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + clientToken,
         },
         method: "GET",
       }
     );
     const data = await response.json();
-    setProducts(data);
+    setProducts(data.products);
   };
 
   useEffect(()=>{
-    loadProducts(clientToken)
+    if(typeof window !== 'undefined'){
+      let token = localStorage.getItem("token-SattyTatty")
+      setClientToken(token)
+    }
+  },[window])
+
+  useEffect(()=>{
+      loadProducts(clientToken)
   },[])
 
 
   return (
     <div className="catalog-carousel">
-      <CatalogItem/>
-      <CatalogItem/>
-      <CatalogItem/>
-      <CatalogItem/>
-      <CatalogItem/>
-      <CatalogItem/>
-      {products.map((product) => (
+      {products?.map((product) => (
           <CatalogItem
-            img={product.image}
-            key={product.id}
-            id={product.id}
-            text={product.name}
-            price={product.price}
-            sell={product.oldPrice}
-            rating={product.rating}
-            reviewsCount={product.reviewsCount}
+            product={product}
           />
       ))}
     </div>

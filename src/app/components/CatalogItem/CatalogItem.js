@@ -9,17 +9,7 @@ import { addBasket } from "../../lib/basket";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-function CatalogItem({
-  id,
-  img,
-  text,
-  price,
-  units = "кг",
-  sell,
-  currency = " ₸",
-  rating,
-  reviewsCount
-}) {
+function CatalogItem({ product }) {
   const router = useRouter();
 
   const [clientToken, setClientToken] = useState('');
@@ -36,7 +26,7 @@ function CatalogItem({
   }, [isAuth]);
 
   const cartEdit = async (quantity) => {
-    addBasket(id, price, quantity, clientToken, setCartId);
+    addBasket(product.id, product.price, quantity, clientToken, setCartId);
   }
 
   const deleteItem = async () => {
@@ -78,7 +68,7 @@ function CatalogItem({
       cartEdit(newCount)
     }
 
-    addBasket(id, price, quantity, clientToken, setCartId);
+    addBasket(product.id, product.price, quantity, clientToken, setCartId);
   };
 
   useEffect(() => {
@@ -95,39 +85,37 @@ function CatalogItem({
 
   return (
     <div className="item-card">
-      <Link href={`/catalog/${id}`}>
+      <Link className="item-card_link" href={`/catalog/${product.id}`}>
         <div className="item-card_img">
           <div className="item-card_badges">
-            {/* <span className="item-card_rating-text">4.90</span> */}
-            {rating ? <span className="item-card_rating-text">{rating}</span> : <span></span>}
+            {product.rating ? <span className="item-card_rating-text">{product.rating}</span> : <span></span>}
             <div className="item-card_badges-col">
-
-              <span style={{borderRadius: true ? '0 50px 50px 0' : '0px 50px 50px 50px'}} className="item-card_new-text">New</span>
-              <span style={{borderRadius: true ? '0 50px 50px 0' : '0px 50px 50px 50px'}} className="item-card_sell-text">-15%</span>
+              {product.isNew && <span style={{borderRadius: '0 50px 50px 0'}} className="item-card_new-text">New</span>}
+              {product.oldPrice && <span style={{borderRadius: '0 50px 50px 0'}} className="item-card_sell-text">-15%</span>}
               <span className="item-card_friends-text">Для вас</span>
             </div>
           </div>
           <img
             src="https://arbuz.kz/image/s3/arbuz-kz-products/302438-farsh_kazbeef_zeren_iz_govyadiny_70_30_ohl_1_kg_.png?w=720&h=720&_c=1727244986"
-            alt=""
+            alt={product.name}
           />
         </div>
         <div className="item-card_rating">
           <div className="rating-stars">
             {[...Array(5)].map((_, index) => (
-              <FaStar key={index} className={index < Math.round(rating) ? "star-filled" : "star-empty"} />
+              <FaStar key={index} className={index < Math.round(product.rating) ? "star-filled" : "star-empty"} />
             ))}
           </div>
-          <span className="reviews-count">({reviewsCount})</span>
+          <span className="reviews-count">({product.reviewsCount})</span>
         </div>
         <div className="item-card_title">
-          <b>{text}</b>
+          <b>{product.name}</b>
           <p className="currency">Поставщик Realibi</p>
           <p>900+ продаж за неделю</p>
         </div>
         <div className="price">
-          <span>{price} ₸</span>
-          {sell ? <span className="price-sell">{sell} ₸</span> : <></>}
+          <span>{product.price} ₸</span>
+          {product.oldPrice && <span className="price-sell">{product.oldPrice} ₸</span>}
         </div>
       </Link>
       {counterOn ? (

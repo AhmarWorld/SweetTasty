@@ -83,8 +83,8 @@ export default function Subcategories({ params }) {
         body: JSON.stringify({
           minPrice: lowPrice,
           maxPrice: highPrice,
-          providerIds: selectProvider ? [+selectProvider] : undefined,
-          subCategoryIds: subCategory ? [+subCategory] : undefined,
+          ...(selectProvider && { providerIds: [+selectProvider] }),
+          ...(subCategory && { subCategoryIds: [+subCategory] }),
           sortingMethod: sortingMethod,
         }),
       }

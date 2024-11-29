@@ -2,10 +2,12 @@
     width: 100%;
 
     display: flex;
-    align-items: center;
+    
     gap: 10px;
 
     overflow-x: scroll;   
+
+    margin-top: 12px;
 }
 
 .catalog-carousel::-webkit-scrollbar { 

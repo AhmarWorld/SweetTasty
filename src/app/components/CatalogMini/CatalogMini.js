@@ -1,11 +1,11 @@
 import CatalogCarousel from '../CatalogCarousel/CatalogCarousel'
 import './CatalogMini.css'
 
-function CatalogMini({ text }) {
+function CatalogMini({ badge }) {
     return (
         <div className='catalog-mini'>
-            <h3>{text}</h3>
-            <CatalogCarousel />
+            <h3>{badge.name}</h3>
+            <CatalogCarousel badgeId={badge.id} />
         </div>
     )
 }
