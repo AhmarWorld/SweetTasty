@@ -214,9 +214,7 @@ export default function Subcategories({ params }) {
             {productList.map((product) => (
               <div key={product.id} className="subcat-item">
                 <CatalogItem
-                  id={product.id}
-                  text={product.name}
-                  price={product.price}
+                  product={product}
                 />
               </div>
             ))}

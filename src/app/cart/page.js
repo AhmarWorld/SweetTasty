@@ -97,7 +97,6 @@ function Cart() {
           <p>В ваша корзина пуста...</p>
         )}
       </div>
-      <CatalogMini text={"Рекомендуемые товары"} />
       <Link href={"/cart/offer"} className="cart-offer">
         <p>Перейти к оформлению</p>
         <p>{totalSum} ₸</p>
