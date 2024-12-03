@@ -5,7 +5,7 @@ export default function HotOffers() {
   return (
     <div className="hotoffers">
       <div className="hotoffers-main">
-        <Link href={'/catalog'} className="hotoffers-img">
+        <Link href={'/catalog/search?sales=sales'} className="hotoffers-img">
           <img src="/static/discounts.svg" />
           <p>Скидки</p>
         </Link>

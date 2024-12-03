@@ -5,6 +5,7 @@ import "./offer.css";
 import { useEffect, useState } from "react";
 import "animate.css";
 import { useRouter } from "next/navigation";
+import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 
 export default function Offer() {
   const router = useRouter();
@@ -73,6 +74,7 @@ export default function Offer() {
 
   return (
     <div className="offer-page">
+      <OrdersBunner/>
       <h2>Оформить заказ</h2>
       {offerAttention ? (
         <div className="offer-attention">
@@ -104,7 +106,7 @@ export default function Offer() {
         <option value={null}>Выберите адрес</option>
         {address.map((el) => (
           <option key={el.id} value={el.id}>
-            {el.name}
+            {el.name} - {el.address}
           </option>
         ))}
       </select>

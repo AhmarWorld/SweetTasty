@@ -15,6 +15,7 @@ import { useSearchParams } from "next/navigation";
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const search = searchParams.get("name");
+  const sales = searchParams.get("sales");
 
   const [filterActive, setFilterActive] = useState(false);
 

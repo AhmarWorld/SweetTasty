@@ -67,6 +67,16 @@
   gap: 5px;
 }
 
+.open-time {
+  display: flex;
+  flex-direction: column;
+}
+
+.close-time {
+  display: flex;
+  flex-direction: column;
+}
+
 .open-time div {
   width: 66%;
   display: flex;

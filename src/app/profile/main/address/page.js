@@ -4,11 +4,14 @@ import Footer from "@/app/components/Footer/Footer";
 import "./address.css";
 import AddressListItem from "@/app/components/AddressListItem/AddressListItem";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Address() {
   const [clientToken, setClientToken] = useState("");
   const [user, setUser] = useState({});
   const [addressList,setAddressList] = useState([])
+
+  const router = useRouter()
   
   const [openHour, setOpenHour] = useState();
   const [openMinute, setOpenMinute] = useState();
@@ -40,9 +43,8 @@ function Address() {
         closeTime: closeTime,
       }),
     });
-    const data = await response.json();
     if (response.ok) {
-      alert("Авторизуйтесь на сайте");
+      router.refresh()
     }
   };
 

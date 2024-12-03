@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./AccountingSection.css";
 import { RiArrowUpWideFill } from "react-icons/ri";
 
-export default function AccountingSection() {
+export default function AccountingSection({ orderInfo }) {
   const [moreInfoOn, setMoreInfoOn] = useState(false);
   return (
     <div className="accounting-section">
@@ -29,19 +29,19 @@ export default function AccountingSection() {
               <b>1</b>
             </td>
             <td>Основной заказ</td>
-            <td>34 240,00</td>
+            <td>{orderInfo.totalPrice}</td>
           </tr>
           <tr>
             <td>
               <b>2</b>
             </td>
-            <td>Не довезли</td>
-            <td>0</td>
+            <td>Доставка</td>
+            <td>{orderInfo.deliveryPrice}</td>
           </tr>
           <tr>
             <td></td>
             <td>Итого за день</td>
-            <td>34 240,00 </td>
+            <td>{orderInfo.totalPrice}</td>
           </tr>
         </table>
       </div>
@@ -51,7 +51,7 @@ export default function AccountingSection() {
           style={{
             borderRadius: moreInfoOn ? "0px 0px 0px 0px" : "0px 0px 8px 8px",
           }}
-          onClick={()=>{setMoreInfoOn(!moreInfoOn)}} 
+          onClick={() => { setMoreInfoOn(!moreInfoOn) }}
         >
           <h2>Детальная информация</h2>
           <RiArrowUpWideFill
@@ -79,12 +79,14 @@ export default function AccountingSection() {
               <b>Сумма</b>
             </td>
           </tr>
-          <tr>
-            <td>Брауни шоколадный</td>
-            <td>770,00</td>
-            <td>12</td>
-            <td>9 240,00</td>
-          </tr>
+          {orderInfo.items.map((item) => (
+            <tr>
+              <td>{item.productName}</td>
+              <td>{item.price}</td>
+              <td>{item.quantity}</td>
+              <td>{+item.price * +item.quantity}</td>
+            </tr>
+          ))}
         </table>
       </div>
     </div>

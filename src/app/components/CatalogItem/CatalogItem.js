@@ -88,7 +88,7 @@ function CatalogItem({ product }) {
       <Link className="item-card_link" href={`/catalog/${product.id}`}>
         <div className="item-card_img">
           <div className="item-card_badges">
-            {product.rating ? <span className="item-card_rating-text">{product.rating}</span> : <span></span>}
+            {product.rating ? <span className="item-card_rating-text">{product.rating.toFixed(1)}</span> : <span></span>}
             <div className="item-card_badges-col">
               {product.isNew && <span style={{borderRadius: '0 50px 50px 0'}} className="item-card_new-text">New</span>}
               {product.oldPrice && <span style={{borderRadius: '0 50px 50px 0'}} className="item-card_sell-text">-15%</span>}
@@ -111,7 +111,7 @@ function CatalogItem({ product }) {
         <div className="item-card_title">
           <b>{product.name}</b>
           <p className="currency">Поставщик Realibi</p>
-          <p>900+ продаж за неделю</p>
+          <p>{product.salesCount} продаж за неделю</p>
         </div>
         <div className="price">
           <span>{product.price} ₸</span>

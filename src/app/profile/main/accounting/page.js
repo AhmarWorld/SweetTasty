@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 
 export default function Accounting() {
-  const [ordersInfo, setOrdersInfo] = useState({});
+  const [ordersInfo, setOrdersInfo] = useState([]);
   const [clientToken, setClientToken] = useState("");
   const [branchId, setBranchId] = useState(null);
   const [addressList, setAddressList] = useState([]);
@@ -65,6 +65,10 @@ export default function Accounting() {
     }
   }, [window]);
 
+  useEffect(()=>{
+    getAddress();
+  },[clientToken])
+
   useEffect(() => {
     const lateDate = moment().format("yyyy/MM/DD");
     const nowDate = moment().subtract(1, "days").format("yyyy/MM/DD");
@@ -73,7 +77,6 @@ export default function Accounting() {
     let lateData = lateDate.split("/").join("-");
     setFirstDate(nowData);
     setSecondDate(lateData);
-    getAddress();
   }, []);
 
   return (
@@ -127,7 +130,9 @@ export default function Accounting() {
             {nowShowDate} - {lateShowDate}
           </p>
         </div>
-        <AccountingSection />
+        {ordersInfo.map((orderInfo)=>(
+        <AccountingSection orderInfo={orderInfo} />
+        ))}
       </div>
       <Footer />
     </div>

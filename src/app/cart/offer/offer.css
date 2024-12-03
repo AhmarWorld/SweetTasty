@@ -1,7 +1,7 @@
 .offer-page {
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 0px 15px 15px 15px;
 }
 
 .offer-page h2 {
