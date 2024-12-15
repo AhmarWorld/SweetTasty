@@ -11,7 +11,7 @@ function Address() {
   const [user, setUser] = useState({});
   const [addressList,setAddressList] = useState([])
 
-  const router = useRouter()
+  const router = useRouter();
   
   const [openHour, setOpenHour] = useState();
   const [openMinute, setOpenMinute] = useState();
@@ -43,9 +43,7 @@ function Address() {
         closeTime: closeTime,
       }),
     });
-    if (response.ok) {
-      router.refresh()
-    }
+    window.location.reload();
   };
 
   const getAddress = async ()=>{
@@ -82,8 +80,8 @@ function Address() {
     setClientToken(token);
     setUser(userLocal);
 
-    getAddress()
-  }, []);
+    if (clientToken) getAddress()
+  }, [clientToken]);
 
   return (
     <div className="address">
@@ -189,7 +187,7 @@ function Address() {
       </form>
       <div className="address-list">
         <p>Ваши адреса</p>
-        {addressList.map((address)=>(
+        {addressList && addressList.map((address)=>(
           <AddressListItem key={address.id} address={address}/>
         ))}
       </div>

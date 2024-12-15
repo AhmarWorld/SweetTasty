@@ -85,7 +85,7 @@ function CatalogItem({ product }) {
 
   return (
     <div className="item-card">
-      <Link className="item-card_link" href={`/catalog/${product.id}`}>
+      <Link className="item-card_link" href={`/catalog/${product?.id}`}>
         <div className="item-card_img">
           <div className="item-card_badges">
             {product.rating ? <span className="item-card_rating-text">{product.rating.toFixed(1)}</span> : <span></span>}
@@ -109,9 +109,9 @@ function CatalogItem({ product }) {
           <span className="reviews-count">({product.reviewsCount})</span>
         </div>
         <div className="item-card_title">
-          <b>{product.name}</b>
-          <p className="currency">Поставщик Realibi</p>
-          <p>{product.salesCount} продаж за неделю</p>
+          <b style={{ display: 'block', height: 40, alignContent: 'center' }}>{product.name}</b>
+          <p className="currency">Поставщик {product.providerName}</p>
+          <p>{product.salesCount} продаж</p>
         </div>
         <div className="price">
           <span>{product.price} ₸</span>

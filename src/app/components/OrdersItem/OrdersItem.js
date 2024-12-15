@@ -15,8 +15,8 @@ function OrdersItem({
       <div className="orders-item-header">
         <h3>{orderNumber}</h3>
         <button
-          className={`review-button ${order.reviewed ? "disabled" : ""
-            }`}
+          className={`review-button ${order.reviewed ? "disabled" : ""}`}
+          style={{ backgroundColor: "coral" }}
           onClick={() => {
             if (!order.reviewed) {
               setOrderReview(order);

@@ -75,7 +75,8 @@ export default function Offer() {
   return (
     <div className="offer-page">
       <OrdersBunner/>
-      <h2>Оформить заказ</h2>
+      <h2 style={{ marginTop: 20 }}>Оформить заказ</h2>
+      <hr /> <br />
       {offerAttention ? (
         <div className="offer-attention">
           {offerState ? (

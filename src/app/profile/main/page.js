@@ -70,6 +70,10 @@ function Main() {
               href={"/profile/main/accounting"}
               text={"Бухгалтерия"}
             />
+            <ProfileNavItem
+                href={"/profile/main/address"}
+                text={"Мои точки"}
+            />
           </ul>
         </div>
         <img src="https://avatar.iran.liara.run/public/35" alt=":/" />

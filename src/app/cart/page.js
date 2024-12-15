@@ -9,6 +9,7 @@ import { getCart } from "../lib/basket";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 
 function Cart() {
   const clientToken = localStorage.getItem("token-SattyTatty");
@@ -19,6 +20,27 @@ function Cart() {
   const [isAuth, setIsAuth] = useState(true);
 
   const [totalSum, setTotalSum] = useState(Number());
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [orderAllowed, setOrderAllowed] = useState(false);
+
+  useEffect(() => {
+    async function loadRecommendedProducts() {
+      const request = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/badges/search?name=для корзины",
+          {
+            method: "GET",
+            headers: {
+              "ngrok-skip-browser-warning": "any",
+            }
+          }
+      );
+
+      const response = await request.json();
+      setRecommendedProducts(response)
+    }
+
+    loadRecommendedProducts();
+  }, []);
 
   async function deleteCart() {
     const request = await fetch(
@@ -66,12 +88,14 @@ function Cart() {
       setCartList(data.items);
       setCartId(data.cartId);
     }
+    setOrderAllowed(data.orderAllowed);
   }, []);
 
   return (
     <div className="cart">
+      <OrdersBunner/>
       <ProfileGeo />
-      <div className="cart-main">
+      <div style={{ marginTop: 20 }} className="cart-main">
         <p className="cart-main_title">
           <h2>
             Корзина: <b>{cartList.length ? cartList.length : 0}</b>
@@ -97,10 +121,21 @@ function Cart() {
           <p>В ваша корзина пуста...</p>
         )}
       </div>
-      <Link href={"/cart/offer"} className="cart-offer">
-        <p>Перейти к оформлению</p>
-        <p>{totalSum} ₸</p>
-      </Link>
+      {
+        cartList.length ? (
+            orderAllowed ? (
+                <Link href={"/cart/offer"} className="cart-offer">
+                  <p>Перейти к оформлению</p>
+                  <p>{totalSum} ₸</p>
+                </Link>
+            ) : (
+                <div className="cart-offer" style={{ backgroundColor: "coral" }}>
+                  <p>В данный момент <br /> прием заказов закрыт!</p>
+                </div>
+            )
+        ) : null
+      }
+      {recommendedProducts.length && (<CatalogMini productsList={recommendedProducts} headingText={"Рекомендованные товары"} />)}
       <Footer />
     </div>
   );

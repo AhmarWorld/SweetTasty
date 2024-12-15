@@ -10,7 +10,6 @@ function Search({placeholder}) {
 
     return (
         <div className='search'>
-
             <SearchInput
                 inputValue={inputValue}
                 setInputValue={setInputValue}

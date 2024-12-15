@@ -3,12 +3,17 @@
 import { useState } from "react";
 import "./AccountingSection.css";
 import { RiArrowUpWideFill } from "react-icons/ri";
+import moment from "moment";
 
 export default function AccountingSection({ orderInfo }) {
   const [moreInfoOn, setMoreInfoOn] = useState(false);
   return (
     <div className="accounting-section">
       <div className="accountion-top">
+        <span style={{ fontWeight: 700 }}>
+          Заказ на {moment(orderInfo.createdAt).add('1 d').format("DD/MM/YYYY")}
+        </span>
+        <br/>
         <div className="acc-top_head">
           <h2>Общая информация</h2>
         </div>
@@ -28,7 +33,7 @@ export default function AccountingSection({ orderInfo }) {
             <td>
               <b>1</b>
             </td>
-            <td>Основной заказ</td>
+            <td>{orderInfo.status === "main" ? "Основной заказ" : "Доп заказ"}</td>
             <td>{orderInfo.totalPrice}</td>
           </tr>
           <tr>
@@ -81,7 +86,7 @@ export default function AccountingSection({ orderInfo }) {
           </tr>
           {orderInfo.items.map((item) => (
             <tr>
-              <td>{item.productName}</td>
+              <td>{item.productName} ({orderInfo.status === "main" ? "Основной заказ" : "Доп заказ"})</td>
               <td>{item.price}</td>
               <td>{item.quantity}</td>
               <td>{+item.price * +item.quantity}</td>

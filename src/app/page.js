@@ -43,11 +43,11 @@ export default function Home({ children }) {
       <Carousel />
       <Search placeholder={"Искать в SweetTasty"} />
       <HotOffers />
-      <div className="main-catalog">
-        {badgesList.map((badge)=>(
+      <div style={{ paddingTop: 20 }} className="main-catalog">
+        {badgesList.filter(badge => badge.showOnMainPage).map((badge)=>(
           <CatalogMini badge={badge} />
         ))}
-        <DailyItem />
+        {/*<DailyItem />*/}
         <Footer />
       </div>
       {children}

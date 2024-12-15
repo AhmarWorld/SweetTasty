@@ -7,8 +7,11 @@ import OrdersItem from "@/app/components/OrdersItem/OrdersItem";
 import ProfileGeo from "@/app/components/ProfileGeo/ProfileGeo";
 import Button from "@/app/components/Button/Button";
 import ReviewModalList from "@/app/components/ReviewModalList/ReviewModalList";
+import axios from "axios";
+import {useRouter} from "next/navigation";
 
 function Orders() {
+  const router = useRouter();
   const clientToken = localStorage.getItem("token-SattyTatty");
   const [user, setUser] = useState(null);
   const [orderList, setOrderList] = useState({});
@@ -75,6 +78,44 @@ function Orders() {
   useEffect(() => {
     getOrderList();
   }, []);
+
+  const repeatOrder = async (orderId) => {
+    const response = await axios.post(
+        process.env.NEXT_PUBLIC_SERVER_URL + "/orders/repeat",
+        { orderId },
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+            Authorization: "Bearer " + clientToken,
+            "Content-type": "application/json",
+          }
+        }
+    );
+
+    const data = response.data;
+    if (data.success) {
+      if (data.priceRaisedProducts.length) {
+        let message = `На некоторые товары поднялись цены:\n`;
+        for (let product of data.priceRaisedProducts) {
+          message += `${product.name} ${product.oldPrice} тг -> ${product.price} тг\n`;
+        }
+        alert(message);
+      }
+      if (data.unavailableProducts.length) {
+        let message = `Некоторые товары недоступны на текущий момент:\n`;
+        for (let product of data.unavailableProducts) {
+          message += `${product.name}.\n`;
+        }
+        message += `Но мы добавили в вашу корзину то, что есть:)`;
+        alert(message);
+      }
+
+      await router.push("/cart");
+    } else {
+      alert("Что-то пошло нетак!");
+    }
+  }
+
   return (
     <div className="profile-orders">
       <ProfileGeo />
@@ -92,6 +133,7 @@ function Orders() {
       </div>
       <div className="profile-orders_main">
         <h2>Мои заказы</h2>
+        <br/>
         {orderList.length ? (
           <>
             {orderList.map((order) => (
@@ -108,11 +150,21 @@ function Orders() {
                       reviewList={reviewList.orderItemIds}
                     />
                   </li>
-                  <li className="orders_main-total">
+                  <li className="orders_main-total" style={{ marginTop: 20 }}>
                     <p>Итого</p>
-                    <div>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                    }}>
                       <span>{order.totalPrice} ₸</span>
-                      <Button text={"Повторить"} />
+                      <Button
+                          text={"Повторить"}
+                          style={{
+                            padding: "8px 10px"
+                          }}
+                          onClick={() => repeatOrder(order.id)}
+                      />
                     </div>
                   </li>
                 </ul>

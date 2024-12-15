@@ -131,7 +131,7 @@ export default function Accounting() {
           </p>
         </div>
         {ordersInfo.map((orderInfo)=>(
-        <AccountingSection orderInfo={orderInfo} />
+          <AccountingSection orderInfo={orderInfo} />
         ))}
       </div>
       <Footer />

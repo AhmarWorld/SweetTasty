@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import CatalogItem from "../CatalogItem/CatalogItem";
 import "./CatalogCarousel.css";
 
-function CatalogCarousel({badgeId}) {
-  const [products, setProducts] = useState([]);
+function CatalogCarousel({badgeId, productsList}) {
+  const [products, setProducts] = useState(productsList || []);
   const [clientToken,setClientToken] = useState('')
 
   const loadProducts = async () => {
@@ -31,7 +31,9 @@ function CatalogCarousel({badgeId}) {
   },[window])
 
   useEffect(()=>{
+    if (badgeId) {
       loadProducts(clientToken)
+    }
   },[])
 
 

@@ -26,6 +26,12 @@ export default function Subcategories({ params }) {
   const clientToken = localStorage.getItem("token-SattyTatty");
   const [productList, setProductList] = useState([]);
 
+  useEffect(() => {
+    setSelectProvider(undefined);
+    setSubCategory(undefined);
+
+  }, [filterActive]);
+
   const getFilterData = async () => {
     const request = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/products/filterData",
@@ -94,6 +100,9 @@ export default function Subcategories({ params }) {
       alert("Ошибка попробуйте позже");
     } else if (request.ok) {
       setProductList(response);
+      setFilterActive(false);
+      setSubCategory(undefined);
+      setSelectProvider(undefined);
     }
   }
 
@@ -162,7 +171,7 @@ export default function Subcategories({ params }) {
                 }}
               >
                 <option value={undefined}>Выберите категорию</option>
-                {categoriesList.map((cat) => (
+                {categoriesList?.map((cat) => (
                   <option key={cat.id} value={cat.id}>
                     {cat.name}
                   </option>

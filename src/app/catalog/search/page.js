@@ -19,6 +19,7 @@ export default function SearchPage() {
 
   const [filterActive, setFilterActive] = useState(false);
 
+  const [searchText, setSearchText] = useState(search);
   const [lowPrice, setLowPrice] = useState(0);
   const [highPrice, setHighPrice] = useState(10000);
   const [providers, setProviders] = useState([]);
@@ -54,38 +55,60 @@ export default function SearchPage() {
     }
   };
 
-  async function getFilter() {
-    const request = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/products/filter",
-      {
-        method: "POST",
-        headers: {
-          "ngrok-skip-browser-warning": "any",
-          Authorization: "Bearer " + clientToken,
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          name: search,
-          minPrice: lowPrice,
-          maxPrice: highPrice,
-          ...(selectProvider && { providerIds: [+selectProvider] }),
-          ...(subCategory && { subCategoryIds: [+subCategory] }),
-          sortingMethod: sortingMethod,
-        }),
-      }
-    );
+  async function getFilter(searchingText) {
+    let request = null;
+
+    if (sales) {
+      request = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/badges/search?name=скидки",
+          {
+            method: "GET",
+            headers: {
+              "ngrok-skip-browser-warning": "any",
+            }
+          }
+      );
+    } else {
+      request = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/products/filter",
+          {
+            method: "POST",
+            headers: {
+              "ngrok-skip-browser-warning": "any",
+              Authorization: "Bearer " + clientToken,
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+              name: search,
+              minPrice: lowPrice,
+              maxPrice: highPrice,
+              ...(selectProvider && { providerIds: [+selectProvider] }),
+              ...(subCategory && { subCategoryIds: [+subCategory] }),
+              sortingMethod: sortingMethod,
+            }),
+          }
+      )
+    }
+
     const response = await request.json();
     if (!request.ok) {
-      alert("Ошибка попробуйте позже");
+      alert("Ошибка, попробуйте позже");
     } else if (request.ok) {
       setProductList(response);
+      console.log("response", response);
+      setFilterActive(false);
+      setSelectProvider(undefined);
+      setSubCategory(undefined);
+      setSearchText(undefined);
     }
   }
 
   useEffect(() => {
+    setSearchText(search);
     getFilter();
-    setProviders(undefined);
+    setSelectProvider(undefined);
     setCategoriesList(undefined);
+    getFilterData();
   }, [search]);
 
   useEffect(() => {
@@ -153,7 +176,7 @@ export default function SearchPage() {
                 }}
               >
                 <option value={undefined}>Выберите категорию</option>
-                {categoriesList.map((cat) => (
+                {categoriesList?.map((cat) => (
                   <option key={cat.id} value={cat.id}>
                     {cat.name}
                   </option>
@@ -197,22 +220,26 @@ export default function SearchPage() {
         </div>
       ) : (
         <>
-          <OrdersBunner />
+          {/*<OrdersBunner />*/}
           <HotOffers />
           <Search placeholder="Искать в SweetTasty" />
           <Filter active={filterActive} setActive={setFilterActive} />
-          <div className="subcat-list">
+
+          {sales && <h3 style={{ marginTop: 20 }}>Скидочные товары</h3>}
+
+          <div style={{ marginTop: 20 }} className="subcat-list">
             {productList.map((product) => (
               <div key={product.id} className="subcat-item">
                 <CatalogItem
                   id={product.id}
                   text={product.name}
                   price={product.price}
+                  product={product}
                 />
               </div>
             ))}
           </div>
-          <Footer />
+          {/*<Footer />*/}
         </>
       )}
     </div>
