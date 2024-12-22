@@ -56,7 +56,7 @@ function Orders() {
     );
     const data = await response.json();
     if (response.ok) {
-      setOrderList(data);
+      setOrderList(data.reverse());
     } else if (!response.ok) {
       console.log("Авторизуйтесь на сайте");
     }

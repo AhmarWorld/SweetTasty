@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import CatalogSection from "../components/CatalogSection/CatalogSection";
 import Footer from "../components/Footer/Footer";
 import Search from "../components/Search/Search";
@@ -9,6 +9,7 @@ import HotOffers from "../components/HotOffers/HotOffers";
 import OrdersBunner from "../components/OrdersBunner/OrdersBunner";
 
 export default function Catalog() {
+    const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
   const clientToken = localStorage.getItem("token-SattyTatty");
@@ -38,18 +39,28 @@ export default function Catalog() {
     getCat()
   },[])
 
-  return (
-    <div className="main-catalog_page">
-      <OrdersBunner/>
-      <Search placeholder="Искать в SweetTasty" />
-      <HotOffers/>
-      <div className="catalog">
-        {categories.map((subCat)=>(
-          <CatalogSection title={subCat.name} subCat={subCat.subCategories}/>
-        ))}
-      </div>
+    useEffect(()=>{
+        setTimeout(() => setLoading(false), 1000);
+    },[])
 
-      <Footer />
-    </div>
-  );
+  return loading ?
+    (
+        <div className={"loaderContainer"}>
+            <div className={"loader"}></div>
+        </div>
+    ) :
+    (
+        <div className="main-catalog_page">
+          <OrdersBunner/>
+          <Search placeholder="Искать в SweetTasty" />
+          <HotOffers/>
+          <div className="catalog">
+            {categories.map((subCat)=>(
+              <CatalogSection title={subCat.name} subCat={subCat.subCategories}/>
+            ))}
+          </div>
+
+          <Footer />
+        </div>
+    );
 }
