@@ -44,24 +44,18 @@ export default function Catalog() {
     getCat()
   },[])
 
-  return loading ?
-    (
-        <div className={"loaderContainer"}>
-            <div className={"loader"}></div>
-        </div>
-    ) :
-    (
-        <div className="main-catalog_page">
-          <OrdersBunner/>
-          <Search placeholder="Искать в Marketly" />
-          <HotOffers/>
-          <div className="catalog">
-            {categories.map((subCat)=>(
-              <CatalogSection title={subCat.name} subCat={subCat.subCategories}/>
-            ))}
-          </div>
+  return (
+    <div className="main-catalog_page">
+      <OrdersBunner/>
+      <Search placeholder="Искать в Marketly"/>
+      <HotOffers/>
+      <div className="catalog">
+        {categories.map((subCat) => (
+          <CatalogSection key={subCat.id} title={subCat.name} subCat={subCat.subCategories}/>
+        ))}
+      </div>
 
-          <Footer />
-        </div>
-    );
+      <Footer/>
+    </div>
+  );
 }
