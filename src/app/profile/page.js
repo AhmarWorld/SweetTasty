@@ -143,7 +143,7 @@ function Profile() {
   return (
     <div className="profile">
       <div className="profile-title">
-        <h1>Добро пожаловать в SweetTasty.kz</h1>
+        <h1>Добро пожаловать в Marketly</h1>
         <p>
           Войдите чтобы копить бонусы, сохранить адрес доставки и историю
           заказов

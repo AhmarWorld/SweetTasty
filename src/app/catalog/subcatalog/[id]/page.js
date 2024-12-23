@@ -223,7 +223,7 @@ export default function Subcategories({ params }) {
         <>
           <OrdersBunner />
           <HotOffers />
-          <Search placeholder="Искать в SweetTasty" />
+          <Search placeholder="Искать в Marketly" />
           <Filter active={filterActive} setActive={setFilterActive} />
           <div className="subcat-list">
             {productList.map((product) => (

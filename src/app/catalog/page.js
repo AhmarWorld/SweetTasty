@@ -9,7 +9,6 @@ import HotOffers from "../components/HotOffers/HotOffers";
 import OrdersBunner from "../components/OrdersBunner/OrdersBunner";
 
 export default function Catalog() {
-    const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
   const [clientToken, setClientToken] = useState(undefined);
@@ -45,10 +44,6 @@ export default function Catalog() {
     getCat()
   },[])
 
-    useEffect(()=>{
-        setTimeout(() => setLoading(false), 1000);
-    },[])
-
   return loading ?
     (
         <div className={"loaderContainer"}>
@@ -58,7 +53,7 @@ export default function Catalog() {
     (
         <div className="main-catalog_page">
           <OrdersBunner/>
-          <Search placeholder="Искать в SweetTasty" />
+          <Search placeholder="Искать в Marketly" />
           <HotOffers/>
           <div className="catalog">
             {categories.map((subCat)=>(

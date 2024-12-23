@@ -123,7 +123,7 @@ export default function CatalogItem({ params }) {
     <div className="catalog-item">
       <OrdersBunner />
       <HotOffers/>
-      <Search placeholder={'Искать в SweetTasty'} />
+      <Search placeholder={'Искать в Marketly'} />
       <div className="catalog-item_main">
         <img
           src={

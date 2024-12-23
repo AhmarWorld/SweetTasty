@@ -228,7 +228,7 @@ function SearchPage() {
         <>
           {/*<OrdersBunner />*/}
           <HotOffers />
-          <Search placeholder="Искать в SweetTasty" />
+          <Search placeholder="Искать в Marketly" />
           <Filter active={filterActive} setActive={setFilterActive} />
 
           {sales && <h3 style={{ marginTop: 20 }}>Скидочные товары</h3>}

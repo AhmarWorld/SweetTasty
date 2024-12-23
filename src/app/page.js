@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 export default function Home({ children }) {
   const [clientToken,setClientToken] = useState('');
   const [badgesList,setBadgesList] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const loadBadges = async () => {
     const response = await fetch(
@@ -37,7 +37,6 @@ export default function Home({ children }) {
 
   useEffect(()=>{
     loadBadges();
-    setTimeout(() => setLoading(false), 1000);
   },[])
 
   return (
@@ -52,7 +51,7 @@ export default function Home({ children }) {
                 (
                     <>
                         <Carousel />
-                        <Search placeholder={"Искать"} />
+                        <Search placeholder={"Искать в Marketly"} />
                         <HotOffers />
                         <div style={{ paddingTop: 20 }} className="main-catalog">
                             {badgesList.filter(badge => badge.showOnMainPage).map((badge)=>(

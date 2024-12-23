@@ -5,7 +5,7 @@ import './subcatalog.css'
 export default function Subcatalog() {
   return (
     <div className="main-subcatalog">
-      <Search placeholder="Искать в SweetTasty" />
+      <Search placeholder="Искать в Marketly" />
 
       <Footer />
     </div>
