@@ -33,7 +33,7 @@ export default function Home({ children }) {
       let token = localStorage.getItem("token-SattyTatty")
       setClientToken(token)
     }
-  },[window])
+  },[])
 
   useEffect(()=>{
     loadBadges();

@@ -98,7 +98,7 @@ function Main() {
         setPhone(newData?.phone);
       }
     })();
-  }, [window]);
+  }, []);
 
   return (
     user && (

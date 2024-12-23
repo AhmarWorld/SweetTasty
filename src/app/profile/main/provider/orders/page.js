@@ -14,7 +14,7 @@ function ProviderOrders() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   const getOrderList = async () => {
     const response = await fetch(

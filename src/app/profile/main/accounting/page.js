@@ -63,7 +63,7 @@ export default function Accounting() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   useEffect(()=>{
     getAddress();

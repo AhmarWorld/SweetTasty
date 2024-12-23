@@ -24,7 +24,7 @@ function Stats() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   const getStatsList = async () => {
     const response = await fetch(

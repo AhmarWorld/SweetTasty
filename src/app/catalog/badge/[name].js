@@ -31,7 +31,7 @@ export default function SearchPage() {
         if (typeof window !== "undefined") {
             setClientToken(localStorage.getItem("token-SattyTatty"));
         }
-    }, [window]);
+    }, []);
 
     const getFilterData = async () => {
         const request = await fetch(

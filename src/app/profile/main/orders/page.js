@@ -24,7 +24,7 @@ function Orders() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   const getReviewList = async () => {
     const response = await fetch(
@@ -73,7 +73,7 @@ function Orders() {
       const newData = JSON.parse(localStorage.getItem("user-SattyTatty"));
       setUser(newData);
     }
-  }, [window]);
+  }, []);
 
   useEffect(() => {
     if (orderReview.id) {

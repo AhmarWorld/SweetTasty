@@ -83,7 +83,7 @@ function CatalogItem({ product }) {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   return (
     <div className="item-card">

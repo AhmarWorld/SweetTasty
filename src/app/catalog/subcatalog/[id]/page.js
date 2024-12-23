@@ -30,7 +30,7 @@ export default function Subcategories({ params }) {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   useEffect(() => {
     setSelectProvider(undefined);

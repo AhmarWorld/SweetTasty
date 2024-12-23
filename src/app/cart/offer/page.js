@@ -21,7 +21,7 @@ export default function Offer() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   const getAddress = async () => {
     const response = await fetch(

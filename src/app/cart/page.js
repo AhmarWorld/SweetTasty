@@ -27,7 +27,7 @@ function Cart() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   useEffect(() => {
     async function loadRecommendedProducts() {

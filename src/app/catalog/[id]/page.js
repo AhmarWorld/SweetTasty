@@ -29,7 +29,7 @@ export default function CatalogItem({ params }) {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   const getProduct = async () => {
     const response = await fetch(

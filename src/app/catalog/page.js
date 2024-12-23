@@ -18,7 +18,7 @@ export default function Catalog() {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
-  }, [window]);
+  }, []);
 
   const getCat = async () => {
     const response = await fetch(
