@@ -3,7 +3,7 @@ import Footer from "@/app/components/Footer/Footer";
 import "./subcategories.css";
 import Search from "@/app/components/Search/Search";
 import CatalogItem from "@/app/components/CatalogItem/CatalogItem";
-import { useEffect, useState } from "react";
+import {Suspense, useEffect, useState} from "react";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 import HotOffers from "@/app/components/HotOffers/HotOffers";
 import Filter from "@/app/components/Filter/Filter";
@@ -12,7 +12,7 @@ import "next-range-slider/dist/main.css";
 import { RangeSlider } from "next-range-slider";
 import { useSearchParams } from "next/navigation";
 
-export default function SearchPage() {
+function SearchPage() {
   const searchParams = useSearchParams();
   const search = searchParams.get("name");
   const sales = searchParams.get("sales");
@@ -251,3 +251,11 @@ export default function SearchPage() {
     </div>
   );
 }
+
+const PageWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <SearchPage />
+  </Suspense>
+);
+
+export default PageWrapper;
