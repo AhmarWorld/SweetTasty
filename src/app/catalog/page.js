@@ -12,7 +12,13 @@ export default function Catalog() {
     const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, [window]);
 
   const getCat = async () => {
     const response = await fetch(

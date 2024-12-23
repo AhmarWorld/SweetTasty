@@ -20,10 +20,16 @@ export default function CatalogItem({ params }) {
   const [newPrice, setNewPrice] = useState(product.price);
   const [count, setCount] = useState(1);
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState(undefined);
 
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, [window]);
 
   const getProduct = async () => {
     const response = await fetch(

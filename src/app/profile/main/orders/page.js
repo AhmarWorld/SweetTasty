@@ -12,13 +12,19 @@ import {useRouter} from "next/navigation";
 
 function Orders() {
   const router = useRouter();
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState();
   const [user, setUser] = useState(null);
   const [orderList, setOrderList] = useState({});
 
   const [orderReview, setOrderReview] = useState({});
   const [reviewModalList, setReviewModalList] = useState(false);
   const [reviewList, setReviewList] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, [window]);
 
   const getReviewList = async () => {
     const response = await fetch(

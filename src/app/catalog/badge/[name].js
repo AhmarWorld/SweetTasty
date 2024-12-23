@@ -24,8 +24,14 @@ export default function SearchPage() {
 
     const [categoriesList, setCategoriesList] = useState([]);
 
-    const clientToken = localStorage.getItem("token-SattyTatty");
+    const [clientToken, setClientToken] = useState(undefined);
     const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setClientToken(localStorage.getItem("token-SattyTatty"));
+        }
+    }, [window]);
 
     const getFilterData = async () => {
         const request = await fetch(

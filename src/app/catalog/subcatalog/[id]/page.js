@@ -23,8 +23,14 @@ export default function Subcategories({ params }) {
 
   const [categoriesList, setCategoriesList] = useState([]);
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState();
   const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, [window]);
 
   useEffect(() => {
     setSelectProvider(undefined);

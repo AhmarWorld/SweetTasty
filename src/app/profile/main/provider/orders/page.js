@@ -7,8 +7,14 @@ import ProfileGeo from "@/app/components/ProfileGeo/ProfileGeo";
 import ProviderOrder from "@/app/components/ProviderOrder/ProviderOrder";
 
 function ProviderOrders() {
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState();
   const [orderList, setOrderList] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, [window]);
 
   const getOrderList = async () => {
     const response = await fetch(
