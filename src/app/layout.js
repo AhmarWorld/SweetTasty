@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: "Satty Tatty",
+  title: "Marketly",
 };
 
 export default function RootLayout({ children }) {
