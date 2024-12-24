@@ -39,6 +39,18 @@ const Nav = () => {
     }
   }, [token]);
 
+  useEffect(() => {
+    const handleCartUpdate = (event) => {
+      setBasketCount(event.detail);
+    };
+
+    window.addEventListener('cartUpdate', handleCartUpdate);
+
+    return () => {
+      window.removeEventListener('cartUpdate', handleCartUpdate);
+    };
+  }, []);
+
   return (
     <nav>
       <NavButtons

@@ -91,6 +91,11 @@ function Cart() {
     setOrderAllowed(data.orderAllowed);
   }, []);
 
+  useEffect(() => {
+    const event = new CustomEvent('cartUpdate', { detail: cartList.length });
+    window.dispatchEvent(event);
+  }, [cartList]);
+
   return (
     <div className="cart">
       <OrdersBunner/>
