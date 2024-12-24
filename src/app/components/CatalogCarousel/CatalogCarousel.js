@@ -28,7 +28,7 @@ function CatalogCarousel({badgeId, productsList}) {
       let token = localStorage.getItem("token-SattyTatty")
       setClientToken(token)
     }
-  },[window])
+  },[])
 
   useEffect(()=>{
     if (badgeId) {

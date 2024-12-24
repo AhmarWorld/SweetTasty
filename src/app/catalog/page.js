@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import CatalogSection from "../components/CatalogSection/CatalogSection";
 import Footer from "../components/Footer/Footer";
 import Search from "../components/Search/Search";
@@ -11,7 +11,13 @@ import OrdersBunner from "../components/OrdersBunner/OrdersBunner";
 export default function Catalog() {
   const [categories, setCategories] = useState([]);
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   const getCat = async () => {
     const response = await fetch(
@@ -41,15 +47,15 @@ export default function Catalog() {
   return (
     <div className="main-catalog_page">
       <OrdersBunner/>
-      <Search placeholder="Искать в SweetTasty" />
+      <Search placeholder="Искать в Marketly"/>
       <HotOffers/>
       <div className="catalog">
-        {categories.map((subCat)=>(
-          <CatalogSection title={subCat.name} subCat={subCat.subCategories}/>
+        {categories.map((subCat) => (
+          <CatalogSection key={subCat.id} title={subCat.name} subCat={subCat.subCategories}/>
         ))}
       </div>
 
-      <Footer />
+      <Footer/>
     </div>
   );
 }

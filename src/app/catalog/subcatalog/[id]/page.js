@@ -23,8 +23,14 @@ export default function Subcategories({ params }) {
 
   const [categoriesList, setCategoriesList] = useState([]);
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState();
   const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   useEffect(() => {
     setSelectProvider(undefined);
@@ -217,7 +223,7 @@ export default function Subcategories({ params }) {
         <>
           <OrdersBunner />
           <HotOffers />
-          <Search placeholder="Искать в SweetTasty" />
+          <Search placeholder="Искать в Marketly" />
           <Filter active={filterActive} setActive={setFilterActive} />
           <div className="subcat-list">
             {productList.map((product) => (

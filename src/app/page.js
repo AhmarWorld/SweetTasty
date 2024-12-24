@@ -9,8 +9,9 @@ import HotOffers from "./components/HotOffers/HotOffers";
 import { useEffect, useState } from "react";
 
 export default function Home({ children }) {
-  const [clientToken,setClientToken] = useState('')
-  const [badgesList,setBadgesList] = useState([])
+  const [clientToken,setClientToken] = useState('');
+  const [badgesList,setBadgesList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const loadBadges = async () => {
     const response = await fetch(
@@ -32,25 +33,38 @@ export default function Home({ children }) {
       let token = localStorage.getItem("token-SattyTatty")
       setClientToken(token)
     }
-  },[window])
+  },[])
 
   useEffect(()=>{
-    loadBadges()
+    loadBadges();
   },[])
 
   return (
     <main>
-      <Carousel />
-      <Search placeholder={"Искать в SweetTasty"} />
-      <HotOffers />
-      <div style={{ paddingTop: 20 }} className="main-catalog">
-        {badgesList.filter(badge => badge.showOnMainPage).map((badge)=>(
-          <CatalogMini badge={badge} />
-        ))}
-        {/*<DailyItem />*/}
-        <Footer />
-      </div>
-      {children}
+        {
+            loading ?
+                (
+                    <div className={"loaderContainer"}>
+                        <div className={"loader"}></div>
+                    </div>
+                ) :
+                (
+                    <>
+                        <Carousel />
+                        <Search placeholder={"Искать в Marketly"} />
+                        <HotOffers />
+                        <div style={{ paddingTop: 20 }} className="main-catalog">
+                            {badgesList.filter(badge => badge.showOnMainPage).map((badge)=>(
+                                <CatalogMini badge={badge} />
+                            ))}
+                            {/*<DailyItem />*/}
+                            <Footer />
+                        </div>
+                        {children}
+                    </>
+                )
+        }
+
     </main>
   );
 }

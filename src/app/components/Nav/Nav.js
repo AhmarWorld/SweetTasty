@@ -29,7 +29,7 @@ const Nav = () => {
       const newToken = localStorage.getItem("token-SattyTatty");
       setToken(newToken);
     }
-  }, [window]);
+  }, []);
 
   useEffect(() => {
     if (token) {

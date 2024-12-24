@@ -1,4 +1,5 @@
 import "./OrdersItem.css";
+import moment from "moment";
 
 function OrdersItem({
   order,
@@ -7,7 +8,6 @@ function OrdersItem({
   cafeName,
   setReviewModalList,
   setOrderReview,
-  reviewList,
 }) {
 
   return (
@@ -16,7 +16,6 @@ function OrdersItem({
         <h3>{orderNumber}</h3>
         <button
           className={`review-button ${order.reviewed ? "disabled" : ""}`}
-          style={{ backgroundColor: "coral" }}
           onClick={() => {
             if (!order.reviewed) {
               setOrderReview(order);
@@ -32,6 +31,7 @@ function OrdersItem({
       </div>
       <h5>{cafeName}</h5>
       <h5>{address}</h5>
+      <h5 style={{ color: "#000" }}>Заказ на {moment(order.createdAt).add(1, "days").format("DD.MM.yyyy")}</h5>
       <div className="oreders-main">
         <ul>
           {order.products.map((product) => (

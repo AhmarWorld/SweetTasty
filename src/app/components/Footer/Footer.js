@@ -14,7 +14,7 @@ function Footer() {
             <a href="tel:+77059260000" >+7 (705) 926 00 00</a><br/>
             <a href="tel:+77059260001" >+7 (705) 926 00 00</a><br/>
         </p>
-        <p className='footer-head_email' >help@sweettasty.kz</p>
+        <p className='footer-head_email' >help@marketly.kz</p>
         <table>
            <tr>
             <td>Доставка</td>

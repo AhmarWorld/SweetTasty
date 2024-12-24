@@ -80,8 +80,10 @@ function CatalogItem({ product }) {
   }, [count]);
 
   useEffect(() => {
-    setClientToken(localStorage.getItem('token-SattyTatty'));
-  }, [window]);
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   return (
     <div className="item-card">

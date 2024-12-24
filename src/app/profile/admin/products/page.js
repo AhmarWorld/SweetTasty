@@ -30,7 +30,7 @@ function Products() {
       const token = localStorage.getItem("token-SattyTatty");
       loadProducts(token);
     }
-  }, [window]);
+  }, []);
 
   return (
     <div className="profile-main">

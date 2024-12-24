@@ -12,7 +12,7 @@ import Link from "next/link";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 
 function Cart() {
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState(undefined);
   const router = useRouter();
 
   const [cartList, setCartList] = useState([]);
@@ -22,6 +22,12 @@ function Cart() {
   const [totalSum, setTotalSum] = useState(Number());
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [orderAllowed, setOrderAllowed] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   useEffect(() => {
     async function loadRecommendedProducts() {

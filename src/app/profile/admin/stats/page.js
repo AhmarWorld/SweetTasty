@@ -17,8 +17,14 @@ function Stats() {
   const lateShowDate = moment().format("DD/MM/yyyy");
   const nowShowDate = moment().subtract(1, "days").format("DD/MM/yyyy");
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState();
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   const getStatsList = async () => {
     const response = await fetch(

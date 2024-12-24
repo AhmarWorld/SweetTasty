@@ -12,13 +12,19 @@ import {useRouter} from "next/navigation";
 
 function Orders() {
   const router = useRouter();
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState();
   const [user, setUser] = useState(null);
   const [orderList, setOrderList] = useState({});
 
   const [orderReview, setOrderReview] = useState({});
   const [reviewModalList, setReviewModalList] = useState(false);
   const [reviewList, setReviewList] = useState([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   const getReviewList = async () => {
     const response = await fetch(
@@ -56,7 +62,7 @@ function Orders() {
     );
     const data = await response.json();
     if (response.ok) {
-      setOrderList(data);
+      setOrderList(data.reverse());
     } else if (!response.ok) {
       console.log("Авторизуйтесь на сайте");
     }
@@ -67,7 +73,7 @@ function Orders() {
       const newData = JSON.parse(localStorage.getItem("user-SattyTatty"));
       setUser(newData);
     }
-  }, [window]);
+  }, []);
 
   useEffect(() => {
     if (orderReview.id) {

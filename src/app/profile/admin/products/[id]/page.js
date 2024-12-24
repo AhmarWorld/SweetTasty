@@ -36,7 +36,7 @@ export default function Product({ params }) {
       const token = localStorage.getItem("token-SattyTatty");
       loadProduct(token);
     }
-  }, [window]);
+  }, []);
 
   return (
     <div className="profile-main">

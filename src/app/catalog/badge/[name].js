@@ -24,8 +24,14 @@ export default function SearchPage() {
 
     const [categoriesList, setCategoriesList] = useState([]);
 
-    const clientToken = localStorage.getItem("token-SattyTatty");
+    const [clientToken, setClientToken] = useState(undefined);
     const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setClientToken(localStorage.getItem("token-SattyTatty"));
+        }
+    }, []);
 
     const getFilterData = async () => {
         const request = await fetch(
@@ -196,7 +202,7 @@ export default function SearchPage() {
                 <>
                     <OrdersBunner />
                     <HotOffers />
-                    <Search placeholder="Искать в SweetTasty" />
+                    <Search placeholder="Искать в Marketly" />
                     <Filter active={filterActive} setActive={setFilterActive} />
                     <div className="subcat-list">
                         {productList.map((product) => (

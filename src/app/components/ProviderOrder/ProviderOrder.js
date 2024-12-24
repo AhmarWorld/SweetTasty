@@ -1,4 +1,5 @@
 import "./ProviderOrder.css";
+import moment from "moment/moment";
 
 export default function ProviderOrder({
   order,
@@ -9,8 +10,7 @@ export default function ProviderOrder({
   return (
     <div className="orders-item">
       <h3>{orderNumber}</h3>
-      <h5 style={{color:isCompleted ? "#53c95a" : "#828282"}} >{isCompleted ? "Завершен" : "Не завершен"}</h5>
-      <h5 style={{color:isPaid ? "#53c95a" : "#828282"}}>{isPaid ? "Оплачен" : "Не оплачен"}</h5>
+      <h5 style={{color: "#828282"}}>Заказ на {moment(order.createdAt).add(1, "days").format("DD.MM.yyyy")}</h5>
       <div className="oreders-main">
         <ul>
           {order.map((product) => (

@@ -20,10 +20,16 @@ export default function CatalogItem({ params }) {
   const [newPrice, setNewPrice] = useState(product.price);
   const [count, setCount] = useState(1);
 
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState(undefined);
 
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   const getProduct = async () => {
     const response = await fetch(
@@ -117,7 +123,7 @@ export default function CatalogItem({ params }) {
     <div className="catalog-item">
       <OrdersBunner />
       <HotOffers/>
-      <Search placeholder={'Искать в SweetTasty'} />
+      <Search placeholder={'Искать в Marketly'} />
       <div className="catalog-item_main">
         <img
           src={

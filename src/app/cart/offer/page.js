@@ -10,12 +10,18 @@ import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 export default function Offer() {
   const router = useRouter();
   const [offerState, setOfferState] = useState(false);
-  const clientToken = localStorage.getItem("token-SattyTatty");
+  const [clientToken, setClientToken] = useState("");
   const [address, setAddress] = useState([]);
 
   const [offerAttention, setOfferAttention] = useState(false);
 
   const [currentAddress, setCurrentAddress] = useState(Number);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setClientToken(localStorage.getItem("token-SattyTatty"));
+    }
+  }, []);
 
   const getAddress = async () => {
     const response = await fetch(
