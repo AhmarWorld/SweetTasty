@@ -88,14 +88,19 @@ function Cart() {
     }
   }, [cartList]);
 
-  useState(async () => {
-    const data = await getCart(clientToken, setIsAuth);
-    if (data.success) {
-      setCartList(data.items);
-      setCartId(data.cartId);
+  useEffect(() => {
+    if (clientToken) {
+      (async function(){
+        const data = await getCart(clientToken, setIsAuth);
+        if (data.success) {
+          console.log("setting cart items list", data.items);
+          setCartList(data.items);
+          setCartId(data.cartId);
+        }
+        setOrderAllowed(data.orderAllowed);
+      })()
     }
-    setOrderAllowed(data.orderAllowed);
-  }, []);
+  }, [clientToken]);
 
   useEffect(() => {
     const event = new CustomEvent('cartUpdate', { detail: cartList.length });

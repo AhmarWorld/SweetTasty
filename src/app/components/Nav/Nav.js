@@ -16,9 +16,11 @@ const Nav = () => {
   useEffect(() => {
     if (ifToken) {
       (async () => {
-        const basketData = await getCart(token, setIfToken);
-        if (basketData) {
-          setBasketCount(basketData?.items?.length);
+        if (token) {
+          const basketData = await getCart(token, setIfToken);
+          if (basketData) {
+            setBasketCount(basketData?.items?.length);
+          }
         }
       })();
     }

@@ -3,10 +3,24 @@
 import { useState, useEffect } from "react";
 import CatalogItem from "../CatalogItem/CatalogItem";
 import "./CatalogCarousel.css";
+import {getCart} from "@/app/lib/basket";
 
 function CatalogCarousel({badgeId, productsList}) {
   const [products, setProducts] = useState(productsList || []);
-  const [clientToken,setClientToken] = useState('')
+  const [clientToken,setClientToken] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      if (clientToken) {
+        const cartResponse = await getCart(clientToken);
+        if (cartResponse.items) {
+          console.log("cart fetched", cartResponse.items);
+          setCartItems(cartResponse.items);
+        }
+      }
+    })();
+  }, [clientToken]);
 
   const loadProducts = async () => {
     const response = await fetch(
@@ -41,7 +55,9 @@ function CatalogCarousel({badgeId, productsList}) {
     <div className="catalog-carousel">
       {products?.map((product) => (
           <CatalogItem
+            key={product.id}
             product={product}
+            cartItems={cartItems}
           />
       ))}
     </div>

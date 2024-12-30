@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { addBasket } from "@/app/lib/basket";
+import {addBasket, getCart} from "@/app/lib/basket";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 import HotOffers from "@/app/components/HotOffers/HotOffers";
 import Search from "@/app/components/Search/Search";
@@ -24,6 +24,18 @@ export default function CatalogItem({ params }) {
 
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      if (clientToken) {
+        const cartResponse = await getCart(clientToken);
+        if (cartResponse.items) {
+          console.log("alibi", cartResponse.items);
+          setCount(cartResponse.items.find(item => item.id === product.id)?.quantity || 0);
+        }
+      }
+    })();
+  }, [clientToken, product]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -126,9 +138,7 @@ export default function CatalogItem({ params }) {
       <Search placeholder={'Искать в Marketly'} />
       <div className="catalog-item_main">
         <img
-          src={
-            "https://arbuz.kz/image/s3/arbuz-kz-products/file_name__daafaf07-b6ad-4462-bc58-a8f7655f4cf9-19367-001_jpg.jpg?w=720&h=720&_c=1719999319"
-          }
+          src={process.env.NEXT_PUBLIC_SERVER_URL + product.image}
         />
         {/* <img src={process.env.NEXT_PUBLIC_SERVER_URL + product.image} /> */}
         <h1> {product.name}</h1>
@@ -179,7 +189,7 @@ export default function CatalogItem({ params }) {
           <h3>Состав</h3>
           <p>{product.compound}</p>
           <h3>Поставщик</h3>
-          <p>Realibi</p>
+          <p>{product.providerName}</p>
         </div>
       </div>
       <div className="item-page_offer">
