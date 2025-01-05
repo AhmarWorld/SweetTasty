@@ -115,7 +115,7 @@ function SearchPage() {
     setSelectProvider(undefined);
     setCategoriesList(undefined);
     getFilterData();
-  }, [search]);
+  }, [search, clientToken]);
 
   useEffect(() => {
     getFilterData();

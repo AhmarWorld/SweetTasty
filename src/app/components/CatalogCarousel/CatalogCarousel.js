@@ -34,7 +34,7 @@ function CatalogCarousel({badgeId, productsList}) {
       }
     );
     const data = await response.json();
-    setProducts(data.products);
+    setProducts(data);
   };
 
   useEffect(()=>{
@@ -45,21 +45,25 @@ function CatalogCarousel({badgeId, productsList}) {
   },[])
 
   useEffect(()=>{
-    if (badgeId) {
+    if (badgeId && clientToken) {
       loadProducts(clientToken)
     }
-  },[])
+  },[badgeId, clientToken]);
 
 
   return (
     <div className="catalog-carousel">
-      {products?.map((product) => (
-          <CatalogItem
-            key={product.id}
-            product={product}
-            cartItems={cartItems}
-          />
-      ))}
+      {
+        products?.length ?
+          products?.map((product) => (
+            <CatalogItem
+              key={product.id}
+              product={product}
+              cartItems={cartItems}
+            />
+          )) :
+          <div>Нет продуктов</div>
+      }
     </div>
   );
 }

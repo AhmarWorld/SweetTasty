@@ -126,9 +126,11 @@ export default function Subcategories({ params }) {
   }
 
   useEffect(() => {
-    getProductList();
-    getFilterData();
-  }, []);
+    if (clientToken) {
+      getProductList();
+      getFilterData();
+    }
+  }, [clientToken]);
 
   return (
     <div className="main-subcategories">
