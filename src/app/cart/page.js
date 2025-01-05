@@ -104,8 +104,8 @@ function Cart() {
 
   return (
     <div className="cart">
-      <OrdersBunner/>
       <ProfileGeo />
+      <OrdersBunner/>
       <div style={{ marginTop: 20 }} className="cart-main">
         <p className="cart-main_title">
           <h2>
