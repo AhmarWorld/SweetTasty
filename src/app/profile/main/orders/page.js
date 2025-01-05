@@ -8,7 +8,7 @@ import ProfileGeo from "@/app/components/ProfileGeo/ProfileGeo";
 import Button from "@/app/components/Button/Button";
 import ReviewModalList from "@/app/components/ReviewModalList/ReviewModalList";
 import axios from "axios";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 function Orders() {
   const router = useRouter();
@@ -29,8 +29,8 @@ function Orders() {
   const getReviewList = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL +
-        "/productReviews/reviewedProducts/" +
-        orderReview.id,
+      "/productReviews/reviewedProducts/" +
+      orderReview.id,
       {
         method: "GET",
         headers: {
@@ -87,15 +87,15 @@ function Orders() {
 
   const repeatOrder = async (orderId) => {
     const response = await axios.post(
-        process.env.NEXT_PUBLIC_SERVER_URL + "/orders/repeat",
-        { orderId },
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "any",
-            Authorization: "Bearer " + clientToken,
-            "Content-type": "application/json",
-          }
+      process.env.NEXT_PUBLIC_SERVER_URL + "/orders/repeat",
+      { orderId },
+      {
+        headers: {
+          "ngrok-skip-browser-warning": "any",
+          Authorization: "Bearer " + clientToken,
+          "Content-type": "application/json",
         }
+      }
     );
 
     const data = response.data;
@@ -135,11 +135,15 @@ function Orders() {
             href={"/profile/main/accounting"}
             text={"Бухгалтерия"}
           />
+          <ProfileNavItem
+            href={"/profile/main/address"}
+            text={"Мои точки"}
+          />
         </ul>
       </div>
       <div className="profile-orders_main">
         <h2>Мои заказы</h2>
-        <br/>
+        <br />
         {orderList.length ? (
           <>
             {orderList.map((order) => (
@@ -165,11 +169,11 @@ function Orders() {
                     }}>
                       <span>{order.totalPrice} ₸</span>
                       <Button
-                          text={"Повторить"}
-                          style={{
-                            padding: "8px 10px"
-                          }}
-                          onClick={() => repeatOrder(order.id)}
+                        text={"Повторить"}
+                        style={{
+                          padding: "8px 10px"
+                        }}
+                        onClick={() => repeatOrder(order.id)}
                       />
                     </div>
                   </li>

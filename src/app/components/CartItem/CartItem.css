@@ -11,11 +11,27 @@
 }
 
 .cart-item img{
-    height: 100%;
-
+    width: 120px;
+    height: 120px;
+    padding: 2px;
+    
     background-color: #f6f6f6;
     border-radius: 8px;
-    object-fit: contain;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .cart-item img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-item img {
+        width: 80px;
+        height: 80px;
+    }
 }
 
 .cart-item_main{

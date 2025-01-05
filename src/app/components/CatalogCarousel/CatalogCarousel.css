@@ -3,11 +3,17 @@
 
     display: flex;
     
-    gap: 10px;
+    gap: 16px;
 
-    overflow-x: scroll;   
+    overflow-x: auto;   
 
-    margin-top: 12px;
+    padding: 12px 0;
+
+    scroll-snap-type: x mandatory;
+}
+
+.catalog-carousel > * {
+    scroll-snap-align: start;
 }
 
 .catalog-carousel::-webkit-scrollbar { 

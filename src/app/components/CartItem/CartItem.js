@@ -117,7 +117,7 @@ function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
               <MdDeleteForever onClick={deleteItem} size={16} />
             )}
           </div>
-          <span>{count} кг</span>
+          <span>{count}</span>
           <div onClick={onClickPlus} className="item_count-plus">
             <FaPlus size={16} />
           </div>

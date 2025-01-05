@@ -65,9 +65,9 @@ export default function Accounting() {
     }
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     getAddress();
-  },[clientToken])
+  }, [clientToken])
 
   useEffect(() => {
     const lateDate = moment().format("yyyy/MM/DD");
@@ -91,6 +91,10 @@ export default function Accounting() {
           <ProfileNavItem
             href={"/profile/main/accounting"}
             text={"Бухгалтерия"}
+          />
+          <ProfileNavItem
+            href={"/profile/main/address"}
+            text={"Мои точки"}
           />
         </ul>
       </div>
@@ -130,7 +134,7 @@ export default function Accounting() {
             {nowShowDate} - {lateShowDate}
           </p>
         </div>
-        {ordersInfo.map((orderInfo)=>(
+        {ordersInfo.map((orderInfo) => (
           <AccountingSection orderInfo={orderInfo} />
         ))}
       </div>

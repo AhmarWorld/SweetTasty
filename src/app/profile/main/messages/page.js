@@ -17,6 +17,10 @@ export default function Messages() {
             href={"/profile/main/accounting"}
             text={"Бухгалтерия"}
           />
+          <ProfileNavItem
+            href={"/profile/main/address"}
+            text={"Мои точки"}
+          />
         </ul>
       </div>
       <Footer />

@@ -22,6 +22,7 @@ function Cart() {
   const [totalSum, setTotalSum] = useState(Number());
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [orderAllowed, setOrderAllowed] = useState(false);
+  const [hasAddress, setHasAddress] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -93,7 +94,6 @@ function Cart() {
       (async function(){
         const data = await getCart(clientToken, setIsAuth);
         if (data.success) {
-          console.log("setting cart items list", data.items);
           setCartList(data.items);
           setCartId(data.cartId);
         }
@@ -107,9 +107,31 @@ function Cart() {
     window.dispatchEvent(event);
   }, [cartList]);
 
+  useEffect(() => {
+    if (clientToken) {
+      async function checkAddress() {
+        const request = await fetch(
+          process.env.NEXT_PUBLIC_SERVER_URL + "/branches",
+          {
+            method: "GET",
+            headers: {
+              "ngrok-skip-browser-warning": "any",
+              Authorization: "Bearer " + clientToken,
+            },
+          }
+        );
+        if (request.ok) {
+          const userData = await request.json();
+          setHasAddress(userData.length ? 'true' : 'false');
+        }
+      }
+      checkAddress();
+    }
+  }, [clientToken]);
+
   return (
     <div className="cart">
-      <ProfileGeo />
+      {!hasAddress && <ProfileGeo />}
       <OrdersBunner/>
       <div style={{ marginTop: 20 }} className="cart-main">
         <p className="cart-main_title">
