@@ -69,7 +69,7 @@ function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
   return (
     <div className="cart-item">
       <img
-        src="https://arbuz.kz/image/s3/arbuz-kz-products/file_name__26658164-1597-4bb9-b30b-072b36b0c9b1-652a49d4-043f-45d3-9fea-ea2a63d4c13a_jpeg.jpeg?w=140&h=140&_c=1719928409"
+        src={process.env.NEXT_PUBLIC_SERVER_URL + item.image}
         alt=":/"
       />
       <div className="cart-item_main">

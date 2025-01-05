@@ -9,12 +9,12 @@ import { addBasket } from "../../lib/basket";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-function CatalogItem({ product }) {
+function CatalogItem({ product, cartItems }) {
   const router = useRouter();
 
   const [clientToken, setClientToken] = useState('');
-  const [count, setCount] = useState(0);
-  const [counterOn, setCounterOn] = useState(true);
+  const [count, setCount] = useState(cartItems?.length ? cartItems.find(p => p.id === product.id)?.quantity : 0);
+  const [counterOn, setCounterOn] = useState(false);
   const [cartId, setCartId] = useState(null);
 
   const [isAuth, setIsAuth] = useState(true);
@@ -60,6 +60,7 @@ function CatalogItem({ product }) {
   };
 
   const onClickPlus = () => {
+    console.log("plus pressed");
     let newCount = 0;
 
     if (count >= 0) {
@@ -68,7 +69,7 @@ function CatalogItem({ product }) {
       cartEdit(newCount)
     }
 
-    addBasket(product.id, product.price, quantity, clientToken, setCartId);
+    addBasket(product.id, product.price, newCount, clientToken, setCartId);
   };
 
   useEffect(() => {
@@ -85,6 +86,11 @@ function CatalogItem({ product }) {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("cartItems", cartItems);
+    console.log(product.name, cartItems?.length ? cartItems.find(p => p.id === product.id)?.quantity : 0);
+  }, [cartItems]);
+
   return (
     <div className="item-card">
       <Link className="item-card_link" href={`/catalog/${product?.id}`}>
@@ -98,7 +104,7 @@ function CatalogItem({ product }) {
             </div>
           </div>
           <img
-            src="https://arbuz.kz/image/s3/arbuz-kz-products/302438-farsh_kazbeef_zeren_iz_govyadiny_70_30_ohl_1_kg_.png?w=720&h=720&_c=1727244986"
+            src={process.env.NEXT_PUBLIC_SERVER_URL + product.image}
             alt={product.name}
           />
         </div>
@@ -112,7 +118,7 @@ function CatalogItem({ product }) {
         </div>
         <div className="item-card_title">
           <b style={{ display: 'block', height: 40, alignContent: 'center' }}>{product.name}</b>
-          <p className="currency">Поставщик {product.providerName}</p>
+          <p className="currency">{product.providerName}</p>
           <p>{product.salesCount} продаж</p>
         </div>
         <div className="price">

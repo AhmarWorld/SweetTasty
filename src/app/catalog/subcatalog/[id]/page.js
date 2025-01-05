@@ -10,6 +10,7 @@ import Filter from "@/app/components/Filter/Filter";
 import { IoClose } from "react-icons/io5";
 import "next-range-slider/dist/main.css";
 import { RangeSlider } from "next-range-slider";
+import {getCart} from "@/app/lib/basket";
 
 export default function Subcategories({ params }) {
   const [filterActive, setFilterActive] = useState(false);
@@ -25,6 +26,18 @@ export default function Subcategories({ params }) {
 
   const [clientToken, setClientToken] = useState();
   const [productList, setProductList] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      if (clientToken) {
+        const cartResponse = await getCart(clientToken);
+        if (cartResponse.items) {
+          setCartItems(cartResponse.items);
+        }
+      }
+    })();
+  }, [clientToken]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -230,6 +243,7 @@ export default function Subcategories({ params }) {
               <div key={product.id} className="subcat-item">
                 <CatalogItem
                   product={product}
+                  cartItems={cartItems}
                 />
               </div>
             ))}
