@@ -117,7 +117,7 @@ function CatalogItem({ product, cartItems }) {
           <span className="reviews-count">({product.reviewsCount})</span>
         </div>
         <div className="item-card_title">
-          <b style={{ display: 'block', height: 40, alignContent: 'center' }}>{product.name}</b>
+          <b style={{ display: 'block', height: 52, alignContent: 'center' }}>{product.name}</b>
           <p className="currency">{product.providerName}</p>
           <p>{product.salesCount} продаж</p>
         </div>

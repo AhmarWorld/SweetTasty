@@ -126,10 +126,10 @@ export default function Subcategories({ params }) {
   }
 
   useEffect(() => {
-    if (clientToken) {
-      getProductList();
-      getFilterData();
-    }
+
+    getProductList();
+    getFilterData();
+
   }, [clientToken]);
 
   return (

@@ -34,7 +34,7 @@ function CatalogCarousel({badgeId, productsList}) {
       }
     );
     const data = await response.json();
-    setProducts(data);
+    setProducts(data.products);
   };
 
   useEffect(()=>{
@@ -45,10 +45,8 @@ function CatalogCarousel({badgeId, productsList}) {
   },[])
 
   useEffect(()=>{
-    if (badgeId && clientToken) {
-      loadProducts(clientToken)
-    }
-  },[badgeId, clientToken]);
+    loadProducts(clientToken);
+  },[]);
 
 
   return (
