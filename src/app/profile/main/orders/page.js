@@ -83,7 +83,7 @@ function Orders() {
 
   useEffect(() => {
     getOrderList();
-  }, []);
+  }, [clientToken]);
 
   const repeatOrder = async (orderId) => {
     const response = await axios.post(

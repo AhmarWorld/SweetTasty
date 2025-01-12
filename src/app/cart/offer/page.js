@@ -76,7 +76,7 @@ export default function Offer() {
 
   useEffect(() => {
     getAddress();
-  }, []);
+  }, [clientToken]);
 
   return (
     <div className="offer-page">

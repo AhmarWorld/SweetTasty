@@ -54,11 +54,13 @@ function CatalogCarousel({badgeId, productsList}) {
       {
         products?.length ?
           products?.map((product) => (
-            <CatalogItem
-              key={product.id}
-              product={product}
-              cartItems={cartItems}
-            />
+            <div key={product.id} style={products?.length > 1 ? { maxWidth: "50%" } : {}}>
+              <CatalogItem
+                  key={product.id}
+                  product={product}
+                  cartItems={cartItems}
+              />
+            </div>
           )) :
           <div>Нет продуктов</div>
       }
