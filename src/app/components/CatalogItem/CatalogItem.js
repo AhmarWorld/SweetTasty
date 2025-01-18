@@ -13,7 +13,7 @@ function CatalogItem({ product, cartItems }) {
   const router = useRouter();
 
   const [clientToken, setClientToken] = useState('');
-  const [count, setCount] = useState(cartItems?.length ? cartItems.find(p => p.id === product.id)?.quantity : 0);
+  const [count, setCount] = useState(cartItems?.find(p => p.id === product.id)?.quantity || 0);
   const [counterOn, setCounterOn] = useState(false);
   const [cartId, setCartId] = useState(null);
 
@@ -60,15 +60,11 @@ function CatalogItem({ product, cartItems }) {
   };
 
   const onClickPlus = () => {
-    console.log("plus pressed");
     let newCount = 0;
-
-    if (count >= 0) {
-      newCount = Number(count) + 1;
-      setCount(newCount);
-      cartEdit(newCount)
-    }
-
+    newCount = Number(count) + 1;
+    setCount(prev => prev + 1);
+    cartEdit(newCount)
+    setCounterOn(true);
     addBasket(product.id, product.price, newCount, clientToken, setCartId);
   };
 
@@ -85,11 +81,6 @@ function CatalogItem({ product, cartItems }) {
       setClientToken(localStorage.getItem("token-SattyTatty"));
     }
   }, []);
-
-  useEffect(() => {
-    console.log("cartItems", cartItems);
-    console.log(product.name, cartItems?.length ? cartItems.find(p => p.id === product.id)?.quantity : 0);
-  }, [cartItems]);
 
   return (
     <div className="item-card">

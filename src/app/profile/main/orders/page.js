@@ -64,7 +64,7 @@ function Orders() {
     if (response.ok) {
       setOrderList(data.reverse());
     } else if (!response.ok) {
-      console.log("Авторизуйтесь на сайте");
+      alert("Авторизуйтесь на сайте");
     }
   };
 

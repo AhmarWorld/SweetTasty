@@ -18,16 +18,15 @@
 }
 
 .loader {
-  width: 200px;
-  height: 200px;
-  background-image: url("/static/loader.png");
+  width: 70px;
+  height: 70px;
+  background-image: url("/loader2.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  position: absolute;
-  top: calc(50% - 100px);
-  left: calc(50% - 100px);
-  animation: spin 1s linear infinite;
+  animation: spin 1.5s linear infinite;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 * {

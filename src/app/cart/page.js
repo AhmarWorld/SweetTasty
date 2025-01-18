@@ -24,9 +24,21 @@ function Cart() {
   const [orderAllowed, setOrderAllowed] = useState(false);
   const [hasAddress, setHasAddress] = useState(false);
 
+  const [tokenLoaded, setTokenLoaded] = useState(false);
+  const [cartLoaded, setCartLoaded] = useState(false);
+  const [recommendedProductsLoaded, setRecommendedProductsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (cartLoaded && tokenLoaded && recommendedProductsLoaded) {
+      setIsLoading(false);
+    }
+  }, [tokenLoaded, cartLoaded, recommendedProductsLoaded]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
+      setTokenLoaded(true);
     }
   }, []);
 
@@ -43,7 +55,8 @@ function Cart() {
       );
 
       const response = await request.json();
-      setRecommendedProducts(response)
+      setRecommendedProducts(response);
+      setRecommendedProductsLoaded(true);
     }
 
     loadRecommendedProducts();
@@ -98,6 +111,7 @@ function Cart() {
           setCartId(data.cartId);
         }
         setOrderAllowed(data.orderAllowed);
+        setCartLoaded(true);
       })()
     }
   }, [clientToken]);
@@ -133,48 +147,58 @@ function Cart() {
     <div className="cart">
       {!hasAddress && <ProfileGeo />}
       <OrdersBunner/>
-      <div style={{ marginTop: 20 }} className="cart-main">
-        <p className="cart-main_title">
-          <h2>
-            Корзина: <b>{cartList.length ? cartList.length : 0}</b>
-          </h2>
-          <p onClick={deleteCart}>Очистить корзину</p>
-        </p>
-        {cartList.length ? (
-          <div className="cart-list">
-            {cartList.map((item) => {
-              return (
-                <CartItem
-                  totalSum={totalSum}
-                  setTotalSum={setTotalSum}
-                  cartList={cartList}
-                  setCartList={setCartList}
-                  item={item}
-                  key={item.id}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <p>В ваша корзина пуста...</p>
-        )}
-      </div>
       {
-        cartList.length ? (
-            orderAllowed ? (
-                <Link href={"/cart/offer"} className="cart-offer">
-                  <p>Перейти к оформлению</p>
-                  <p>{totalSum} ₸</p>
-                </Link>
-            ) : (
-                <div className="cart-offer" style={{ backgroundColor: "coral" }}>
-                  <p>В данный момент <br /> прием заказов закрыт!</p>
+        isLoading ? 
+        (
+          <div className="loader"></div>
+        ) :
+        (
+          <>
+            <div style={{ marginTop: 20 }} className="cart-main">
+              <p className="cart-main_title">
+                <h2>
+                  Корзина: <b>{cartList.length ? cartList.length : 0}</b>
+                </h2>
+                <p onClick={deleteCart}>Очистить корзину</p>
+              </p>
+              {cartList.length ? (
+                <div className="cart-list">
+                  {cartList.map((item) => {
+                    return (
+                      <CartItem
+                        totalSum={totalSum}
+                        setTotalSum={setTotalSum}
+                        cartList={cartList}
+                        setCartList={setCartList}
+                        item={item}
+                        key={item.id}
+                      />
+                    );
+                  })}
                 </div>
-            )
-        ) : null
+              ) : (
+                <p>В ваша корзина пуста...</p>
+              )}
+            </div>
+            {
+              cartList.length ? (
+                  orderAllowed ? (
+                      <Link href={"/cart/offer"} className="cart-offer">
+                        <p>Перейти к оформлению</p>
+                        <p>{totalSum} ₸</p>
+                      </Link>
+                  ) : (
+                      <div className="cart-offer" style={{ backgroundColor: "coral" }}>
+                        <p>В данный момент <br /> прием заказов закрыт!</p>
+                      </div>
+                  )
+              ) : null
+            }
+            {recommendedProducts.length && (<CatalogMini productsList={recommendedProducts} headingText={"Рекомендованные товары"} />)}
+            <Footer />
+          </>
+        )
       }
-      {recommendedProducts.length && (<CatalogMini productsList={recommendedProducts} headingText={"Рекомендованные товары"} />)}
-      <Footer />
     </div>
   );
 }

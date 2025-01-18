@@ -23,10 +23,22 @@ export default function Subcategories({ params }) {
   const [sortingMethod, setSortingMethod] = useState("desc");
 
   const [categoriesList, setCategoriesList] = useState([]);
-
   const [clientToken, setClientToken] = useState();
   const [productList, setProductList] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+
+  const [categoriesLoaded, setCategoriesLoaded] = useState(false);
+  const [tokenLoaded, setTokenLoaded] = useState(false);
+  const [productListLoaded, setProductListLoaded] = useState(false);
+  const [cartItemsLoaded, setCartItemsLoaded] = useState(false);
+  const [filterDataLoaded, setFilterDataLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (categoriesLoaded && tokenLoaded && productListLoaded && cartItemsLoaded && filterDataLoaded) {
+      setLoading(false);
+    }
+  }, [categoriesLoaded, tokenLoaded, productListLoaded, cartItemsLoaded, filterDataLoaded]);
 
   useEffect(() => {
     (async () => {
@@ -35,6 +47,7 @@ export default function Subcategories({ params }) {
         if (cartResponse.items) {
           setCartItems(cartResponse.items);
         }
+        setCartItemsLoaded(true);
       }
     })();
   }, [clientToken]);
@@ -42,13 +55,13 @@ export default function Subcategories({ params }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setClientToken(localStorage.getItem("token-SattyTatty"));
+      setTokenLoaded(true);
     }
   }, []);
 
   useEffect(() => {
     setSelectProvider(undefined);
     setSubCategory(undefined);
-
   }, [filterActive]);
 
   const getFilterData = async () => {
@@ -72,7 +85,10 @@ export default function Subcategories({ params }) {
       setHighPrice(response.maxPrice);
       setProviders(response.providers);
       setCategoriesList(response.subCategories);
+      setCategoriesLoaded(true);
+      setFilterDataLoaded(true);
     }
+    setFilterDataLoaded(true);
   };
 
   const getProductList = async () => {
@@ -93,6 +109,7 @@ export default function Subcategories({ params }) {
       localStorage.clear();
     }
     setProductList(response);
+    setProductListLoaded(true);
   };
 
   async function getFilter() {
@@ -126,13 +143,12 @@ export default function Subcategories({ params }) {
   }
 
   useEffect(() => {
-
     getProductList();
     getFilterData();
-
   }, [clientToken]);
 
   return (
+    loading ? <div className="loader"></div> :
     <div className="main-subcategories">
       {filterActive ? (
         <div className="filter-window">

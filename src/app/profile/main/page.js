@@ -80,7 +80,6 @@ function Main() {
             const response = await axios.get(process.env.NEXT_PUBLIC_SERVER_URL + '/users/getProviderInfoByUserId/' + newData.id);
             if (response.data.success) {
               const a = response.data.info.workDays ? response.data.info.workDays.split(',') : null;
-              console.log("asd", a);
               setSelectedWorkDays(response.data.info.workDays ? response.data.info.workDays.split(',') : null)
               setProviderInfo(response.data.info);
             }

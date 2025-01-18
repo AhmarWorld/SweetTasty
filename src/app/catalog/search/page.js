@@ -101,7 +101,6 @@ function SearchPage() {
       alert("Ошибка, попробуйте позже");
     } else if (request.ok) {
       setProductList(response);
-      console.log("response", response);
       setFilterActive(false);
       setSelectProvider(undefined);
       setSubCategory(undefined);

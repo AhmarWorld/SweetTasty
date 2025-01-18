@@ -27,6 +27,7 @@
 
 .item-card .item-card_img {
     width: 100%;
+    /* height: 150px; */
     aspect-ratio: 1 / 1;
     border-radius: 16px;
     position: relative;

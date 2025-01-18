@@ -6,9 +6,11 @@ import "./authentication.css";
 import "animate.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useToken } from "../../TokenContext";
 
 function Auth() {
   const router = useRouter();
+  const { setToken } = useToken();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -43,7 +45,7 @@ function Auth() {
     if (data.success) {
       localStorage.setItem("user-SattyTatty", JSON.stringify(data.user));
       localStorage.setItem("token-SattyTatty", data.token);
-      console.log(response)
+      setToken(data.token);
 
       router.push("/profile/main");
       setOfferState(true);

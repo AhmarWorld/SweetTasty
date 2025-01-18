@@ -10,14 +10,25 @@ function CatalogCarousel({badgeId, productsList}) {
   const [clientToken,setClientToken] = useState('');
   const [cartItems, setCartItems] = useState([]);
 
+  const [productsLoaded, setProductsLoaded] = useState(false);
+  const [cartLoaded, setCartLoaded] = useState(false);
+  const [tokenLoaded, setTokenLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (productsLoaded && cartLoaded && tokenLoaded) {
+      setLoading(false);
+    }
+  }, [productsLoaded, tokenLoaded, cartLoaded]);
+
   useEffect(() => {
     (async () => {
       if (clientToken) {
         const cartResponse = await getCart(clientToken);
         if (cartResponse.items) {
-          console.log("cart fetched", cartResponse.items);
           setCartItems(cartResponse.items);
         }
+        setCartLoaded(true);
       }
     })();
   }, [clientToken]);
@@ -34,6 +45,7 @@ function CatalogCarousel({badgeId, productsList}) {
       }
     );
     const data = await response.json();
+    setProductsLoaded(true);
     setProducts(data.products);
   };
 
@@ -41,6 +53,7 @@ function CatalogCarousel({badgeId, productsList}) {
     if(typeof window !== 'undefined'){
       let token = localStorage.getItem("token-SattyTatty")
       setClientToken(token)
+      setTokenLoaded(true);
     }
   },[])
 
@@ -50,11 +63,16 @@ function CatalogCarousel({badgeId, productsList}) {
 
 
   return (
-    <div className="catalog-carousel">
+    loading ?
+    (
+      <div className="loader"></div>
+    ) :
+    (
+      <div className="catalog-carousel">
       {
         products?.length ?
           products?.map((product) => (
-            <div key={product.id} style={products?.length > 1 ? { maxWidth: "50%" } : {}}>
+            <div key={product.id} style={products?.length > 1 ? { width: "60%" } : {}}>
               <CatalogItem
                   key={product.id}
                   product={product}
@@ -65,6 +83,7 @@ function CatalogCarousel({badgeId, productsList}) {
           <div>Нет продуктов</div>
       }
     </div>
+    )
   );
 }
 

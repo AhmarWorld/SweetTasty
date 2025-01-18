@@ -11,7 +11,16 @@ import { useEffect, useState } from "react";
 export default function Home({ children }) {
   const [clientToken,setClientToken] = useState('');
   const [badgesList,setBadgesList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const [badgesLoaded, setBadgesLoaded] = useState(false);
+  const [tokenLoaded, setTokenLoaded] = useState(false);
+
+  useEffect(() => {
+    if (badgesLoaded && tokenLoaded) {
+      setLoading(false);
+    }
+  }, [badgesLoaded, tokenLoaded]);
 
   const loadBadges = async () => {
     const response = await fetch(
@@ -26,12 +35,14 @@ export default function Home({ children }) {
     );
     const data = await response.json();
     setBadgesList(data);
+    setBadgesLoaded(true);
   };
 
   useEffect(()=>{
     if(typeof window !== 'undefined'){
       let token = localStorage.getItem("token-SattyTatty")
       setClientToken(token)
+      setTokenLoaded(true);
     }
   },[])
 
@@ -44,9 +55,7 @@ export default function Home({ children }) {
         {
             loading ?
                 (
-                    <div className={"loaderContainer"}>
-                        <div className={"loader"}></div>
-                    </div>
+                  <div className={"loader"}></div>
                 ) :
                 (
                     <>
