@@ -28,8 +28,8 @@ function CatalogCarousel({badgeId, productsList}) {
         if (cartResponse.items) {
           setCartItems(cartResponse.items);
         }
-        setCartLoaded(true);
       }
+      setCartLoaded(true);
     })();
   }, [clientToken]);
 
