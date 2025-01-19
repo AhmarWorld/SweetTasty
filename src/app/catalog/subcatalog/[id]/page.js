@@ -47,8 +47,8 @@ export default function Subcategories({ params }) {
         if (cartResponse.items) {
           setCartItems(cartResponse.items);
         }
-        setCartItemsLoaded(true);
       }
+      setCartItemsLoaded(true);
     })();
   }, [clientToken]);
 

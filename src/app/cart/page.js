@@ -111,9 +111,9 @@ function Cart() {
           setCartId(data.cartId);
         }
         setOrderAllowed(data.orderAllowed);
-        setCartLoaded(true);
       })()
     }
+    setCartLoaded(true);
   }, [clientToken]);
 
   useEffect(() => {
