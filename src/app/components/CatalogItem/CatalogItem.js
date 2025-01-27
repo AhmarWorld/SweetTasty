@@ -8,16 +8,21 @@ import { MdDeleteForever } from "react-icons/md";
 import { addBasket } from "../../lib/basket";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRoot } from "@/app/lib/store";
 
 function CatalogItem({ product, cartItems }) {
   const router = useRouter();
 
-  const [clientToken, setClientToken] = useState('');
-  const [count, setCount] = useState(cartItems?.find(p => p.id === product.id)?.quantity || 0);
+  const [clientToken, setClientToken] = useState("");
+  const [count, setCount] = useState(
+    cartItems?.find((p) => p.id === product.id)?.quantity || 0
+  );
   const [counterOn, setCounterOn] = useState(false);
   const [cartId, setCartId] = useState(null);
 
   const [isAuth, setIsAuth] = useState(true);
+
+  const { removeFromCart, addToCart } = useRoot();
 
   useEffect(() => {
     if (!isAuth) {
@@ -27,7 +32,7 @@ function CatalogItem({ product, cartItems }) {
 
   const cartEdit = async (quantity) => {
     addBasket(product.id, product.price, quantity, clientToken, setCartId);
-  }
+  };
 
   const deleteItem = async () => {
     const response = await fetch(
@@ -47,7 +52,6 @@ function CatalogItem({ product, cartItems }) {
     }
   };
 
-
   const onClickMin = () => {
     let newCount = 1;
     newCount = Number(count) - 1;
@@ -55,17 +59,19 @@ function CatalogItem({ product, cartItems }) {
     if (newCount == 0) {
       deleteItem();
     } else {
-      cartEdit(newCount)
+      cartEdit(newCount);
     }
+    removeFromCart(product);
   };
 
   const onClickPlus = () => {
     let newCount = 0;
     newCount = Number(count) + 1;
-    setCount(prev => prev + 1);
-    cartEdit(newCount)
+    setCount((prev) => prev + 1);
+    cartEdit(newCount);
     setCounterOn(true);
     addBasket(product.id, product.price, newCount, clientToken, setCartId);
+    addToCart(product);
   };
 
   useEffect(() => {
@@ -87,10 +93,30 @@ function CatalogItem({ product, cartItems }) {
       <Link className="item-card_link" href={`/catalog/${product?.id}`}>
         <div className="item-card_img">
           <div className="item-card_badges">
-            {product.rating ? <span className="item-card_rating-text">{product.rating.toFixed(1)}</span> : <span></span>}
+            {product.rating ? (
+              <span className="item-card_rating-text">
+                {product.rating.toFixed(1)}
+              </span>
+            ) : (
+              <span></span>
+            )}
             <div className="item-card_badges-col">
-              {product.isNew && <span style={{borderRadius: '0 50px 50px 0'}} className="item-card_new-text">New</span>}
-              {product.oldPrice && <span style={{borderRadius: '0 50px 50px 0'}} className="item-card_sell-text">-15%</span>}
+              {product.isNew && (
+                <span
+                  style={{ borderRadius: "0 50px 50px 0" }}
+                  className="item-card_new-text"
+                >
+                  New
+                </span>
+              )}
+              {product.oldPrice && (
+                <span
+                  style={{ borderRadius: "0 50px 50px 0" }}
+                  className="item-card_sell-text"
+                >
+                  -15%
+                </span>
+              )}
               <span className="item-card_friends-text">Для вас</span>
             </div>
           </div>
@@ -102,19 +128,30 @@ function CatalogItem({ product, cartItems }) {
         <div className="item-card_rating">
           <div className="rating-stars">
             {[...Array(5)].map((_, index) => (
-              <FaStar key={index} className={index < Math.round(product.rating) ? "star-filled" : "star-empty"} />
+              <FaStar
+                key={index}
+                className={
+                  index < Math.round(product.rating)
+                    ? "star-filled"
+                    : "star-empty"
+                }
+              />
             ))}
           </div>
           <span className="reviews-count">({product.reviewsCount})</span>
         </div>
         <div className="item-card_title">
-          <b style={{ display: 'block', height: 52, alignContent: 'center' }}>{product.name}</b>
+          <b style={{ display: "block", height: 52, alignContent: "center" }}>
+            {product.name}
+          </b>
           <p className="currency">{product.providerName}</p>
           <p>{product.salesCount} продаж</p>
         </div>
         <div className="price">
           <span>{product.price} ₸</span>
-          {product.oldPrice && <span className="price-sell">{product.oldPrice} ₸</span>}
+          {product.oldPrice && (
+            <span className="price-sell">{product.oldPrice} ₸</span>
+          )}
         </div>
       </Link>
       {counterOn ? (

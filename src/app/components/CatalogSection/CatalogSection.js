@@ -9,6 +9,7 @@ export default function CatalogSection({ title, subCat }) {
         {subCat?.map((cat) => (
           <CatalogSectionItem
             // img={cat.image}
+            key={cat.id}
             id={cat.id}
             img={process.env.NEXT_PUBLIC_SERVER_URL + cat.image}
             name={cat.name}

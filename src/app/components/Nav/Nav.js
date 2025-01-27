@@ -7,11 +7,12 @@ import { PiShoppingCartDuotone } from "react-icons/pi";
 import { MdOutlineMenu } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { getCart } from "@/app/lib/basket";
+import { useRoot } from "@/app/lib/store";
 
 const Nav = () => {
   const [ifToken, setIfToken] = useState(false);
   const [token, setToken] = useState("");
-  const [basketCount, setBasketCount] = useState(0);
+  const { cart, setCart } = useRoot();
 
   useEffect(() => {
     if (ifToken) {
@@ -19,7 +20,7 @@ const Nav = () => {
         if (token) {
           const basketData = await getCart(token, setIfToken);
           if (basketData) {
-            setBasketCount(basketData?.items?.length);
+            setCart(basketData?.items);
           }
         }
       })();
@@ -46,10 +47,10 @@ const Nav = () => {
       setBasketCount(event.detail);
     };
 
-    window.addEventListener('cartUpdate', handleCartUpdate);
+    window.addEventListener("cartUpdate", handleCartUpdate);
 
     return () => {
-      window.removeEventListener('cartUpdate', handleCartUpdate);
+      window.removeEventListener("cartUpdate", handleCartUpdate);
     };
   }, []);
 
@@ -116,7 +117,7 @@ const Nav = () => {
         svg={<PiShoppingCartDuotone size={26} color="#333" />}
         text={"Корзина"}
         href={"/cart"}
-        count={basketCount}
+        count={cart?.length}
       />
       <NavButtons
         svg={<MdOutlineMenu size={26} color="#333" />}
