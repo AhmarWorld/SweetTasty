@@ -6,6 +6,7 @@ import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { addBasket } from "@/app/lib/basket";
+import { useRoot } from "@/app/lib/store";
 
 function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
   const price = item.price;
@@ -13,6 +14,8 @@ function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
   const [count, setCount] = useState(1);
 
   const [clientToken, setClientToken] = useState("");
+
+  const { addToCart, setCart } = useRoot();
 
   const onClickMin = () => {
     let newCount = 1;
@@ -38,6 +41,7 @@ function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
       setTotalSum(newTotalSum)
       addBasket(item.id, item.price, newCount, clientToken);
     }
+    addToCart({...item, count: newCount});
   };
 
   const deleteItem = async () => {
@@ -57,6 +61,7 @@ function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
       let newTotalSum = totalSum - (newPrice)
       setTotalSum(newTotalSum)
       setCartList(newCartList);
+      setCart(newCartList)
     }
   };
 

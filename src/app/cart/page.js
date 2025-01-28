@@ -10,10 +10,13 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
+import { useRoot } from "../lib/store";
 
 function Cart() {
   const [clientToken, setClientToken] = useState(undefined);
   const router = useRouter();
+
+  const {setCart} = useRoot()
 
   const [cartList, setCartList] = useState([]);
   const [cartId, setCartId] = useState(null);
@@ -76,6 +79,7 @@ function Cart() {
     );
     if (request.ok) {
       setCartList([]);
+      setCart([])
       setTotalSum(0);
       // const data = await getCart(clientToken, setIsAuth);
       // if (data) {

@@ -34,6 +34,7 @@ function CatalogItem({ product, cartItems }) {
     addBasket(product.id, product.price, quantity, clientToken, setCartId);
   };
 
+
   const deleteItem = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/cartItems/" + cartId,
@@ -61,17 +62,16 @@ function CatalogItem({ product, cartItems }) {
     } else {
       cartEdit(newCount);
     }
-    removeFromCart(product);
+    removeFromCart({...product, count: newCount});
   };
 
   const onClickPlus = () => {
     let newCount = 0;
     newCount = Number(count) + 1;
     setCount((prev) => prev + 1);
-    cartEdit(newCount);
     setCounterOn(true);
     addBasket(product.id, product.price, newCount, clientToken, setCartId);
-    addToCart(product);
+    addToCart({...product, count: newCount});
   };
 
   useEffect(() => {

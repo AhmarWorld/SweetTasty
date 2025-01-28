@@ -27,6 +27,10 @@ const Nav = () => {
     }
   }, [ifToken]);
 
+  useEffect(()=>{
+    console.log(cart)
+  },[cart])
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const newToken = localStorage.getItem("token-SattyTatty");
