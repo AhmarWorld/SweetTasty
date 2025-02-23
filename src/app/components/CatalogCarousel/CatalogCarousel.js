@@ -45,7 +45,6 @@ function CatalogCarousel({badgeId, productsList}) {
       }
     );
     const data = await response.json();
-    setProductsLoaded(true);
     setProducts(data.products);
   };
 
@@ -58,8 +57,11 @@ function CatalogCarousel({badgeId, productsList}) {
   },[])
 
   useEffect(()=>{
-    loadProducts(clientToken);
-  },[]);
+    if (!productsList) {
+      loadProducts(clientToken);
+    }
+    setProductsLoaded(true);
+  },[clientToken]);
 
 
   return (

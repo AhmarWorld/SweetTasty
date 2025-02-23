@@ -63,7 +63,7 @@ export default function Home({ children }) {
                         <Search placeholder={"Искать в Marketly"} />
                         <HotOffers />
                         <div style={{ paddingTop: 20 }} className="main-catalog">
-                            {badgesList.filter(badge => badge.showOnMainPage).map((badge)=>(
+                            {badgesList?.filter(badge => badge.showOnMainPage).map((badge)=>(
                                 <CatalogMini badge={badge} />
                             ))}
                             {/*<DailyItem />*/}
