@@ -47,7 +47,6 @@ function CatalogItem({ product, cartItems }) {
         },
       }
     );
-    const data = await request.json();
     if (!response.ok) {
       // alert("Авторизуйтесь на сайте");
     }

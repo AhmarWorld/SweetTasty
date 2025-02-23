@@ -46,7 +46,7 @@ function Profile() {
     );
     const data = await response.json();
     if (data.status === 201) {
-      router.push("/profile/auth");
+      router.push("/profile/redirect");
     }
   };
 

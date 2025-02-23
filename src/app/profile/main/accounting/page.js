@@ -131,7 +131,7 @@ export default function Accounting() {
             Показать
           </button>
           <p style={{ color: "black", margin: "10px" }}>
-            {nowShowDate} - {lateShowDate}
+            {moment(firstDate).format("DD/MM/yyyy")} - {moment(secondDate).format("DD/MM/yyyy")}
           </p>
         </div>
         {ordersInfo.map((orderInfo) => (
