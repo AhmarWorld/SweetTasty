@@ -23,6 +23,8 @@ function Profile() {
   const [deliveryMinute, setDeliveryMinute] = useState("");
 
   const [ifReg, setIfReg] = useState(false);
+  const [role, setRole] = useState('cafe');
+
   const regButton = async () => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/users/register",
@@ -34,7 +36,7 @@ function Profile() {
         body: JSON.stringify({
           username: username,
           password: password,
-          accountType: "cafeOwner",
+          accountType: role === 'cafe' ? "cafeOwner" : "provider",
           fullname: fullname,
           phone: phone,
           cafeName: cafeName,
@@ -67,7 +69,7 @@ function Profile() {
 
   const onChangeUsername = (value, setFunc) => {
     if (!value.includes(" ")) {
-      if (/^[a-zA-Z0-9]+$/.test(value)) {
+      if (/^[а-яА-Яa-zA-Z0-9]+$/.test(value)) {
         setFunc(value);
       } else if (value === "" && setFunc.length > 0) {
         setFunc(value);
@@ -148,6 +150,21 @@ function Profile() {
           Войдите чтобы копить бонусы, сохранить адрес доставки и историю
           заказов
         </p>
+        <div className="profile-select_role">
+          <div className="switch">
+            <input 
+              type="checkbox" 
+              id="role-switch"
+              checked={role === 'supplier'}
+              onChange={(e) => setRole(e.target.checked ? 'supplier' : 'cafe')}
+            />
+            <label htmlFor="role-switch">
+              <span className="switch-text cafe">Кофейня</span>
+              <span className="switch-text supplier">Поставщик</span>
+              <span className="slider"></span>
+            </label>
+          </div>
+        </div>
       </div>
           <form className="resitration-form">
             <label>

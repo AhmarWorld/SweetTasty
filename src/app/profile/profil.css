@@ -268,3 +268,75 @@ h3 {
   font-size: 16px;
   font-weight: 500;
 }
+
+.profile-select_role {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.switch {
+  position: relative;
+  width: 300px;
+  height: 50px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  border-radius: 25px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.switch-text {
+  flex: 1;
+  text-align: center;
+  z-index: 1;
+  color: #666;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 8px);
+  height: calc(100% - 8px);
+  background: #4CAF50;
+  border-radius: 22px;
+  transition: transform 0.3s ease;
+}
+
+input:checked + label .slider {
+  transform: translateX(calc(100% + 8px));
+}
+
+input:checked + label .supplier {
+  color: white;
+}
+
+input:not(:checked) + label .cafe {
+  color: white;
+}
+
+/* Эффект при наведении */
+.switch label:hover {
+  background: #ebebeb;
+}
+
+/* Эффект нажатия */
+.switch label:active .slider {
+  transform: scale(0.95);
+}

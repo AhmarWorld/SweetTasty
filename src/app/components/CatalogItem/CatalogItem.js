@@ -47,8 +47,11 @@ function CatalogItem({ product, cartItems }) {
         },
       }
     );
-    if (!response.ok) {
-      // alert("Авторизуйтесь на сайте");
+    if (response.status === 401) {
+      alert("Необходима авторизация");
+      setIsAuth(false);
+    } else if (!response.ok) {
+      alert("Произошла ошибка");
     }
   };
 
