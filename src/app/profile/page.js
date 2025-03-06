@@ -26,6 +26,21 @@ function Profile() {
   const [role, setRole] = useState('cafe');
 
   const regButton = async () => {
+    const baseData = {
+      username: username,
+      password: password,
+      accountType: role === 'cafe' ? "cafeOwner" : "provider",
+      fullname: fullname,
+      phone: phone,
+    };
+
+    const cafeData = role === 'cafe' ? {
+      cafeName: cafeName,
+      cafeAddress: cafeAddress,
+      openTime: openTime,
+      closeTime: deliveryTime,
+    } : {};
+
     const response = await fetch(
       process.env.NEXT_PUBLIC_SERVER_URL + "/users/register",
       {
@@ -34,15 +49,8 @@ function Profile() {
         },
         method: "POST",
         body: JSON.stringify({
-          username: username,
-          password: password,
-          accountType: role === 'cafe' ? "cafeOwner" : "provider",
-          fullname: fullname,
-          phone: phone,
-          cafeName: cafeName,
-          cafeAddress: cafeAddress,
-          openTime: openTime,
-          closeTime: deliveryTime,
+          ...baseData,
+          ...cafeData
         }),
       }
     );
@@ -201,28 +209,93 @@ function Profile() {
                 placeholder="Имя Фамилия Отчество"
               />
             </label>
-            <label>
-              Название кофейни <br />
-              <input
-                value={cafeName}
-                onChange={(e) => {
-                  onChange(e.target.value, setCafeName);
-                }}
-                id="name-coffee"
-                placeholder="SattyTatty"
-              />
-            </label>
-            <label>
-              Адрес кофейни <br />
-              <input
-                value={cafeAddress}
-                onChange={(e) => {
-                  onChange(e.target.value, setCafeAddress);
-                }}
-                id="adres"
-                placeholder="Мангилик Ел, 1"
-              />
-            </label>
+            {role === 'cafe' && (
+              <>
+                <label>
+                  Название кофейни <br />
+                  <input
+                    value={cafeName}
+                    onChange={(e) => {
+                      onChange(e.target.value, setCafeName);
+                    }}
+                    id="name-coffee"
+                    placeholder="SattyTatty"
+                  />
+                </label>
+                <label>
+                  Адрес кофейни <br />
+                  <input
+                    value={cafeAddress}
+                    onChange={(e) => {
+                      onChange(e.target.value, setCafeAddress);
+                    }}
+                    id="adres"
+                    placeholder="Мангилик Ел, 1"
+                  />
+                </label>
+                <div className="time-inputs">
+                  <div className="work-time">
+                    <h3>Время работы</h3>
+                    <div className="time-row">
+                      <label className="time-label">
+                        Открытие:
+                        <div className="time-input-group">
+                          <input
+                            value={openHour}
+                            onChange={(e) =>
+                              setOpenHour(validateHour(e.target.value))
+                            }
+                            placeholder="00"
+                            maxLength={2}
+                            type="text"
+                          />
+                          <span>:</span>
+                          <input
+                            value={openMinute}
+                            onChange={(e) =>
+                              setOpenMinute(validateMinute(e.target.value))
+                            }
+                            placeholder="00"
+                            maxLength={2}
+                            type="text"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="delivery-time">
+                    <h3>Желаемое время доставки</h3>
+                    <div className="time-row">
+                      <label className="time-label">
+                        Время:
+                        <div className="time-input-group">
+                          <input
+                            value={deliveryHour}
+                            onChange={(e) =>
+                              setDeliveryHour(validateHour(e.target.value))
+                            }
+                            placeholder="00"
+                            maxLength={2}
+                            type="text"
+                          />
+                          <span>:</span>
+                          <input
+                            value={deliveryMinute}
+                            onChange={(e) =>
+                              setDeliveryMinute(validateMinute(e.target.value))
+                            }
+                            placeholder="00"
+                            maxLength={2}
+                            type="text"
+                          />
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
             <label>
               Номер телефона <br />
               <input
@@ -235,67 +308,6 @@ function Profile() {
                 placeholder="+7 (777) 777-77-77"
               />
             </label>
-            <div className="time-inputs">
-              <div className="work-time">
-                <h3>Время работы</h3>
-                <div className="time-row">
-                  <label className="time-label">
-                    Открытие:
-                    <div className="time-input-group">
-                      <input
-                        value={openHour}
-                        onChange={(e) =>
-                          setOpenHour(validateHour(e.target.value))
-                        }
-                        placeholder="00"
-                        maxLength={2}
-                        type="text"
-                      />
-                      <span>:</span>
-                      <input
-                        value={openMinute}
-                        onChange={(e) =>
-                          setOpenMinute(validateMinute(e.target.value))
-                        }
-                        placeholder="00"
-                        maxLength={2}
-                        type="text"
-                      />
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <div className="delivery-time">
-                <h3>Желаемое время доставки</h3>
-                <div className="time-row">
-                  <label className="time-label">
-                    Время:
-                    <div className="time-input-group">
-                      <input
-                        value={deliveryHour}
-                        onChange={(e) =>
-                          setDeliveryHour(validateHour(e.target.value))
-                        }
-                        placeholder="00"
-                        maxLength={2}
-                        type="text"
-                      />
-                      <span>:</span>
-                      <input
-                        value={deliveryMinute}
-                        onChange={(e) =>
-                          setDeliveryMinute(validateMinute(e.target.value))
-                        }
-                        placeholder="00"
-                        maxLength={2}
-                        type="text"
-                      />
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div>
           </form>
           <div className="after_profile-buttons">
             <button onClick={regButton}>Регистрация</button>
