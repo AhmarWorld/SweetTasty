@@ -21,12 +21,19 @@ export async function addBasket(
       }),
     }
   );
-  const response = await request.json();
-  if (!response.success && response.message == "User not authorized") {
-    // alert("Авторизуйтесь на сайте");
+  
+  if (request.status === 401) {
+    alert("Необходима авторизация");
+    return false;
   }
+  
+  if (request.status !== 200 && request.status !== 201) {
+    return false;
+  }
+  
+  const response = await request.json();
   setCartId(response.cartItemId);
-  return request.ok;
+  return true;
 }
 
 export async function getCart(clientToken) {
@@ -41,12 +48,16 @@ export async function getCart(clientToken) {
       },
     }
   );
+
+  if (request.status === 401) {
+    alert("Необходима авторизация");
+    return { success: false };
+  }
+
+  if (request.status !== 200 && request.status !== 201) {
+    return { success: false };
+  }
+
   const response = await request.json();
-  if (!response.success && response.message == "User not authorized") {
-    alert("Авторизуйтесь на сайте");
-  }
-  if (response.items && typeof window !== "undefined") {
-    localStorage.setItem("cartItems", JSON.stringify(response.items));
-  }
   return response;
 }
