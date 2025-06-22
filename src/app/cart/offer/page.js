@@ -6,16 +6,16 @@ import { useEffect, useState } from "react";
 import "animate.css";
 import { useRouter } from "next/navigation";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
+import { useRoot } from "@/app/lib/store";
 
 export default function Offer() {
   const router = useRouter();
   const [offerState, setOfferState] = useState(false);
   const [clientToken, setClientToken] = useState("");
   const [address, setAddress] = useState([]);
-
   const [offerAttention, setOfferAttention] = useState(false);
-
   const [currentAddress, setCurrentAddress] = useState(Number);
+  const { clearCart } = useRoot();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -56,7 +56,7 @@ export default function Offer() {
     );
     if (response.ok) {
       setOfferState(true);
-      
+      clearCart();
     } else {
       setOfferState(false);
     }
@@ -107,6 +107,8 @@ export default function Offer() {
         onChange={(e) => {
           if (e.target.value >= 0) {
             setCurrentAddress(Number(e.target.value));
+          } else {
+              setCurrentAddress(null);
           }
         }}
       >
@@ -123,8 +125,10 @@ export default function Offer() {
           attention();
         }}
         className="offer-button"
+        style={!currentAddress ? { backgroundColor: "red" } : {}}
+        disabled={!currentAddress}
       >
-        <p>Перейти к оформлению</p>
+        <p>{currentAddress ? "Перейти к оформлению" : "Выберите адрес для оформления заказа"}</p>
       </button>
       <Footer />
     </div>

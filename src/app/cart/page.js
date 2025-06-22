@@ -16,7 +16,7 @@ function Cart() {
   const [clientToken, setClientToken] = useState(undefined);
   const router = useRouter();
 
-  const {setCart} = useRoot()
+  const { setCart, cart } = useRoot();
 
   const [cartList, setCartList] = useState([]);
   const [cartId, setCartId] = useState(null);
@@ -29,7 +29,8 @@ function Cart() {
 
   const [tokenLoaded, setTokenLoaded] = useState(false);
   const [cartLoaded, setCartLoaded] = useState(false);
-  const [recommendedProductsLoaded, setRecommendedProductsLoaded] = useState(false);
+  const [recommendedProductsLoaded, setRecommendedProductsLoaded] =
+    useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -48,16 +49,17 @@ function Cart() {
   useEffect(() => {
     async function loadRecommendedProducts() {
       const request = await fetch(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/badges/search?name=для корзины",
-          {
-            method: "GET",
-            headers: {
-              "ngrok-skip-browser-warning": "any",
-            }
-          }
+        process.env.NEXT_PUBLIC_SERVER_URL + "/badges/search?name=для корзины",
+        {
+          method: "GET",
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+          },
+        }
       );
 
       const response = await request.json();
+      console.log("for cart badge", response);
       setRecommendedProducts(response);
       setRecommendedProductsLoaded(true);
     }
@@ -79,7 +81,7 @@ function Cart() {
     );
     if (request.ok) {
       setCartList([]);
-      setCart([])
+      setCart([]);
       setTotalSum(0);
       // const data = await getCart(clientToken, setIsAuth);
       // if (data) {
@@ -108,20 +110,23 @@ function Cart() {
 
   useEffect(() => {
     if (clientToken) {
-      (async function(){
-        const data = await getCart(clientToken, setIsAuth);
-        if (data.success) {
-          setCartList(data.items);
-          setCartId(data.cartId);
-        }
-        setOrderAllowed(data.orderAllowed);
-      })()
+      setTimeout(() => {
+        (async function () {
+          const data = await getCart(clientToken, setIsAuth);
+          console.log("getCart page", data);
+          if (data.success) {
+            setCartList(data.items);
+            setCartId(data.cartId);
+          }
+          setOrderAllowed(data.orderAllowed);
+        })();
+        setCartLoaded(true);
+      }, 100);
     }
-    setCartLoaded(true);
-  }, [clientToken]);
+  }, [clientToken, cart]);
 
   useEffect(() => {
-    const event = new CustomEvent('cartUpdate', { detail: cartList.length });
+    const event = new CustomEvent("cartUpdate", { detail: cartList.length });
     window.dispatchEvent(event);
   }, [cartList]);
 
@@ -140,7 +145,7 @@ function Cart() {
         );
         if (request.ok) {
           const userData = await request.json();
-          setHasAddress(userData.length ? 'true' : 'false');
+          setHasAddress(userData.length ? "true" : "false");
         }
       }
       checkAddress();
@@ -150,59 +155,60 @@ function Cart() {
   return (
     <div className="cart">
       {!hasAddress && <ProfileGeo />}
-      <OrdersBunner/>
-      {
-        isLoading ? 
-        (
-          <div className="loader"></div>
-        ) :
-        (
-          <>
-            <div style={{ marginTop: 20 }} className="cart-main">
-              <p className="cart-main_title">
-                <h2>
-                  Корзина: <b>{cartList.length ? cartList.length : 0}</b>
-                </h2>
-                <p onClick={deleteCart}>Очистить корзину</p>
-              </p>
-              {cartList.length ? (
-                <div className="cart-list">
-                  {cartList.map((item) => {
-                    return (
-                      <CartItem
-                        totalSum={totalSum}
-                        setTotalSum={setTotalSum}
-                        cartList={cartList}
-                        setCartList={setCartList}
-                        item={item}
-                        key={item.id}
-                      />
-                    );
-                  })}
-                </div>
-              ) : (
-                <p>В ваша корзина пуста...</p>
-              )}
-            </div>
-            {
-              cartList.length ? (
-                  orderAllowed ? (
-                      <Link href={"/cart/offer"} className="cart-offer">
-                        <p>Перейти к оформлению</p>
-                        <p>{totalSum} ₸</p>
-                      </Link>
-                  ) : (
-                      <div className="cart-offer" style={{ backgroundColor: "coral" }}>
-                        <p>В данный момент <br /> прием заказов закрыт!</p>
-                      </div>
-                  )
-              ) : null
-            }
-            {recommendedProducts.length && (<CatalogMini productsList={recommendedProducts} headingText={"Рекомендованные товары"} />)}
-            <Footer />
-          </>
-        )
-      }
+      <OrdersBunner />
+      {isLoading ? (
+        <div className="loader"></div>
+      ) : (
+        <>
+          <div style={{ marginTop: 20 }} className="cart-main">
+            <p className="cart-main_title">
+              <h2>
+                Корзина: <b>{cartList.length ? cartList.length : 0}</b>
+              </h2>
+              <p onClick={deleteCart}>Очистить корзину</p>
+            </p>
+            {cartList.length ? (
+              <div className="cart-list">
+                {cartList.map((item) => {
+                  return (
+                    <CartItem
+                      totalSum={totalSum}
+                      setTotalSum={setTotalSum}
+                      cartList={cartList}
+                      setCartList={setCartList}
+                      item={item}
+                      key={item.id}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <p>В ваша корзина пуста...</p>
+            )}
+          </div>
+          {cartList.length > 0 ? (
+            orderAllowed ? (
+              <Link href={"/cart/offer"} className="cart-offer">
+                <p>Перейти к оформлению</p>
+                <p>{totalSum} ₸</p>
+              </Link>
+            ) : (
+              <div className="cart-offer" style={{ backgroundColor: "coral" }}>
+                <p>
+                  В данный момент <br /> прием заказов закрыт!
+                </p>
+              </div>
+            )
+          ) : null}
+          {recommendedProducts.length > 0 && (
+            <CatalogMini
+              productsList={recommendedProducts}
+              headingText={"Рекомендованные товары"}
+            />
+          )}
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

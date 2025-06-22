@@ -107,10 +107,6 @@ function Main() {
           <div className="profile-select">
             <ul>
               <ProfileNavItem href={"/profile/main"} text={"Профиль"}/>
-              <ProfileNavItem
-                  href={"/profile/main/messages"}
-                  text={"Сообщения"}
-              />
               {isProvider ? (
                   <ProfileNavItem
                       href={"/profile/main/provider/orders"}

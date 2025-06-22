@@ -25,6 +25,10 @@ function CatalogItem({ product, cartItems }) {
   const { removeFromCart, addToCart } = useRoot();
 
   useEffect(() => {
+    setCount(cartItems?.find((p) => p.id === product.id)?.quantity || 0);
+  }, [cartItems]);
+
+  useEffect(() => {
     if (!isAuth) {
       router.push("/profile/authentication");
     }
@@ -37,7 +41,7 @@ function CatalogItem({ product, cartItems }) {
 
   const deleteItem = async () => {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/cartItems/" + cartId,
+      process.env.NEXT_PUBLIC_SERVER_URL + "/cartItems/" + (cartId || cartItems?.find(cartItem => cartItem.id === product?.id))?.cartItemId,
       {
         method: "DELETE",
         headers: {

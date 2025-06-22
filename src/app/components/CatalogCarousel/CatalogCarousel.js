@@ -25,6 +25,7 @@ function CatalogCarousel({badgeId, productsList}) {
     (async () => {
       if (clientToken) {
         const cartResponse = await getCart(clientToken);
+        console.log("catalog cart", cartResponse);
         if (cartResponse.items) {
           setCartItems(cartResponse.items);
         }
@@ -72,7 +73,7 @@ function CatalogCarousel({badgeId, productsList}) {
     (
       <div className="catalog-carousel">
       {
-        products?.length ?
+        products?.length > 0 ?
           products?.map((product) => (
             <div key={product.id} style={products?.length > 1 ? { width: "60%" } : {}}>
               <CatalogItem

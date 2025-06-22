@@ -59,5 +59,6 @@ export async function getCart(clientToken) {
   }
 
   const response = await request.json();
+  console.log("getCart", response);
   return response;
 }

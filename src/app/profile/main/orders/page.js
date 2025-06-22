@@ -129,7 +129,6 @@ function Orders() {
       <div className="profile-select">
         <ul>
           <ProfileNavItem href={"/profile/main"} text={"Профиль"} />
-          <ProfileNavItem href={"/profile/main/messages"} text={"Сообщения"} />
           <ProfileNavItem href={"/profile/main/orders"} text={"Заказы"} />
           <ProfileNavItem
             href={"/profile/main/accounting"}

@@ -6,7 +6,7 @@ export default function Filter({active,setActive}) {
     setActive(!active)
   }
   return (
-    <div onClick={onClick} className='filter-button'>
+    <div onClick={onClick} className='filter-button' style={{ marginBottom: 20 }}>
         <PiSlidersHorizontalFill size={24} />
         <span className='filter-button_text'>Фильтры</span>
     </div>

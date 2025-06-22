@@ -95,8 +95,7 @@ function CartItem({ item, cartList, setCartList, totalSum, setTotalSum }) {
               <g clip-path="url(#clip0_5215_554)">
                 <path
                   data-v-1ec77d30=""
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
                   d="M18.3215 7.17787L19.0993 6.40006L17.5436 4.84442L16.7658 5.62224L11.9994 10.3886L7.23361 5.6228L6.4558 4.84499L4.90016 6.40062L5.67798 7.17844L10.4438 11.9443L5.67761 16.7104L4.8998 17.4883L6.45543 19.0439L7.23325 18.2661L11.9994 13.4999L16.7614 18.2618L17.5392 19.0397L19.0948 17.484L18.317 16.7062L13.5551 11.9443L18.3215 7.17787Z"
                   fill="#E6E6E6"
                 ></path>
