@@ -108,6 +108,38 @@ function SearchPage() {
     }
   }
 
+  async function onFilterButtonPress() {
+    const request = await fetch(
+      process.env.NEXT_PUBLIC_SERVER_URL + "/products/filter",
+      {
+        method: "POST",
+        headers: {
+          "ngrok-skip-browser-warning": "any",
+          Authorization: "Bearer " + clientToken,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          minPrice: lowPrice,
+          maxPrice: highPrice,
+          ...(selectProvider && { providerIds: [+selectProvider] }),
+          ...(subCategory && { subCategoryIds: [+subCategory] }),
+          sortingMethod: sortingMethod,
+        }),
+      }
+    )
+
+    const response = await request.json();
+    if (!request.ok) {
+      alert("Ошибка, попробуйте позже");
+    } else if (request.ok) {
+      setProductList(response);
+      setFilterActive(false);
+      setSelectProvider(undefined);
+      setSubCategory(undefined);
+      setSearchText(undefined);
+    }
+  }
+
   useEffect(() => {
     setSearchText(search);
     getFilter();
@@ -217,7 +249,7 @@ function SearchPage() {
                 <option value={"desc"}>по убыванию</option>
               </select>
             </div>
-            <div onClick={getFilter} className="filter-done">
+            <div onClick={onFilterButtonPress} className="filter-done">
               <h4>Применить</h4>
               {/* <p>50 найденных</p> */}
             </div>

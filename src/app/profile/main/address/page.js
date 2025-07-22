@@ -26,7 +26,7 @@ function Address() {
   const [closeTime, setCloseTime] = useState("");
 
   const createAddress = async () => {
-    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/branches", {
+    await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/branches", {
       method: "POST",
       headers: {
         "ngrok-skip-browser-warning": "any",
@@ -47,7 +47,7 @@ function Address() {
   };
 
   const getAddress = async ()=>{
-    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/branches',{
+    const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + '/branches/all',{
       method: "GET",
       headers: {
         "ngrok-skip-browser-warning": "any",
