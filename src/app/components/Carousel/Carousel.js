@@ -5,9 +5,11 @@ import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import "./Carousel.css"
 
-export default () => {
+export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
+  const [carouselInterval, setCarouselInterval] = useState(null);
+  const [dotClicked, setDotClicked] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     initial: 0,
@@ -22,21 +24,52 @@ export default () => {
   useEffect(() => {
     const interval = setInterval(() => {
       instanceRef?.current.next()
-    }, 3000)
+    }, 3000);
+
+    setCarouselInterval(interval);
 
     return () => {
-      clearInterval(interval)
+      clearInterval(interval);
+      setCarouselInterval(null);
     }
-  }, [instanceRef])
+  }, [instanceRef, dotClicked]);
 
   return (
     <div className="carousel">
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          <div className="keen-slider__slide number-slide1">1</div>
-          <div className="keen-slider__slide number-slide2">2</div>
-          <div className="keen-slider__slide number-slide3">3</div>
-          <div className="keen-slider__slide number-slide4">4</div>
+          <div
+            className="keen-slider__slide number-slide1"
+            style={{
+              backgroundImage: `url(/slide-1.png)`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
+          <div
+            className="keen-slider__slide number-slide2"
+            style={{
+              backgroundImage: `url(/slide-2.png)`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
+          <div
+            className="keen-slider__slide number-slide3"
+            style={{
+              backgroundImage: `url(/slide-3.png)`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
+          <div
+            className="keen-slider__slide number-slide4"
+            style={{
+              backgroundImage: `url(/slide-4.png)`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
         </div>
       </div>
       {loaded && instanceRef.current && (
@@ -48,7 +81,11 @@ export default () => {
               <button
                 key={idx}
                 onClick={() => {
-                  instanceRef.current?.moveToIdx(idx)
+                  instanceRef.current?.moveToIdx(idx);
+                  clearInterval(Number(carouselInterval));
+                  setTimeout(() => {
+                    setDotClicked(prev => !prev);
+                  }, 10000);
                 }}
                 className={"dot" + (currentSlide === idx ? " active" : "")}
               ></button>
@@ -56,7 +93,6 @@ export default () => {
           })}
         </div>
       )}
-
     </div>
   )
 }

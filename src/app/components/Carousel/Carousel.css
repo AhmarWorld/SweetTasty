@@ -1,7 +1,7 @@
 .carousel {
   position: sticky;
   top: 0;
-  z-index: -12;
+  /*z-index: -12;*/
   height: 70%;
   width: 100%;
 }
@@ -71,7 +71,7 @@
 .dots {
   top: -40px;
   position: relative;
-  z-index: 19;
+  z-index: 1000;
   display: flex;
   padding: 10px 0;
   justify-content: center;
@@ -81,7 +81,7 @@
   border: none;
   width: 6px;
   height: 6px;
-  background: #fff;
+  background: darkblue;
   border-radius: 4px;
   margin: 0 5px;
   cursor: pointer;
