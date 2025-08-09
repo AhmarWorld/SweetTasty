@@ -42,7 +42,7 @@ export default function Carousel() {
             className="keen-slider__slide number-slide1"
             style={{
               backgroundImage: `url(/slide-1.png)`,
-              backgroundSize: "contain",
+              backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           ></div>
@@ -50,7 +50,7 @@ export default function Carousel() {
             className="keen-slider__slide number-slide2"
             style={{
               backgroundImage: `url(/slide-2.png)`,
-              backgroundSize: "contain",
+              backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           ></div>
@@ -58,7 +58,7 @@ export default function Carousel() {
             className="keen-slider__slide number-slide3"
             style={{
               backgroundImage: `url(/slide-3.png)`,
-              backgroundSize: "contain",
+              backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           ></div>
@@ -66,7 +66,7 @@ export default function Carousel() {
             className="keen-slider__slide number-slide4"
             style={{
               backgroundImage: `url(/slide-4.png)`,
-              backgroundSize: "contain",
+              backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
             }}
           ></div>

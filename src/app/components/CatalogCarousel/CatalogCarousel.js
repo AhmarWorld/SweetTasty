@@ -25,7 +25,6 @@ function CatalogCarousel({badgeId, productsList}) {
     (async () => {
       if (clientToken) {
         const cartResponse = await getCart(clientToken);
-        console.log("catalog cart", cartResponse);
         if (cartResponse.items) {
           setCartItems(cartResponse.items);
         }

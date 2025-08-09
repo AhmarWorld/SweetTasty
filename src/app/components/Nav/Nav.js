@@ -29,7 +29,6 @@ const Nav = () => {
   }, [ifToken]);
 
   useEffect(()=>{
-    console.log("cartiwka", cart);
     setBasketCount(cart?.length);
   },[cart])
 
@@ -50,7 +49,6 @@ const Nav = () => {
 
   useEffect(() => {
     const handleCartUpdate = (event) => {
-      console.log("basketCount", event.detail);
       setBasketCount(event.detail);
     };
 

@@ -30,7 +30,6 @@ export default function CatalogItem({ params }) {
       if (clientToken) {
         const cartResponse = await getCart(clientToken);
         if (cartResponse.items) {
-          console.log("alibi", cartResponse.items);
           setCount(cartResponse.items.find(item => item.id === product.id)?.quantity || 0);
         }
       }

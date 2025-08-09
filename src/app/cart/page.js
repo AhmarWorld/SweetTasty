@@ -59,7 +59,6 @@ function Cart() {
       );
 
       const response = await request.json();
-      console.log("for cart badge", response);
       setRecommendedProducts(response);
       setRecommendedProductsLoaded(true);
     }
@@ -113,7 +112,6 @@ function Cart() {
       setTimeout(() => {
         (async function () {
           const data = await getCart(clientToken, setIsAuth);
-          console.log("getCart page", data);
           if (data.success) {
             setCartList(data.items);
             setCartId(data.cartId);
