@@ -2,8 +2,8 @@
   position: sticky;
   top: 0;
   /*z-index: -12;*/
-  height: 70%;
   width: 100%;
+    aspect-ratio: 2 / 3;
 }
 
 [class^="number-slide"],
@@ -79,12 +79,13 @@
 
 .dot {
   border: none;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: darkblue;
   border-radius: 4px;
   margin: 0 5px;
   cursor: pointer;
+    border-radius: 50%;
 }
 
 .dot:focus {
@@ -93,5 +94,6 @@
 
 .dot.active {
   background: #53c95a;
-  width: 12px;
+  width: 14px;
+    border-radius: 40%;
 }

@@ -13,9 +13,9 @@ export default function Carousel() {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     initial: 0,
-    drag: true,
+    drag: false,
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel)
+      setCurrentSlide(slider.track.details.rel);
     },
     created() {
       setLoaded(true)
@@ -24,7 +24,7 @@ export default function Carousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       instanceRef?.current.next()
-    }, 3000);
+    }, 5000);
 
     setCarouselInterval(interval);
 
@@ -32,7 +32,7 @@ export default function Carousel() {
       clearInterval(interval);
       setCarouselInterval(null);
     }
-  }, [instanceRef, dotClicked]);
+  }, [dotClicked]);
 
   return (
     <div className="carousel">
