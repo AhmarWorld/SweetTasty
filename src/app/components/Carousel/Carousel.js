@@ -13,7 +13,7 @@ export default function Carousel() {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     initial: 0,
-    drag: false,
+    drag: true,
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
@@ -37,7 +37,7 @@ export default function Carousel() {
   return (
     <div className="carousel">
       <div className="navigation-wrapper">
-        <div ref={sliderRef} className="keen-slider">
+        <div ref={sliderRef} style={{ height: "100%" }} className="keen-slider">
           <div
             className="keen-slider__slide number-slide1"
             style={{

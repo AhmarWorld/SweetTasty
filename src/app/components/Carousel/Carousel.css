@@ -1,7 +1,7 @@
 .carousel {
   position: sticky;
   top: 0;
-  /*z-index: -12;*/
+  z-index: -3;
   width: 100%;
     aspect-ratio: 2 / 3;
 }
@@ -15,8 +15,6 @@
   font-size: 50px;
   color: #fff;
   font-weight: 500;
-  height: 70vh;
-  max-height: 100vh;
 }
 
 .number-slide1 {
@@ -66,14 +64,15 @@
 
 .navigation-wrapper {
   position: relative;
+  height: 100%;
 }
 
 .dots {
-  top: -40px;
-  position: relative;
+  bottom: 20px;
+  position: absolute;
+  width: 100%;
   z-index: 1000;
   display: flex;
-  padding: 10px 0;
   justify-content: center;
 }
 
