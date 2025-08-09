@@ -20,7 +20,7 @@ export default function HotOffers() {
           <img src="/static/discounts.svg" />
           <p>Скидки</p>
         </div>
-        <Link href={'https://wa.me/+77785056357'} className="hotoffers-img">
+        <Link href={'https://wa.me/+77023953078'} className="hotoffers-img">
           <img src="/static/messages.svg" />
           <p>Сообщения</p>
         </Link>

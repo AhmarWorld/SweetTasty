@@ -9,31 +9,22 @@ function Footer() {
     <footer>
         {/* <img src='https://arbuz.kz/static/platform/frontend/assets/banners/landing/arbuz-logo.png?v2' /> */}
         <p className='footer-head' >
-            Телефон доставки: <br/>
-            г. Астана: <br/>
-            <a href="tel:+77059260000" >+7 (705) 926 00 00</a><br/>
-            <a href="tel:+77059260001" >+7 (705) 926 00 00</a><br/>
+          Телефон доставки: <br/>
+          <a href="tel:+77023953078" >+7 702 395 30 78</a><br/>
+          г. Астана<br/>
         </p>
-        <p className='footer-head_email' >help@marketly.kz</p>
+        <p className='footer-head_email'>marketlykz@mail.ru</p>
         <table>
-           <tr>
+          <tr>
             <td>Доставка</td>
-            <td>Акции</td>
-            <td>Рекламодателям</td>
-           </tr>
-           <tr>
-            <td>Подписка Friends</td>
-            <td>Вакансии</td>
-           </tr>
-           <tr>
-            <td>FAQ</td>
+          </tr>
+          <tr>
             <td>О нас</td>
-           </tr>
+          </tr>
         </table>
         <div className='footer-icons'>
-          <FaSquareFacebook size={45} />
-          <FaSquareInstagram size={45} />
-          <FaSquareWhatsapp size={45} />
+          <FaSquareInstagram size={45} onClick={() => window.open("https://www.instagram.com/marketly.ast?igsh=MWdza3BqaGQ4YXJ1cw==")} />
+          <FaSquareWhatsapp size={45} onClick={() => window.open("https://wa.me/+77023953078")} />
         </div>
     </footer> 
   )
