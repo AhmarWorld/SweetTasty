@@ -115,15 +115,15 @@ function CatalogItem({ product, cartItems }) {
                   New
                 </span>
               )}
-              {product.oldPrice && (
-                <span
-                  style={{ borderRadius: "0 50px 50px 0" }}
-                  className="item-card_sell-text"
-                >
-                  -15%
-                </span>
-              )}
-              <span className="item-card_friends-text">Для вас</span>
+              {/*{product.oldPrice && (*/}
+              {/*  <span*/}
+              {/*    style={{ borderRadius: "0 50px 50px 0" }}*/}
+              {/*    className="item-card_sell-text"*/}
+              {/*  >*/}
+              {/*    -15%*/}
+              {/*  </span>*/}
+              {/*)}*/}
+              {/*<span className="item-card_friends-text">Для вас</span>*/}
             </div>
           </div>
           <img
@@ -150,7 +150,7 @@ function CatalogItem({ product, cartItems }) {
           <b style={{ display: "block", height: 52, alignContent: "center" }}>
             {product.name}
           </b>
-          <p className="currency">{product.providerName}</p>
+          {/*<p className="currency">{product.providerName}</p>*/}
           <p>{product.salesCount} продаж</p>
         </div>
         <div className="price">
