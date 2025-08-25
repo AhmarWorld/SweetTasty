@@ -187,8 +187,8 @@ export default function CatalogItem({ params }) {
           <p>Температура хранения: {product.temperature}</p>
           <h3>Состав</h3>
           <p>{product.compound}</p>
-          <h3>Поставщик</h3>
-          <p>{product.providerName}</p>
+          {/* <h3>Поставщик</h3>
+          <p>{product.providerName}</p> */}
         </div>
       </div>
       <div className="item-page_offer">
