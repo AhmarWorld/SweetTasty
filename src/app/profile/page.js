@@ -154,11 +154,11 @@ function Profile() {
     <div className="profile">
       <div className="profile-title">
         <h1>Добро пожаловать в Marketly</h1>
-        <p>
+        <p style={{ marginBottom: 20 }}>
           Войдите чтобы копить бонусы, сохранить адрес доставки и историю
           заказов
         </p>
-        <div className="profile-select_role">
+        {/* <div className="profile-select_role">
           <div className="switch">
             <input 
               type="checkbox" 
@@ -172,7 +172,7 @@ function Profile() {
               <span className="slider"></span>
             </label>
           </div>
-        </div>
+        </div> */}
       </div>
           <form className="resitration-form">
             <label>
