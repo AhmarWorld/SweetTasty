@@ -130,7 +130,8 @@ function CatalogItem({ product, cartItems }) {
           <Image
             src={process.env.NEXT_PUBLIC_SERVER_URL + product.image}
             alt={product.name}
-            fill
+            width={130}
+            height={130}
           />
         </div>
         <div className="item-card_rating">
