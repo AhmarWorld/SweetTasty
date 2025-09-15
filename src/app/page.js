@@ -9,8 +9,8 @@ import HotOffers from "./components/HotOffers/HotOffers";
 import { useEffect, useState } from "react";
 
 export default function Home({ children }) {
-  const [clientToken,setClientToken] = useState('');
-  const [badgesList,setBadgesList] = useState([]);
+  const [clientToken, setClientToken] = useState('');
+  const [badgesList, setBadgesList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [badgesLoaded, setBadgesLoaded] = useState(false);
@@ -38,41 +38,41 @@ export default function Home({ children }) {
     setBadgesLoaded(true);
   };
 
-  useEffect(()=>{
-    if(typeof window !== 'undefined'){
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
       let token = localStorage.getItem("token-SattyTatty")
       setClientToken(token)
       setTokenLoaded(true);
     }
-  },[])
+  }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     loadBadges();
-  },[])
+  }, [])
 
   return (
     <main>
-        {
-            loading ?
-                (
-                  <div className={"loader"}></div>
-                ) :
-                (
-                    <>
-                        <Carousel />
-                        <Search placeholder={"Искать в Marketly"} />
-                        <HotOffers />
-                        <div style={{ paddingTop: 20 }} className="main-catalog">
-                            {badgesList?.filter(badge => badge.showOnMainPage).map((badge)=>(
-                                <CatalogMini badge={badge} />
-                            ))}
-                            {/*<DailyItem />*/}
-                            <Footer />
-                        </div>
-                        {children}
-                    </>
-                )
-        }
+      {
+        loading ?
+          (
+            <div className={"loader"}></div>
+          ) :
+          (
+            <>
+              <Carousel />
+              <Search placeholder={"Искать в Marketly"} />
+              <HotOffers />
+              <div style={{ paddingTop: 20 }} className="main-catalog">
+                {badgesList?.filter(badge => badge.showOnMainPage).map((badge) => (
+                  <CatalogMini badge={badge} />
+                ))}
+                {/*<DailyItem />*/}
+                <Footer />
+              </div>
+              {children}
+            </>
+          )
+      }
 
     </main>
   );

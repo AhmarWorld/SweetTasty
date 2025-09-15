@@ -9,6 +9,7 @@ import { addBasket } from "../../lib/basket";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useRoot } from "@/app/lib/store";
+import Image from "next/image";
 
 function CatalogItem({ product, cartItems }) {
   const router = useRouter();
@@ -126,9 +127,10 @@ function CatalogItem({ product, cartItems }) {
               {/*<span className="item-card_friends-text">Для вас</span>*/}
             </div>
           </div>
-          <img
+          <Image
             src={process.env.NEXT_PUBLIC_SERVER_URL + product.image}
             alt={product.name}
+            fill
           />
         </div>
         <div className="item-card_rating">

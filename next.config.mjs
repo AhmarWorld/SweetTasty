@@ -6,6 +6,9 @@ const nextConfig = {
 	eslint: {
 		ignoreDuringBuilds: true, // Disable linting during build
 	},
+	images: {
+		domains: ["localhost", "marketly.kz"]
+	}
 };
 
 export default nextConfig;
