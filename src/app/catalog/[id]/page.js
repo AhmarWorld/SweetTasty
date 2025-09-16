@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import {addBasket, getCart} from "@/app/lib/basket";
+import { addBasket, getCart } from "@/app/lib/basket";
 import OrdersBunner from "@/app/components/OrdersBunner/OrdersBunner";
 import HotOffers from "@/app/components/HotOffers/HotOffers";
 import Search from "@/app/components/Search/Search";
@@ -133,7 +133,7 @@ export default function CatalogItem({ params }) {
   return (
     <div className="catalog-item">
       <OrdersBunner />
-      <HotOffers/>
+      <HotOffers />
       <Search placeholder={'Искать в Marketly'} />
       <div className="catalog-item_main">
         <img
@@ -204,8 +204,12 @@ export default function CatalogItem({ params }) {
             ) : (
               <FaMinus
                 onClick={() => {
-                  onClickMin();
-                  addBasket(product.id, product.price, count - 1, clientToken, setCartId);
+                  // onClickMin();
+                  let newCount = 0;
+                  newCount = Number(count) - 1;
+                  setCount((prev) => prev - 1);
+                  setNewPrice(Number(newCount) * Number(product.price));
+                  addBasket(product.id, product.price, newCount, clientToken, setCartId);
                 }}
               />
             )}
@@ -214,8 +218,12 @@ export default function CatalogItem({ params }) {
             </div>
             <FaPlus
               onClick={() => {
-                onClickPlus();
-                addBasket(product.id, product.price, count + 1, clientToken, setCartId);
+                // onClickPlus();
+                let newCount = 0;
+                newCount = Number(count) + 1;
+                setCount((prev) => prev + 1);
+                setNewPrice(Number(newCount) * Number(product.price));
+                addBasket(product.id, product.price, newCount, clientToken, setCartId);
               }}
             />
           </>
