@@ -24,8 +24,11 @@ function Profile() {
 
   const [ifReg, setIfReg] = useState(false);
   const [role, setRole] = useState('cafe');
+  const [ofertaChecked, setOfertaChecked] = useState(false);
 
   const regButton = async () => {
+    if (!ofertaChecked) return alert("Нужно ознакомиться и согласиться с публичной офертой");
+
     const baseData = {
       username: username,
       password: password,
@@ -309,6 +312,17 @@ function Profile() {
               />
             </label>
           </form>
+          <div style={{ marginTop: 30, display: "flex", justifyContent: "center", gap: 10 }}>
+            <input
+              type="checkbox"
+              onChange={e => setOfertaChecked(e.target.checked)}
+              checked={ofertaChecked}
+            />
+            <span>
+              Я ознакомлен с{" "}
+              <a href="/oferta.pdf" target="_blank" style={{ color: "blue" }}>публичной офертой</a>
+            </span>
+          </div>
           <div className="after_profile-buttons">
             <button onClick={regButton}>Регистрация</button>
             <Link href="/profile/auth">
