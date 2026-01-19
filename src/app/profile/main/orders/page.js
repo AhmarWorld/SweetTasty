@@ -62,7 +62,7 @@ function Orders() {
     );
     const data = await response.json();
     if (response.ok) {
-      setOrderList(data.reverse());
+      setOrderList(data);
     } else if (!response.ok) {
       alert("Авторизуйтесь на сайте");
     }
@@ -82,7 +82,9 @@ function Orders() {
   }, [orderReview]);
 
   useEffect(() => {
-    getOrderList();
+    if (clientToken) {
+      getOrderList();
+    }
   }, [clientToken]);
 
   const repeatOrder = async (orderId) => {
