@@ -64,7 +64,7 @@ export default function Home({ children }) {
               <HotOffers />
               <div style={{ paddingTop: 20 }} className="main-catalog">
                 {badgesList?.filter(badge => badge.showOnMainPage).map((badge) => (
-                  <CatalogMini badge={badge} />
+                  <CatalogMini badge={badge} productsList={badge.products} />
                 ))}
                 {/*<DailyItem />*/}
                 <Footer />

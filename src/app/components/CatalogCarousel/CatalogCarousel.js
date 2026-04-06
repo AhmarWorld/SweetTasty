@@ -5,7 +5,7 @@ import CatalogItem from "../CatalogItem/CatalogItem";
 import "./CatalogCarousel.css";
 import {getCart} from "@/app/lib/basket";
 
-function CatalogCarousel({badgeId, productsList}) {
+function  CatalogCarousel({badgeId, productsList}) {
   const [products, setProducts] = useState(productsList || []);
   const [clientToken,setClientToken] = useState('');
   const [cartItems, setCartItems] = useState([]);

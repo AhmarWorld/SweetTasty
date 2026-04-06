@@ -37,8 +37,10 @@ function ProviderOrders() {
   };
 
   useEffect(() => {
-    getOrderList();
-  }, []);
+    if (clientToken) {
+      getOrderList();
+    }
+  }, [clientToken]);
   return (
     <div className="profile-orders">
       <ProfileGeo />
@@ -57,7 +59,7 @@ function ProviderOrders() {
         </ul>
       </div>
       <div className="profile-orders_main">
-        <h2>Мои заказы</h2>
+        <h2>Мои заказы (последние 100)</h2>
         {orderList.length ? (
           <>
             {orderList.map((order) => (
@@ -65,6 +67,7 @@ function ProviderOrders() {
                 <ul key={order.id}>
                   <li>
                     <ProviderOrder
+                      orderCreatedAt={order.createdAt}
                       order={order.items}
                       orderNumber={"№ " + order.orderNumber}
                       isCompleted={order.isCompleted}
@@ -74,7 +77,7 @@ function ProviderOrders() {
                   <li className="orders_main-total">
                     <p>Итого</p>
                     <div>
-                      <span>{order.totalPrice} ₸</span>
+                      <span>{order.items.reduce((acc, item) => acc + (item.price * item.quantity), 0)} ₸</span>
                     </div>
                   </li>
                 </ul>
