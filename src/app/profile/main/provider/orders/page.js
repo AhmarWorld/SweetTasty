@@ -9,6 +9,20 @@ import ProviderOrder from "@/app/components/ProviderOrder/ProviderOrder";
 function ProviderOrders() {
   const [clientToken, setClientToken] = useState();
   const [orderList, setOrderList] = useState([]);
+  const [isProvider, setIsProvider] = useState(false);
+
+  useEffect(() => {
+    (async function () {
+      if (typeof window != "undefined") {
+        const newData = JSON.parse(localStorage.getItem("user-SattyTatty"));
+        if (newData) {
+          setIsProvider(newData?.accountType === "provider");
+        } else {
+          router.push("/profile/auth/redirect");
+        }
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -26,7 +40,7 @@ function ProviderOrders() {
           Authorization: "Bearer " + clientToken,
           "Content-type": "application/json",
         },
-      }
+      },
     );
     const data = await response.json();
     if (!response.ok) {
@@ -52,10 +66,18 @@ function ProviderOrders() {
             href={"/profile/main/provider/orders"}
             text={"Заказы"}
           />
-          <ProfileNavItem
-            href={"/profile/main/accounting"}
-            text={"Бухгалтерия"}
-          />
+          {isProvider && (
+            <ProfileNavItem
+              href={"/profile/main/provider/orderItems"}
+              text={"Заявка"}
+            />
+          )}
+          {!isProvider && (
+            <ProfileNavItem
+              href={"/profile/main/accounting"}
+              text={"Бухгалтерия"}
+            />
+          )}
         </ul>
       </div>
       <div className="profile-orders_main">
@@ -77,7 +99,13 @@ function ProviderOrders() {
                   <li className="orders_main-total">
                     <p>Итого</p>
                     <div>
-                      <span>{order.items.reduce((acc, item) => acc + (item.price * item.quantity), 0)} ₸</span>
+                      <span>
+                        {order.items.reduce(
+                          (acc, item) => acc + item.price * item.quantity,
+                          0,
+                        )}{" "}
+                        ₸
+                      </span>
                     </div>
                   </li>
                 </ul>

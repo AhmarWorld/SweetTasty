@@ -1,0 +1,240 @@
+.order-items-page {
+  padding: 0 15px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-items-page h3 {
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.profile-select {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.profile-select ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+/* ── Card ── */
+.oi-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.oi-card h2 {
+  color: #4f4f4f;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.22px;
+  line-height: 28px;
+  margin: 0;
+}
+
+/* ── Date field ── */
+.oi-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.oi-field-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.oi-field-hint {
+  font-size: 12px;
+  color: #9e9e9e;
+  margin: 0;
+}
+
+.oi-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.oi-date-input {
+  padding: 9px 13px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  background-color: #f7f8fa;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.oi-date-input:focus {
+  border-color: #f5a623;
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.15);
+  background-color: #fff;
+}
+
+.oi-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  background-color: #f24f4f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  white-space: nowrap;
+}
+
+.oi-btn:hover:not(:disabled) {
+  background-color: #d93c3c;
+}
+
+.oi-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.oi-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: oi-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes oi-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Results ── */
+.oi-result {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.oi-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.oi-result-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9e9e9e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.oi-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border: 1px solid #dee2e6;
+  border-radius: 7px;
+  background: #fff;
+  color: #4f4f4f;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.oi-copy-btn:hover {
+  background-color: #f7f8fa;
+  border-color: #b0b0b0;
+}
+
+.oi-copy-btn.copied {
+  border-color: #4caf50;
+  color: #4caf50;
+  background-color: #f0faf0;
+}
+
+.oi-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oi-table thead tr {
+  border-bottom: 2px solid #e8e8e8;
+}
+
+.oi-table th {
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9e9e9e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.oi-table th:last-child {
+  text-align: right;
+}
+
+.oi-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.1s;
+}
+
+.oi-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.oi-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.oi-table td {
+  padding: 11px 10px;
+  font-size: 15px;
+  color: #333;
+}
+
+.oi-table .td-num {
+  color: #9e9e9e;
+  font-size: 13px;
+  width: 32px;
+}
+
+.oi-table .td-qty {
+  text-align: right;
+  font-weight: 700;
+  color: #4f4f4f;
+  white-space: nowrap;
+}
+
+.oi-empty {
+  color: #9e9e9e;
+  font-size: 15px;
+  text-align: center;
+  padding: 24px 0;
+}
